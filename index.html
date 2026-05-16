@@ -250,6 +250,62 @@
       .t-body{padding:18px 16px}
       .t-quote{font-size:0.82rem}
     }
+
+    /* ── AI DIAGNOSIS MODAL ─────────────────────────────── */
+    .diag-overlay{display:none;position:fixed;inset:0;background:rgba(43,31,23,0.78);z-index:2001;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
+    .diag-overlay.active{display:flex}
+    .diag-box{background:var(--bg-cream);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;box-shadow:0 20px 60px rgba(43,31,23,0.35)}
+    .diag-step{display:none}.diag-step.active{display:block}
+    .diag-close-x{position:absolute;top:12px;right:13px;background:rgba(255,255,255,0.20);border:none;color:var(--white);font-size:0.9rem;width:26px;height:26px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background 0.2s;line-height:1}
+    .diag-close-x:hover{background:rgba(255,255,255,0.38)}
+    .diag-header{background:var(--maple-red);color:var(--white);padding:18px 48px 16px 24px}
+    .diag-header-ttl{font-family:'Shippori Mincho',serif;font-size:0.96rem;font-weight:600;letter-spacing:0.08em;margin-bottom:3px}
+    .diag-header-sub{font-family:'Noto Sans JP',sans-serif;font-size:0.68rem;font-weight:300;opacity:0.82;letter-spacing:0.06em}
+    .diag-body{padding:26px 28px}
+    .diag-progress{display:flex;gap:6px;margin-bottom:18px}
+    .dp{flex:1;height:3px;background:rgba(184,96,74,0.18);border-radius:2px;transition:background 0.4s}
+    .dp.done{background:var(--maple-red)}
+    .diag-q-num{font-family:'Cormorant Garamond',serif;font-size:0.76rem;font-style:italic;color:var(--maple-warm);letter-spacing:0.18em;margin-bottom:8px}
+    .diag-q-txt{font-family:'Shippori Mincho',serif;font-size:1rem;font-weight:600;color:var(--text-dark);line-height:1.6;margin-bottom:18px}
+    .diag-choices{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+    .dc{width:100%;padding:12px 16px;background:var(--white);border:1px solid var(--border);cursor:pointer;text-align:left;font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-mid);letter-spacing:0.04em;transition:all 0.2s;display:flex;align-items:center;gap:10px}
+    .dc:hover{border-color:var(--maple-red);color:var(--maple-red);background:rgba(184,96,74,0.04)}
+    .dc.sel{border-color:var(--maple-red);background:rgba(184,96,74,0.08);color:var(--maple-red)}
+    .dc-icon{font-size:1.0rem;flex-shrink:0;min-width:20px;text-align:center}
+    .diag-next-btn{width:100%;padding:13px;background:var(--maple-red);color:var(--white);border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:0.86rem;font-weight:400;letter-spacing:0.10em;transition:all 0.2s;opacity:0.35;pointer-events:none}
+    .diag-next-btn.ready{opacity:1;pointer-events:auto}
+    .diag-next-btn.ready:hover{background:var(--maple-deep)}
+    .diag-load-wrap{padding:60px 28px;text-align:center}
+    .diag-spin{font-size:2.4rem;margin-bottom:16px;display:inline-block;animation:diagspin 1.2s linear infinite}
+    @keyframes diagspin{to{transform:rotate(360deg)}}
+    .diag-load-txt{font-family:'Noto Sans JP',sans-serif;font-size:0.80rem;font-weight:300;color:var(--text-mid);line-height:2.1}
+    .diag-res-hd{background:linear-gradient(135deg,var(--navy) 0%,#2A3F6B 100%);padding:22px 28px 20px;position:relative;overflow:hidden}
+    .diag-res-hd::before{content:'🍁';position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:5rem;opacity:0.07}
+    .diag-res-badge{background:var(--maple-gold);color:var(--navy);font-family:'Noto Sans JP',sans-serif;font-size:0.64rem;font-weight:500;padding:3px 12px;letter-spacing:0.12em;display:inline-block;margin-bottom:9px}
+    .diag-res-ttl{font-family:'Shippori Mincho',serif;font-size:1.05rem;font-weight:600;color:var(--white);letter-spacing:0.05em;line-height:1.5}
+    .diag-res-body{padding:22px 28px}
+    .diag-res-msg{font-family:'Noto Sans JP',sans-serif;font-size:0.80rem;font-weight:300;color:var(--text-mid);line-height:2.1;margin-bottom:18px}
+    .diag-res-card{background:var(--white);border:1px solid var(--border);padding:16px 20px;border-left:3px solid var(--maple-red);margin-bottom:8px}
+    .diag-res-card-lbl{font-family:'Noto Sans JP',sans-serif;font-size:0.66rem;color:var(--maple-warm);letter-spacing:0.14em;margin-bottom:6px;text-transform:uppercase}
+    .diag-res-card-name{font-family:'Shippori Mincho',serif;font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:5px}
+    .diag-res-card-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:500;color:var(--maple-red);line-height:1.1}
+    .diag-res-reason{font-family:'Noto Sans JP',sans-serif;font-size:0.74rem;font-weight:300;color:var(--text-mid);line-height:1.9;margin-bottom:18px;padding-left:10px;border-left:2px solid var(--maple-sage-lt)}
+    .diag-btn-row{display:flex;gap:10px;flex-wrap:wrap}
+    .diag-btn-row a,.diag-btn-row button{flex:1;min-width:120px;justify-content:center;font-size:0.80rem;padding:12px 14px;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+    .diag-form{display:flex;flex-direction:column;gap:14px;margin-bottom:18px}
+    .dfg label{display:block;font-family:'Noto Sans JP',sans-serif;font-size:0.70rem;font-weight:300;color:var(--text-light);letter-spacing:0.10em;margin-bottom:5px}
+    .dfg input{width:100%;padding:10px 14px;border:1px solid var(--border);background:var(--white);font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-dark);outline:none;transition:border-color 0.2s;box-sizing:border-box}
+    .dfg input:focus{border-color:var(--maple-red)}
+    .diag-comp-wrap{padding:44px 28px;text-align:center}
+    .diag-comp-icon{font-size:2.6rem;margin-bottom:14px}
+    .diag-comp-ttl{font-family:'Shippori Mincho',serif;font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:10px}
+    .diag-comp-txt{font-family:'Noto Sans JP',sans-serif;font-size:0.78rem;font-weight:300;color:var(--text-mid);line-height:2.0;margin-bottom:22px}
+    .diag-intro-icon{font-size:2.8rem;margin-bottom:14px;text-align:center;display:block}
+    .diag-intro-ttl{font-family:'Shippori Mincho',serif;font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:10px;text-align:center}
+    .diag-intro-txt{font-family:'Noto Sans JP',sans-serif;font-size:0.80rem;font-weight:300;color:var(--text-mid);line-height:2.1;margin-bottom:20px}
+    .diag-intro-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:22px}
+    .diag-intro-badge{background:var(--white);border:1px solid var(--border);padding:5px 12px;font-family:'Noto Sans JP',sans-serif;font-size:0.72rem;font-weight:300;color:var(--maple-red);letter-spacing:0.06em}
+    @media(max-width:768px){.diag-box{max-width:100%}.diag-body{padding:20px 20px}.diag-btn-row{flex-direction:column}}
   </style>
 </head>
 <body>
@@ -292,7 +348,7 @@
       <div class="badge">⭐ 開業４周年突破</div>    </div>
     <div class="hero-ctas">
       <a href="#reserve" class="btn-primary">📅 予約カレンダーを見る</a>
-      <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="btn-line">💬 LINEで問い合わせ</a>
+      <button class="btn-line" onclick="openDiag(null)" style="border:none;cursor:pointer;">🔬 無料AI診断をする</button>
     </div>
   </div>
 </section>
@@ -657,7 +713,7 @@
   <div class="container">
     <p class="section-label fade-in">Reservation</p>
     <h2 class="section-title fade-in">ご予約</h2>
-    <p class="section-desc fade-in">カレンダーの希望日をクリックするとLINEの予約画面に遷移します。</p>
+    <p class="section-desc fade-in">ご希望の日程をクリックするとAI診断・予約フォームへ進みます。</p>
 
     <div class="reserve-grid">
       <div class="calendar-box fade-in">
@@ -688,12 +744,12 @@
       <div class="line-panel fade-in d1">
         <div class="line-card">
           <div class="line-icon">💬</div>
-          <h3>LINEで予約・お問い合わせ</h3>
-          <p>希望日時・メニューをメッセージするだけ。<br>営業時間内に順次ご返信いたします。<br>当日予約・質問もお気軽にどうぞ。</p>
-          <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="line-btn">LINE を開いて予約する</a>
+          <h3>LINEでお問い合わせ</h3>
+          <p>ご質問・不明点はLINEからお気軽に。<br>営業時間内に順次ご返信いたします。<br>当日のキャンセル・変更もLINEにて。</p>
+          <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="line-btn">LINEを開く</a>
         </div>
         <div class="reserve-note">
-          ※ カレンダーの日付をクリックするとLINEに遷移します。<br>
+          ※ カレンダーの日付をクリックするとAI診断・予約フォームが開きます。<br>
           ※ 月曜は定休日です。<br>
           ※ 営業時間：11:00〜22:00（※最終受付時間・深夜まで営業中！）<br>
           ※ 個人情報は予約管理のみに使用します。
@@ -748,79 +804,283 @@
   <div class="modal-box">
     <div class="modal-mi">🍁</div>
     <h3 id="modalDate">ご予約日の確認</h3>
-    <p>選択した日付でLINEから予約を送信します。<br>LINEアプリが開きます。</p>
+    <p>選択した日付でAI診断・予約フォームへ進みます。</p>
     <div class="modal-btns">
-      <button class="modal-close" id="modalConfirm">LINEを開く</button>
+      <button class="modal-close" id="modalConfirm">診断・予約へ進む 🔬</button>
       <button class="modal-cancel" onclick="document.getElementById('calModal').classList.remove('active')">キャンセル</button>
     </div>
   </div>
 </div>
 
 <script>
-  // Hamburger
+  // ── Path-Flow Amplitude §2-2準拠（3イベントのみ） ────────────────────
+  const LP_ID='kaede-v1';
+  const AMP_KEY='__AMPLITUDE_API_KEY__';
+  (function(){
+    const s=document.createElement('script');s.src='https://cdn.amplitude.com/libs/amplitude-8.21.4-min.gz.js';s.async=true;
+    s.onload=function(){try{amplitude.getInstance().init(AMP_KEY,null,{includeReferrer:true,includeUtm:true});amplitude.getInstance().logEvent('page_view',{lp:LP_ID});}catch(e){}};
+    document.head.appendChild(s);
+  })();
+  function _amp(ev,props){try{if(typeof amplitude!=='undefined')amplitude.getInstance().logEvent(ev,props);}catch(e){}}
+
+  // ── HAMBURGER ────────────────────────────────────────────────────────
   document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
   document.querySelectorAll('#navLinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open')));
 
-  // Scroll fade
+  // ── SCROLL FADE ──────────────────────────────────────────────────────
   const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.10});
   document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 
-  // Nav shadow
+  // ── NAV SHADOW ───────────────────────────────────────────────────────
   window.addEventListener('scroll',()=>{document.querySelector('nav').style.boxShadow=window.scrollY>40?'0 2px 20px rgba(58,40,24,0.09)':'none'});
 
-  // FAQ
+  // ── FAQ ──────────────────────────────────────────────────────────────
   document.querySelectorAll('.faq-q').forEach(btn=>btn.addEventListener('click',()=>{
-    const item=btn.closest('.faq-item');
-    const wasOpen=item.classList.contains('open');
+    const item=btn.closest('.faq-item');const wasOpen=item.classList.contains('open');
     document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
     if(!wasOpen)item.classList.add('open');
   }));
 
-  // Calendar
-  const LINE='https://line.me/R/ti/p/@436hrsli';
+  // ── CALENDAR ─────────────────────────────────────────────────────────
+  const LINE_URL='https://line.me/R/ti/p/@436hrsli';
   const MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   const DAYS=['日','月','火','水','木','金','土'];
   let cy,cm;
-
   function initCal(){const t=new Date();cy=t.getFullYear();cm=t.getMonth();renderCal()}
-
   function renderCal(){
     const today=new Date();today.setHours(0,0,0,0);
     document.getElementById('calTitle').textContent=cy+'年 '+MONTHS[cm];
-    const firstDay=new Date(cy,cm,1).getDay();
-    const daysInMonth=new Date(cy,cm+1,0).getDate();
-    const container=document.getElementById('calDays');
-    container.innerHTML='';
+    const firstDay=new Date(cy,cm,1).getDay();const daysInMonth=new Date(cy,cm+1,0).getDate();
+    const container=document.getElementById('calDays');container.innerHTML='';
     for(let i=0;i<firstDay;i++){const e=document.createElement('div');e.className='cal-day empty';container.appendChild(e)}
     for(let d=1;d<=daysInMonth;d++){
       const date=new Date(cy,cm,d);const dow=date.getDay();
       const el=document.createElement('div');el.textContent=d;el.className='cal-day';
       if(date<today){el.classList.add('past')}
       else if(dow===1){el.classList.add('closed');el.title='定休日（月曜）'}
-      else{
-        if(date.toDateString()===today.toDateString())el.classList.add('today');
-        el.addEventListener('click',()=>openCalModal(cy,cm,d));
-      }
+      else{if(date.toDateString()===today.toDateString())el.classList.add('today');el.addEventListener('click',()=>openCalModal(cy,cm,d))}
       container.appendChild(el);
     }
   }
-
   document.getElementById('prevMonth').addEventListener('click',()=>{cm--;if(cm<0){cm=11;cy--}renderCal()});
   document.getElementById('nextMonth').addEventListener('click',()=>{cm++;if(cm>11){cm=0;cy++}renderCal()});
-
   let selDate='';
   function openCalModal(y,m,d){
-    const date=new Date(y,m,d);
-    selDate=y+'年'+MONTHS[m]+d+'日（'+DAYS[date.getDay()]+'）';
+    const date=new Date(y,m,d);selDate=y+'年'+MONTHS[m]+d+'日（'+DAYS[date.getDay()]+'）';
     document.getElementById('modalDate').textContent=selDate+' のご予約';
     document.getElementById('calModal').classList.add('active');
   }
   document.getElementById('modalConfirm').addEventListener('click',()=>{
-    document.getElementById('calModal').classList.remove('active');
-    window.open(LINE,'_blank');
+    document.getElementById('calModal').classList.remove('active');openDiag(selDate);
   });
-
   initCal();
+
+  // ── AI診断モーダル（5問・LP内容準拠） ──────────────────────────────
+  const QUESTIONS=[
+    {q:'最も気になる部位はどこですか？',choices:[
+      {icon:'✂️',text:'顔・ひげ（清潔感アップしたい）'},
+      {icon:'🌿',text:'胸・腹・背中'},
+      {icon:'💧',text:'VIO・デリケートゾーン'},
+      {icon:'🦵',text:'脚（太もも・ヒザ下）'},
+      {icon:'✨',text:'全身まとめてケアしたい'}
+    ]},
+    {q:'脱毛のご経験を教えてください',choices:[
+      {icon:'🌱',text:'まったく初めてです'},
+      {icon:'🪒',text:'自己処理（カミソリ・除毛クリーム）のみ'},
+      {icon:'💡',text:'家庭用脱毛器を使ったことがある'},
+      {icon:'💼',text:'サロン・クリニック経験あり'}
+    ]},
+    {q:'ご希望の施術スタイルは？',choices:[
+      {icon:'🎯',text:'まず1部位だけ試したい（¥700〜）'},
+      {icon:'⏱',text:'30〜60分でまとめてケア（freeコース）'},
+      {icon:'🌟',text:'全身をしっかりケアしたい（全身コース）'}
+    ]},
+    {q:'お肌や痛みのお悩みはありますか？',choices:[
+      {icon:'😟',text:'痛みが心配（できるだけ弱めで）'},
+      {icon:'🌸',text:'敏感肌・肌荒れが気になる'},
+      {icon:'💪',text:'特になし（しっかり効果を出したい）'}
+    ]},
+    {q:'ご来店しやすい時間帯は？',choices:[
+      {icon:'☀️',text:'平日 昼間（11:00〜17:00）'},
+      {icon:'🌙',text:'平日 夕方〜深夜（17:00〜22:00）'},
+      {icon:'🌸',text:'土日・祝日'}
+    ]}
+  ];
+
+  let diagState={step:0,answers:[],selectedDate:'',resultData:null};
+  function showDiagStep(id){document.querySelectorAll('.diag-step').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+  function openDiag(prefilledDate){
+    diagState={step:0,answers:[],selectedDate:prefilledDate||'',resultData:null};
+    document.getElementById('diagOverlay').classList.add('active');document.body.style.overflow='hidden';
+    showDiagStep('dIntro');_amp('diagnosis_click',{lp:LP_ID});
+  }
+  function closeDiag(){document.getElementById('diagOverlay').classList.remove('active');document.body.style.overflow=''}
+  function startDiag(){diagState.step=0;diagState.answers=[];renderQuestion();showDiagStep('dQ')}
+
+  function renderQuestion(){
+    const q=QUESTIONS[diagState.step];const total=QUESTIONS.length;
+    document.getElementById('dQHeaderTtl').textContent='Q'+(diagState.step+1)+' / '+total;
+    document.getElementById('dQNum').textContent='Question '+(diagState.step+1);
+    document.getElementById('dQTxt').textContent=q.q;
+    for(let i=1;i<=total;i++){const dp=document.getElementById('dp'+i);dp.className='dp'+(i<=diagState.step?' done':'')}
+    const container=document.getElementById('dChoices');container.innerHTML='';
+    q.choices.forEach(c=>{
+      const btn=document.createElement('button');btn.className='dc';
+      btn.innerHTML='<span class="dc-icon">'+c.icon+'</span>'+c.text;
+      btn.addEventListener('click',()=>{
+        container.querySelectorAll('.dc').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');
+        diagState.answers[diagState.step]=c.text;
+        const nb=document.getElementById('dNextBtn');nb.classList.add('ready');
+        nb.textContent=diagState.step===total-1?'診断する ✨':'次へ →';
+      });
+      container.appendChild(btn);
+    });
+    const nb=document.getElementById('dNextBtn');nb.classList.remove('ready');
+    nb.textContent=diagState.step===QUESTIONS.length-1?'診断する ✨':'次へ →';
+  }
+
+  function nextQ(){
+    if(!diagState.answers[diagState.step])return;
+    diagState.step++;
+    if(diagState.step<QUESTIONS.length){renderQuestion()}else{runDiagnosis()}
+  }
+
+  async function runDiagnosis(){
+    showDiagStep('dLoading');
+    try{
+      const res=await fetch('/api/diagnose',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({service_context:'kaede_mens_depilation',lp:LP_ID,answers:diagState.answers})});
+      if(!res.ok)throw new Error();
+      const data=await res.json();
+      diagState.resultData={message:data.message||'',recommended_menu:data.recommended_menu||data.menu||'',
+        recommended_price:data.recommended_price||data.price||'',reason:data.reason||'',score:data.score||75,level:data.level||'B'};
+    }catch(e){diagState.resultData=getFallback(diagState.answers)}
+    showResult();
+  }
+
+  function getFallback(a){
+    const part=a[0]||'';const exp=a[1]||'';const style=a[2]||'';const skin=a[3]||'';
+    let menu,price,reason,score=70,level='B';
+    if(style.includes('全身')){
+      menu='全身脱毛コース';price='¥11,000（120分）';
+      reason='全身をまとめてケアしたいご要望に最適です。顔込み・VIO別で120分たっぷり施術できます。';score=88;level='A';
+    }else if(style.includes('freeコース')||style.includes('まとめて')){
+      if(exp.includes('初めて')||exp.includes('家庭用')){
+        menu='40分 freeコース（初回限定）';price='初回¥5,000（通常¥6,000）';
+        reason='初めての方に人気の初回限定プラン。40分で複数部位をまとめてお試しいただけます。';score=82;level='A';
+      }else{
+        menu='60分 freeコース';price='¥10,000（初回¥8,000）';
+        reason='経験者の方が短期間でまとめてケアするなら60分freeコースが最適です。';score=85;level='A';
+      }
+    }else if(part.includes('顔')||part.includes('ひげ')){
+      menu='顔のみコース';price='¥3,000（25分）';
+      reason='顔・ひげのケアには顔専用コースが最適。清潔感アップで第一印象が変わります。';score=78;level='B';
+    }else if(part.includes('VIO')){
+      menu='VIO（Lパーツ単品）';price='¥4,200（30分）';
+      reason='VIOには専用Lパーツ単品をおすすめします。蒸れ・においの解消に効果的です。';score=76;level='B';
+    }else if(part.includes('脚')){
+      menu='LLパーツ単品（太もも or ヒザ下）';price='¥4,900（35分）';
+      reason='脚全体のケアにはLLパーツが最適。都度払いなので好きなタイミングで来店できます。';score=74;level='B';
+    }else{
+      menu='Sパーツ 都度払い';price='¥700〜（1部位・5分）';
+      reason='まず気になる1部位からお試しください。コース不要・縛りなし・¥700から始められます。';score=68;level='C';
+    }
+    return{message:'ご回答ありがとうございます。salon楓のメニューの中から最もマッチするプランをご提案します。',
+      recommended_menu:menu,recommended_price:price,reason,score,level};
+  }
+
+  function showResult(){
+    const r=diagState.resultData;
+    document.getElementById('dResMsg').textContent=r.message||'';
+    document.getElementById('dResMenu').textContent=r.recommended_menu||'';
+    document.getElementById('dResPrice').textContent=r.recommended_price||'';
+    document.getElementById('dResReason').textContent=r.reason||'';
+    showDiagStep('dResult');
+  }
+  function showBooking(){showDiagStep('dBooking')}
+  function backToResult(){showDiagStep('dResult')}
+
+  async function submitBooking(){
+    const name=document.getElementById('bkName').value.trim();
+    const email=document.getElementById('bkEmail').value.trim();
+    if(!name||!email){alert('お名前とメールアドレスは必須です。');return}
+    const r=diagState.resultData||{};
+    const payload={lp:LP_ID,name,email,recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:diagState.answers};
+    try{await fetch('/api/save-shigyou',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}catch(e){}
+    try{if(diagState.selectedDate){await fetch('/api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,preferredDate:diagState.selectedDate})})}}catch(e){}
+    _amp('booking_complete',{lp:LP_ID,score:r.score||75,level:r.level||'B'});
+    showDiagStep('dComplete');
+  }
+
+  document.getElementById('diagOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('diagOverlay'))closeDiag()});
 </script>
+
+<div class="diag-overlay" id="diagOverlay">
+  <div class="diag-box">
+    <button class="diag-close-x" onclick="closeDiag()" title="閉じる">✕</button>
+    <div class="diag-step active" id="dIntro">
+      <div class="diag-header"><div class="diag-header-ttl">🔬 無料 AI カウンセリング</div><div class="diag-header-sub">5つの質問でベストメニューをご提案します</div></div>
+      <div class="diag-body">
+        <span class="diag-intro-icon">🍁</span>
+        <p class="diag-intro-ttl">あなたにぴったりの脱毛メニューを<br>AIがご提案します</p>
+        <p class="diag-intro-txt">5つの簡単な質問に答えるだけで、salon楓のメニューの中からあなたに最適なプランをご案内します。診断後はそのままご予約も可能です。</p>
+        <div class="diag-intro-badges"><span class="diag-intro-badge">✓ 完全無料</span><span class="diag-intro-badge">✓ 勧誘なし</span><span class="diag-intro-badge">✓ 約1分</span></div>
+        <div class="diag-btn-row">
+          <button class="btn-primary" style="flex:2;" onclick="startDiag()">📋 診断をはじめる</button>
+          <button class="btn-secondary" style="flex:1;" onclick="closeDiag()">あとで</button>
+        </div>
+      </div>
+    </div>
+    <div class="diag-step" id="dQ">
+      <div class="diag-header"><div class="diag-header-ttl" id="dQHeaderTtl">Q1 / 5</div><div class="diag-header-sub">無料AIカウンセリング</div></div>
+      <div class="diag-body">
+        <div class="diag-progress"><div class="dp" id="dp1"></div><div class="dp" id="dp2"></div><div class="dp" id="dp3"></div><div class="dp" id="dp4"></div><div class="dp" id="dp5"></div></div>
+        <div class="diag-q-num" id="dQNum">Question 1</div>
+        <div class="diag-q-txt" id="dQTxt"></div>
+        <div class="diag-choices" id="dChoices"></div>
+        <button class="diag-next-btn" id="dNextBtn" onclick="nextQ()">次へ →</button>
+      </div>
+    </div>
+    <div class="diag-step" id="dLoading">
+      <div class="diag-load-wrap"><div class="diag-spin">🍀</div><p class="diag-load-txt">AIが最適なメニューを分析中です…<br>少々お待ちください</p></div>
+    </div>
+    <div class="diag-step" id="dResult">
+      <div class="diag-res-hd"><span class="diag-res-badge">✨ AIカウンセリング結果</span><div class="diag-res-ttl">あなたへのおすすめメニュー</div></div>
+      <div class="diag-res-body">
+        <p class="diag-res-msg" id="dResMsg"></p>
+        <div class="diag-res-card"><div class="diag-res-card-lbl">おすすめメニュー</div><div class="diag-res-card-name" id="dResMenu"></div><div class="diag-res-card-price" id="dResPrice"></div></div>
+        <p class="diag-res-reason" id="dResReason"></p>
+        <div class="diag-btn-row">
+          <button class="btn-primary" style="flex:2;" onclick="showBooking()">📋 このメニューで予約する</button>
+          <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="btn-line" style="flex:1;">💬 LINEで問い合わせ</a>
+        </div>
+      </div>
+    </div>
+    <div class="diag-step" id="dBooking">
+      <div class="diag-header"><div class="diag-header-ttl">📋 予約情報の入力</div><div class="diag-header-sub">ご入力後、担当者よりご連絡いたします</div></div>
+      <div class="diag-body">
+        <div class="diag-form">
+          <div class="dfg"><label>お名前 <span style="color:var(--maple-red);">*</span></label><input type="text" id="bkName" placeholder="山田 太郎"></div>
+          <div class="dfg"><label>メールアドレス <span style="color:var(--maple-red);">*</span></label><input type="email" id="bkEmail" placeholder="example@email.com"></div>
+        </div>
+        <p style="font-family:'Noto Sans JP',sans-serif;font-size:0.70rem;font-weight:300;color:var(--text-light);line-height:1.9;margin-bottom:16px;">※ 入力情報は予約管理のみに使用します。<br>※ 営業時間（11:00〜22:00）内に担当者よりご連絡いたします。</p>
+        <div class="diag-btn-row">
+          <button class="btn-primary" style="flex:2;" onclick="submitBooking()">相談を予約して診断レポートを受け取る</button>
+          <button class="btn-secondary" style="flex:1;" onclick="backToResult()">戻る</button>
+        </div>
+      </div>
+    </div>
+    <div class="diag-step" id="dComplete">
+      <div class="diag-comp-wrap">
+        <div class="diag-comp-icon">✅</div>
+        <p class="diag-comp-ttl">ご予約を受け付けました</p>
+        <p class="diag-comp-txt">ご予約ありがとうございます。<br>担当者より順次ご連絡いたします（営業時間：11:00〜22:00）。<br>当日の変更・キャンセルはLINEにてご連絡ください。</p>
+        <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="btn-line" style="display:inline-flex;align-items:center;gap:8px;justify-content:center;margin-bottom:14px;text-decoration:none;">💬 LINEでフォローする</a><br>
+        <button class="btn-secondary" onclick="closeDiag()" style="margin-top:10px;">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
