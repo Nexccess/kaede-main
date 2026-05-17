@@ -1,10 +1,9 @@
 // api/book.js
-// salon楓 Googleカレンダー予約書き込み
+// salon楓 Googleカレンダー予約書き込み / 携帯・日時対応版
 // ============================================================
-
 const { google } = require('googleapis');
 
-const CALENDAR_ID = process.env.CALENDAR_ID;   // info.kaedesalon@gmail.com
+const CALENDAR_ID = process.env.CALENDAR_ID;
 const SA_JSON     = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
 
 module.exports = async function handler(req, res) {
@@ -16,42 +15,38 @@ module.exports = async function handler(req, res) {
 
   try {
     const {
-      name            = '',
-      email           = '',
-      preferredDate   = '',
-      recommended_menu= '',
-      score           = '',
-      level           = '',
+      name             = '',
+      phone            = '',
+      email            = '',
+      preferredDate    = '',
+      date2            = '',
+      recommended_menu = '',
+      score            = '',
+      level            = '',
     } = req.body;
 
     if (!preferredDate) {
       return res.status(400).json({ error: 'preferredDate is required' });
     }
 
-    // ── 日時パース（例: "2026年5月17日（日）14:00〜"）──────────────
-    // カレンダーには「終日イベント」として登録（確定時刻は担当者が調整）
-    // 日付文字列から年月日を抽出
+    // 日付パース（例: "2026年5月17日（日）14:00〜"）
     const dateMatch = preferredDate.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
     let startDate, endDate;
     if (dateMatch) {
-      const y = dateMatch[1].padStart(4,'0');
+      const y = dateMatch[1];
       const m = dateMatch[2].padStart(2,'0');
       const d = dateMatch[3].padStart(2,'0');
       startDate = `${y}-${m}-${d}`;
-      // 終日イベントのendは翌日
-      const nextDay = new Date(`${y}-${m}-${d}`);
-      nextDay.setDate(nextDay.getDate() + 1);
-      endDate = nextDay.toISOString().split('T')[0];
+      const next = new Date(`${y}-${m}-${d}`);
+      next.setDate(next.getDate() + 1);
+      endDate = next.toISOString().split('T')[0];
     } else {
-      // 日付解析失敗時は当日
       const today = new Date().toISOString().split('T')[0];
       startDate = today;
-      const nextDay = new Date(today);
-      nextDay.setDate(nextDay.getDate() + 1);
-      endDate = nextDay.toISOString().split('T')[0];
+      const next = new Date(today); next.setDate(next.getDate()+1);
+      endDate = next.toISOString().split('T')[0];
     }
 
-    // ── Google Calendar 認証 ──────────────────────────────────────
     const credentials = JSON.parse(SA_JSON);
     const auth = new google.auth.GoogleAuth({
       credentials,
@@ -59,29 +54,29 @@ module.exports = async function handler(req, res) {
     });
     const calendar = google.calendar({ version: 'v3', auth });
 
-    // ── イベント作成 ──────────────────────────────────────────────
     const event = {
-      summary:     `【仮予約】${name} 様 / ${recommended_menu}`,
+      summary: `【仮予約】${name} 様 / ${recommended_menu}`,
       description: [
         `お名前: ${name}`,
+        `携帯電話: ${phone}`,
         `メール: ${email}`,
-        `希望日: ${preferredDate}`,
+        `希望日時（第1）: ${preferredDate}`,
+        date2 ? `希望日時（第2）: ${date2}` : '',
         `おすすめメニュー: ${recommended_menu}`,
         `スコア: ${score} / レベル: ${level}`,
         '',
-        '※ このイベントはAI診断フォームから自動登録されました。',
-        '※ 時刻・詳細はLINEまたはメールで確定してください。',
-      ].join('\n'),
+        '※ AI診断フォームから自動登録。時刻はLINE/メールで確定してください。',
+      ].filter(Boolean).join('\n'),
       start: { date: startDate },
       end:   { date: endDate },
-      colorId: '6',   // タンジェリン（仮予約を視覚的に識別）
+      colorId: '6',
       attendees: email ? [{ email }] : [],
     };
 
     const inserted = await calendar.events.insert({
       calendarId: CALENDAR_ID,
       requestBody: event,
-      sendUpdates: 'all',   // 招待メールをお客様にも送信
+      sendUpdates: 'all',
     });
 
     return res.status(200).json({ ok: true, eventId: inserted.data.id });
