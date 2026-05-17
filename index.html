@@ -251,6 +251,34 @@
       .t-quote{font-size:0.82rem}
     }
 
+    /* ── MOBILE BOTTOM NAV ──────────────────────────────── */
+    .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(11,18,32,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.08);padding:0;safe-area-inset-bottom:env(safe-area-inset-bottom)}
+    .mob-nav-inner{display:flex;align-items:stretch;height:56px}
+    .mob-nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;text-decoration:none;transition:background 0.2s;-webkit-tap-highlight-color:transparent}
+    .mob-nav-btn:active{background:rgba(255,255,255,0.08)}
+    .mob-nav-btn.primary{background:var(--maple-red)}
+    .mob-nav-btn.primary:active{background:var(--maple-deep)}
+    .mob-nav-btn.line-btn-mob{background:#06C755}
+    .mob-nav-btn.line-btn-mob:active{background:#05a848}
+    .mob-nav-icon{font-size:1.1rem;line-height:1}
+    .mob-nav-label{font-family:'Noto Sans JP',sans-serif;font-size:0.58rem;font-weight:500;color:rgba(255,255,255,0.85);letter-spacing:0.06em;line-height:1}
+    .mob-nav-btn.primary .mob-nav-label,.mob-nav-btn.line-btn-mob .mob-nav-label{color:#fff}
+    /* ファーストビュー視認性強化 */
+    @media(max-width:768px){
+      .mob-nav{display:flex}
+      body{padding-bottom:56px}
+      /* ヒーローテキスト強化 */
+      .hero-overlay{background:linear-gradient(160deg,rgba(250,246,239,0.98) 0%,rgba(250,246,239,0.94) 60%,rgba(250,246,239,0.55) 100%)!important}
+      .hero-content{padding:40px 20px 32px!important}
+      .hero-title{font-size:clamp(2rem,7vw,2.6rem)!important;font-weight:700!important;color:#1a1008!important;text-shadow:0 1px 3px rgba(255,255,255,0.6)}
+      .hero-title em{color:var(--maple-red)!important}
+      .hero-eyebrow{font-size:0.80rem!important;letter-spacing:0.18em!important;color:var(--maple-warm)!important;font-weight:600!important}
+      .hero-desc{font-size:0.84rem!important;color:#3a2818!important;font-weight:400!important;line-height:2.0!important}
+      .badge{font-size:0.72rem!important;padding:6px 10px!important}
+      /* フロートLINEボタンはモバイルでは非表示（底部ナビに統合） */
+      .line-float{display:none!important}
+    }
+
     /* ── AI DIAGNOSIS MODAL ─────────────────────────────── */
     .diag-overlay{display:none;position:fixed;inset:0;background:rgba(43,31,23,0.78);z-index:2001;align-items:center;justify-content:center;padding:16px;box-sizing:border-box}
     .diag-overlay.active{display:flex}
@@ -313,7 +341,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo"><img src="logo.png" alt="kaede楓salon"></a>
+    <a href="#" class="nav-logo"><img src="logo_kaede.png" alt="kaede楓salon"></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#features">選ばれる理由</a></li>
       <li><a href="#price">料金</a></li>
@@ -348,7 +376,7 @@
       <div class="badge">⭐ 開業４周年突破</div>    </div>
     <div class="hero-ctas">
       <a href="#reserve" class="btn-primary">📅 予約カレンダーを見る</a>
-      <button class="btn-line" onclick="openDiag(null)" style="border:none;cursor:pointer;">🔬 無料AI診断をする</button>
+      <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="btn-line">💬 無料でAI診断</a>
     </div>
   </div>
 </section>
@@ -555,7 +583,7 @@
 
     <div class="testimonials-grid">
       <div class="t-card fade-in">
-        <div class="t-photo-wrap"><img src="customer2.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★★</div>
           <p class="t-quote">コースに入らなくていいのが最高です。月に1〜2回、疲れたときだけ来ています。技術も高くて、毎回しっかりほぐしてもらえます。価格もこのエリアで一番安いと思う。</p>
@@ -563,7 +591,7 @@
         </div>
       </div>
       <div class="t-card fade-in d1">
-        <div class="t-photo-wrap"><img src="customer3.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★★</div>
           <p class="t-quote">以前は別のサロンでコース契約していましたが、使わない月でも支払いが発生して困っていました。こちらは都度払いなので、出張の多い自分にぴったりです。</p>
@@ -571,7 +599,7 @@
         </div>
       </div>
       <div class="t-card fade-in d2">
-        <div class="t-photo-wrap"><img src="customer5.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★★</div>
           <p class="t-quote">初めて行ったとき、料金が安すぎて不安でしたが、技術は全然手を抜いていない。freeコースでまとめてケアできるのも嬉しい。また来たいと思う唯一のサロンです。</p>
@@ -579,7 +607,7 @@
         </div>
       </div>
       <div class="t-card fade-in d3">
-        <div class="t-photo-wrap"><img src="customer6.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★★</div>
           <p class="t-quote">ひげとVIOをまとめてお願いしました。痛みも思ったより少なく、スタッフさんが丁寧に調整してくれたので安心でした。脱毛後の肌が明らかにスッキリしています。</p>
@@ -587,7 +615,7 @@
         </div>
       </div>
       <div class="t-card fade-in d4">
-        <div class="t-photo-wrap"><img src="customer7.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★★</div>
           <p class="t-quote">他店より圧倒的に安く、スタッフが指名ができる点が決め手でした。60分freeコースでお腹周りも一緒にケアできて、大満足の1時間でした。</p>
@@ -595,7 +623,7 @@
         </div>
       </div>
       <div class="t-card fade-in d5">
-        <div class="t-photo-wrap"><img src="customer8.png" alt="お客様" class="t-photo"></div>
+        <div class="t-photo-wrap"><img src="customer_icon.jpg" alt="お客様" class="t-photo"></div>
         <div class="t-body">
           <div class="t-stars">★★★★☆</div>
           <p class="t-quote">最初は脱毛に抵抗がありましたが、LGBTフレンドリーな雰囲気で、非常に通いやすいです。次回の勧誘も一切なく、気軽にお試しができたのが良かったです。</p>
@@ -713,7 +741,7 @@
   <div class="container">
     <p class="section-label fade-in">Reservation</p>
     <h2 class="section-title fade-in">ご予約</h2>
-    <p class="section-desc fade-in">ご希望の日程をクリックするとAI診断・予約フォームへ進みます。</p>
+    <p class="section-desc fade-in">カレンダーの希望日をクリックするとLINEの予約画面に遷移します。</p>
 
     <div class="reserve-grid">
       <div class="calendar-box fade-in">
@@ -744,12 +772,12 @@
       <div class="line-panel fade-in d1">
         <div class="line-card">
           <div class="line-icon">💬</div>
-          <h3>LINEでお問い合わせ</h3>
-          <p>ご質問・不明点はLINEからお気軽に。<br>営業時間内に順次ご返信いたします。<br>当日のキャンセル・変更もLINEにて。</p>
-          <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="line-btn">LINEを開く</a>
+          <h3>LINEで予約・お問い合わせ</h3>
+          <p>希望日時・メニューをメッセージするだけ。<br>営業時間内に順次ご返信いたします。<br>当日予約・質問もお気軽にどうぞ。</p>
+          <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="line-btn">LINE を開いて予約する</a>
         </div>
         <div class="reserve-note">
-          ※ カレンダーの日付をクリックするとAI診断・予約フォームが開きます。<br>
+          ※ カレンダーの日付をクリックするとLINEに遷移します。<br>
           ※ 月曜は定休日です。<br>
           ※ 営業時間：11:00〜22:00（※最終受付時間・深夜まで営業中！）<br>
           ※ 個人情報は予約管理のみに使用します。
@@ -764,7 +792,7 @@
   <div class="container">
     <div class="footer-inner">
       <div>
-        <div class="footer-logo"><img src="logo.png" alt="kaede楓salon"></div>
+        <div class="footer-logo"><img src="logo_kaede.png" alt="kaede楓salon"></div>
         <p class="footer-tagline">東京最安値水準・都度払い・時間内自由脱毛。<br>専門セラピストによる本格メンズ脱毛サロン。<br>台東区東浅草 ／ LGBT WELCOME</p>
       </div>
       <div class="footer-nav">
@@ -804,16 +832,16 @@
   <div class="modal-box">
     <div class="modal-mi">🍁</div>
     <h3 id="modalDate">ご予約日の確認</h3>
-    <p>選択した日付でAI診断・予約フォームへ進みます。</p>
+    <p>選択した日付でLINEから予約を送信します。<br>LINEアプリが開きます。</p>
     <div class="modal-btns">
-      <button class="modal-close" id="modalConfirm">診断・予約へ進む 🔬</button>
+      <button class="modal-close" id="modalConfirm">LINEを開く</button>
       <button class="modal-cancel" onclick="document.getElementById('calModal').classList.remove('active')">キャンセル</button>
     </div>
   </div>
 </div>
 
 <script>
-  // ── Path-Flow Amplitude §2-2準拠（3イベントのみ） ────────────────────
+  // ── Path-Flow Amplitude §2-2準拠 ────────────────────────────────────
   const LP_ID='kaede-v1';
   const AMP_KEY='__AMPLITUDE_API_KEY__';
   (function(){
@@ -842,7 +870,6 @@
   }));
 
   // ── CALENDAR ─────────────────────────────────────────────────────────
-  const LINE_URL='https://line.me/R/ti/p/@436hrsli';
   const MONTHS=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   const DAYS=['日','月','火','水','木','金','土'];
   let cy,cm;
@@ -875,7 +902,7 @@
   });
   initCal();
 
-  // ── AI診断モーダル（5問・LP内容準拠） ──────────────────────────────
+  // ── AI診断モーダル ───────────────────────────────────────────────────
   const QUESTIONS=[
     {q:'最も気になる部位はどこですか？',choices:[
       {icon:'✂️',text:'顔・ひげ（清潔感アップしたい）'},
@@ -960,34 +987,17 @@
   }
 
   function getFallback(a){
-    const part=a[0]||'';const exp=a[1]||'';const style=a[2]||'';const skin=a[3]||'';
+    const part=a[0]||'';const exp=a[1]||'';const style=a[2]||'';
     let menu,price,reason,score=70,level='B';
-    if(style.includes('全身')){
-      menu='全身脱毛コース';price='¥11,000（120分）';
-      reason='全身をまとめてケアしたいご要望に最適です。顔込み・VIO別で120分たっぷり施術できます。';score=88;level='A';
-    }else if(style.includes('freeコース')||style.includes('まとめて')){
-      if(exp.includes('初めて')||exp.includes('家庭用')){
-        menu='40分 freeコース（初回限定）';price='初回¥5,000（通常¥6,000）';
-        reason='初めての方に人気の初回限定プラン。40分で複数部位をまとめてお試しいただけます。';score=82;level='A';
-      }else{
-        menu='60分 freeコース';price='¥10,000（初回¥8,000）';
-        reason='経験者の方が短期間でまとめてケアするなら60分freeコースが最適です。';score=85;level='A';
-      }
-    }else if(part.includes('顔')||part.includes('ひげ')){
-      menu='顔のみコース';price='¥3,000（25分）';
-      reason='顔・ひげのケアには顔専用コースが最適。清潔感アップで第一印象が変わります。';score=78;level='B';
-    }else if(part.includes('VIO')){
-      menu='VIO（Lパーツ単品）';price='¥4,200（30分）';
-      reason='VIOには専用Lパーツ単品をおすすめします。蒸れ・においの解消に効果的です。';score=76;level='B';
-    }else if(part.includes('脚')){
-      menu='LLパーツ単品（太もも or ヒザ下）';price='¥4,900（35分）';
-      reason='脚全体のケアにはLLパーツが最適。都度払いなので好きなタイミングで来店できます。';score=74;level='B';
-    }else{
-      menu='Sパーツ 都度払い';price='¥700〜（1部位・5分）';
-      reason='まず気になる1部位からお試しください。コース不要・縛りなし・¥700から始められます。';score=68;level='C';
-    }
-    return{message:'ご回答ありがとうございます。salon楓のメニューの中から最もマッチするプランをご提案します。',
-      recommended_menu:menu,recommended_price:price,reason,score,level};
+    if(style.includes('全身')){menu='全身脱毛コース';price='¥11,000（120分）';reason='全身をまとめてケアしたいご要望に最適です。';score=88;level='A';}
+    else if(style.includes('freeコース')||style.includes('まとめて')){
+      if(exp.includes('初めて')||exp.includes('家庭用')){menu='40分 freeコース（初回限定）';price='初回¥5,000';reason='初めての方に人気の初回限定プランです。';score=82;level='A';}
+      else{menu='60分 freeコース';price='¥10,000（初回¥8,000）';reason='経験者の方が短期間でまとめてケアするなら60分freeコースが最適です。';score=85;level='A';}
+    }else if(part.includes('顔')){menu='顔のみコース';price='¥3,000（25分）';reason='顔・ひげのケアには顔専用コースが最適です。';score=78;level='B';}
+    else if(part.includes('VIO')){menu='VIO（Lパーツ単品）';price='¥4,200（30分）';reason='VIOには専用Lパーツ単品をおすすめします。';score=76;level='B';}
+    else if(part.includes('脚')){menu='LLパーツ単品';price='¥4,900（35分）';reason='脚全体のケアにはLLパーツが最適です。';score=74;level='B';}
+    else{menu='Sパーツ 都度払い';price='¥700〜（1部位）';reason='まず気になる1部位からお試しください。';score=68;level='C';}
+    return{message:'ご回答ありがとうございます。最もマッチするメニューをご提案します。',recommended_menu:menu,recommended_price:price,reason,score,level};
   }
 
   function showResult(){
@@ -998,23 +1008,47 @@
     document.getElementById('dResReason').textContent=r.reason||'';
     showDiagStep('dResult');
   }
-  function showBooking(){showDiagStep('dBooking')}
+  function showBooking(){
+    if(diagState.selectedDate){const d=document.getElementById('bkDate');if(d)d.value=diagState.selectedDate;}
+    showDiagStep('dBooking');
+  }
   function backToResult(){showDiagStep('dResult')}
 
   async function submitBooking(){
     const name=document.getElementById('bkName').value.trim();
+    const phone=document.getElementById('bkPhone').value.trim();
     const email=document.getElementById('bkEmail').value.trim();
-    if(!name||!email){alert('お名前とメールアドレスは必須です。');return}
+    const date=document.getElementById('bkDate').value.trim();
+    const date2=document.getElementById('bkDate2').value.trim();
+    if(!name||!phone||!email||!date){alert('お名前・携帯電話・メールアドレス・第1希望日時は必須です。');return}
     const r=diagState.resultData||{};
-    const payload={lp:LP_ID,name,email,recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:diagState.answers};
+    const payload={lp:LP_ID,name,phone,email,date,date2,recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:diagState.answers};
     try{await fetch('/api/save-shigyou',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}catch(e){}
-    try{if(diagState.selectedDate){await fetch('/api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,preferredDate:diagState.selectedDate})})}}catch(e){}
+    try{await fetch('/api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,preferredDate:date})})}catch(e){}
     _amp('booking_complete',{lp:LP_ID,score:r.score||75,level:r.level||'B'});
     showDiagStep('dComplete');
   }
 
   document.getElementById('diagOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('diagOverlay'))closeDiag()});
 </script>
+
+<!-- スマホ底部固定ナビ -->
+<div class="mob-nav">
+  <div class="mob-nav-inner">
+    <button class="mob-nav-btn" onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})">
+      <span class="mob-nav-icon">📅</span>
+      <span class="mob-nav-label">予約</span>
+    </button>
+    <button class="mob-nav-btn primary" onclick="openDiag(null)">
+      <span class="mob-nav-icon">🔬</span>
+      <span class="mob-nav-label">AI診断</span>
+    </button>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="mob-nav-btn line-btn-mob">
+      <span class="mob-nav-icon">💬</span>
+      <span class="mob-nav-label">LINE問合せ</span>
+    </a>
+  </div>
+</div>
 
 <div class="diag-overlay" id="diagOverlay">
   <div class="diag-box">
@@ -1062,11 +1096,14 @@
       <div class="diag-body">
         <div class="diag-form">
           <div class="dfg"><label>お名前 <span style="color:var(--maple-red);">*</span></label><input type="text" id="bkName" placeholder="山田 太郎"></div>
+          <div class="dfg"><label>携帯電話番号 <span style="color:var(--maple-red);">*</span></label><input type="tel" id="bkPhone" placeholder="090-0000-0000"></div>
           <div class="dfg"><label>メールアドレス <span style="color:var(--maple-red);">*</span></label><input type="email" id="bkEmail" placeholder="example@email.com"></div>
+          <div class="dfg"><label>ご希望日時（第1希望）<span style="color:var(--maple-red);">*</span></label><input type="text" id="bkDate" placeholder="例：6月15日（日）14:00〜"></div>
+          <div class="dfg"><label>ご希望日時（第2希望）</label><input type="text" id="bkDate2" placeholder="例：6月17日（火）夜希望"></div>
         </div>
         <p style="font-family:'Noto Sans JP',sans-serif;font-size:0.70rem;font-weight:300;color:var(--text-light);line-height:1.9;margin-bottom:16px;">※ 入力情報は予約管理のみに使用します。<br>※ 営業時間（11:00〜22:00）内に担当者よりご連絡いたします。</p>
         <div class="diag-btn-row">
-          <button class="btn-primary" style="flex:2;" onclick="submitBooking()">相談を予約して診断レポートを受け取る</button>
+          <button class="btn-primary" style="flex:2;" onclick="submitBooking()">予約を申し込む</button>
           <button class="btn-secondary" style="flex:1;" onclick="backToResult()">戻る</button>
         </div>
       </div>
