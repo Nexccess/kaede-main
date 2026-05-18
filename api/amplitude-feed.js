@@ -1,76 +1,144 @@
-'use strict';
+// api/amplitude-feed.js
+// Amplitude Dashboard API 中継 / Path-Flow §5-2準拠
+// ============================================================
 
-// ══ Amplitude Export API 中継 ══
-// admin.html からの fetch を受け取り、
-// Amplitude Export API を叩いて Activity Feed 用データを返す
+const AMP_API_KEY    = process.env.AMPLITUDE_API_KEY;
+const AMP_SECRET_KEY = process.env.AMPLITUDE_SECRET_KEY;
+const BASE_URL       = 'https://amplitude.com/api/2';
+
+// Basic認証ヘッダー生成
+function basicAuth() {
+  const token = Buffer.from(`${AMP_API_KEY}:${AMP_SECRET_KEY}`).toString('base64');
+  return `Basic ${token}`;
+}
+
+// 日付フォーマット（Amplitude: YYYYMMDD）
+function toAmpDate(dateStr) {
+  return dateStr.replace(/-/g, '');
+}
 
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Origin',  '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST')   return res.status(405).json({ error: 'Method Not Allowed' });
+
+  const { lp, query, start, end, events, hours, limit } = req.body;
 
   try {
-    const AMP_API_KEY    = process.env.AMPLITUDE_API_KEY;
-    const AMP_SECRET_KEY = process.env.AMPLITUDE_SECRET_KEY;
-    if (!AMP_API_KEY || !AMP_SECRET_KEY) throw new Error('Amplitude keys not configured');
 
-    // 取得時間幅：過去4時間
-    const now   = new Date();
-    const start = new Date(now.getTime() - 4 * 60 * 60 * 1000);
+    // ── ① イベントカウント取得 ─────────────────────────────────
+    if (events && Array.isArray(events) && start && end) {
+      const counts = {};
 
-    // Amplitude Export API は UTC 時間・形式 YYYYMMDDTHH
-    const fmt = d => d.toISOString().slice(0, 13).replace(/-/g, '');
-    const startStr = fmt(start);
-    const endStr   = fmt(now);
-
-    const auth = Buffer.from(`${AMP_API_KEY}:${AMP_SECRET_KEY}`).toString('base64');
-    const url  = `https://amplitude.com/api/2/export?start=${startStr}&end=${endStr}`;
-
-    const ampRes = await fetch(url, {
-      headers: { Authorization: `Basic ${auth}` },
-    });
-
-    if (ampRes.status === 404) {
-      // データなし（期間内にイベントがない）
-      return res.status(200).json({ events: [], empty: true });
-    }
-    if (!ampRes.ok) {
-      throw new Error(`Amplitude API error: ${ampRes.status}`);
-    }
-
-    // Export APIはgzip圧縮のndjsonを返す
-    // fetch で text() として読み込み、各行をパース
-    const raw = await ampRes.text();
-    const lines = raw.split('\n').filter(l => l.trim());
-
-    const events = [];
-    for (const line of lines) {
-      try {
-        const e = JSON.parse(line);
-        events.push({
-          time:       e.client_event_time || e.server_upload_time,
-          event:      e.event_type,
-          lp:         e.event_properties?.lp || e.user_properties?.lp_name || '–',
-          city:       e.city || '–',
-          country:    e.country || '–',
-          device:     e.device_family || '–',
-          session_id: e.session_id,
-          // 診断スコアなど追加プロパティ
-          score:      e.event_properties?.score || null,
-          level:      e.event_properties?.level || null,
+      for (const eventName of events) {
+        const params = new URLSearchParams({
+          e:          JSON.stringify({ event_type: eventName, filters: [{ subprop_type: 'event', subprop_key: 'lp', subprop_op: 'is', subprop_value: [lp] }] }),
+          start:      toAmpDate(start),
+          end:        toAmpDate(end),
+          m:          'uniques',
+          i:          '-300000', // 全期間合計
+          limit:      '1',
         });
-      } catch { /* パース失敗行はスキップ */ }
+
+        const ampRes = await fetch(`${BASE_URL}/events/segmentation?${params}`, {
+          headers: { Authorization: basicAuth() },
+        });
+
+        if (ampRes.ok) {
+          const data = await ampRes.json();
+          // seriesはイベント数の配列 → 合計
+          const series = data.data?.series?.[0] || [];
+          counts[eventName] = series.reduce((a, b) => a + (b || 0), 0);
+        } else {
+          counts[eventName] = 0;
+        }
+      }
+
+      return res.status(200).json({ counts });
     }
 
-    // 新しい順にソートして最大50件
-    events.sort((a, b) => new Date(b.time) - new Date(a.time));
-    const limited = events.slice(0, 50);
+    // ── ② スコア分布取得 ───────────────────────────────────────
+    if (query === 'score_distribution') {
+      const params = new URLSearchParams({
+        e:     JSON.stringify({ event_type: 'booking_complete', filters: [{ subprop_type: 'event', subprop_key: 'lp', subprop_op: 'is', subprop_value: [lp] }] }),
+        g:     JSON.stringify([{ type: 'event', value: 'level' }]),
+        start: toAmpDate((() => { const d = new Date(); d.setFullYear(d.getFullYear()-1); return d.toISOString().split('T')[0]; })()),
+        end:   toAmpDate(new Date().toISOString().split('T')[0]),
+        m:     'uniques',
+        i:     '-300000',
+        limit: '3',
+      });
 
-    return res.status(200).json({ events: limited, total: events.length, empty: events.length === 0 });
+      const ampRes = await fetch(`${BASE_URL}/events/segmentation?${params}`, {
+        headers: { Authorization: basicAuth() },
+      });
 
-  } catch (error) {
-    console.error('[amplitude-feed] Error:', error);
-    return res.status(500).json({ error: error.message });
+      if (!ampRes.ok) return res.status(200).json({ distribution: { A: 0, B: 0, C: 0 } });
+
+      const data = await ampRes.json();
+      const distribution = { A: 0, B: 0, C: 0 };
+      const labels = data.data?.seriesLabels || [];
+      const series = data.data?.series || [];
+
+      labels.forEach((label, i) => {
+        const total = (series[i] || []).reduce((a, b) => a + (b || 0), 0);
+        if (label === 'A') distribution.A = total;
+        else if (label === 'B') distribution.B = total;
+        else if (label === 'C') distribution.C = total;
+      });
+
+      return res.status(200).json({ distribution });
+    }
+
+    // ── ③ Activity Feed取得 ────────────────────────────────────
+    if (query === 'activity_feed') {
+      const hoursBack = hours || 4;
+      const limitNum  = limit || 20;
+      const now       = new Date();
+      const since     = new Date(now.getTime() - hoursBack * 60 * 60 * 1000);
+
+      const params = new URLSearchParams({
+        event_type:  'any',
+        start_time:  since.toISOString(),
+        end_time:    now.toISOString(),
+        limit:       String(limitNum),
+      });
+
+      const ampRes = await fetch(`${BASE_URL}/usersearch?${params}`, {
+        headers: { Authorization: basicAuth() },
+      });
+
+      if (!ampRes.ok) return res.status(200).json({ events: [] });
+
+      const data = await ampRes.json();
+      const feedEvents = [];
+
+      (data.matches || []).forEach(user => {
+        (user.events || []).slice(0, 3).forEach(ev => {
+          if (['page_view','diagnosis_click','booking_complete'].includes(ev.event_type)) {
+            const evLp = ev.event_properties?.lp || '';
+            if (!lp || evLp === lp) {
+              feedEvents.push({
+                event: ev.event_type,
+                lp:    evLp,
+                time:  new Date(ev.event_time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+              });
+            }
+          }
+        });
+      });
+
+      // 時刻降順ソート・limit件数に絞る
+      feedEvents.sort((a, b) => new Date(b.time) - new Date(a.time));
+      return res.status(200).json({ events: feedEvents.slice(0, limitNum) });
+    }
+
+    return res.status(400).json({ error: 'Unknown query' });
+
+  } catch (err) {
+    console.error('[amplitude-feed]', err);
+    return res.status(500).json({ error: err.message });
   }
 };
