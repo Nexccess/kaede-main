@@ -376,7 +376,7 @@
       <div class="badge">⭐ 開業４周年突破</div>    </div>
     <div class="hero-ctas">
       <a href="#reserve" class="btn-primary">📅 予約カレンダーを見る</a>
-      <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="btn-line">💬 無料でAI診断</a>
+      <button class="btn-line" onclick="openDiag(null)" style="border:none;cursor:pointer;">🔬 無料AI診断をする</button>
     </div>
   </div>
 </section>
@@ -843,7 +843,7 @@
 <script>
   // ── Path-Flow Amplitude §2-2準拠 ────────────────────────────────────
   const LP_ID='kaede-v1';
-  const AMP_KEY='__AMPLITUDE_API_KEY__';
+  const AMP_KEY='8d3b5be866c4740fa6c83949f85ce25e';
   (function(){
     const s=document.createElement('script');s.src='https://cdn.amplitude.com/libs/amplitude-8.21.4-min.gz.js';s.async=true;
     s.onload=function(){try{amplitude.getInstance().init(AMP_KEY,null,{includeReferrer:true,includeUtm:true});amplitude.getInstance().logEvent('page_view',{lp:LP_ID});}catch(e){}};
