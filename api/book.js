@@ -1,5 +1,5 @@
 // api/book.js
-// salon楓 Googleカレンダー予約書き込み / 携帯・日時対応版
+// salon楓 Googleカレンダー予約 / yyyy-mm-dd形式対応版
 // ============================================================
 const { google } = require('googleapis');
 
@@ -18,7 +18,8 @@ module.exports = async function handler(req, res) {
       name             = '',
       phone            = '',
       email            = '',
-      preferredDate    = '',
+      preferredDate    = '', // yyyy-mm-dd（ISO形式）
+      preferredTime    = '', // HH:MM〜HH:MM
       date2            = '',
       recommended_menu = '',
       score            = '',
@@ -29,23 +30,11 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'preferredDate is required' });
     }
 
-    // 日付パース（例: "2026年5月17日（日）14:00〜"）
-    const dateMatch = preferredDate.match(/(\d{4})年(\d{1,2})月(\d{1,2})日/);
-    let startDate, endDate;
-    if (dateMatch) {
-      const y = dateMatch[1];
-      const m = dateMatch[2].padStart(2,'0');
-      const d = dateMatch[3].padStart(2,'0');
-      startDate = `${y}-${m}-${d}`;
-      const next = new Date(`${y}-${m}-${d}`);
-      next.setDate(next.getDate() + 1);
-      endDate = next.toISOString().split('T')[0];
-    } else {
-      const today = new Date().toISOString().split('T')[0];
-      startDate = today;
-      const next = new Date(today); next.setDate(next.getDate()+1);
-      endDate = next.toISOString().split('T')[0];
-    }
+    // ISO形式（yyyy-mm-dd）を直接使用
+    const startDate = preferredDate; // 例: 2026-05-19
+    const nextDay   = new Date(preferredDate);
+    nextDay.setDate(nextDay.getDate() + 1);
+    const endDate = nextDay.toISOString().split('T')[0];
 
     const credentials = JSON.parse(SA_JSON);
     const auth = new google.auth.GoogleAuth({
@@ -60,16 +49,16 @@ module.exports = async function handler(req, res) {
         `お名前: ${name}`,
         `携帯電話: ${phone}`,
         `メール: ${email}`,
-        `希望日時（第1）: ${preferredDate}`,
+        `希望日時（第1）: ${preferredDate.replace(/-/g,'/')} ${preferredTime}`,
         date2 ? `希望日時（第2）: ${date2}` : '',
         `おすすめメニュー: ${recommended_menu}`,
         `スコア: ${score} / レベル: ${level}`,
         '',
-        '※ AI診断フォームから自動登録。時刻はLINE/メールで確定してください。',
+        '※ AI診断フォームから自動登録。詳細はLINE/メールで確定してください。',
       ].filter(Boolean).join('\n'),
       start: { date: startDate },
       end:   { date: endDate },
-      colorId: '6',
+      colorId: '6', // タンジェリン（仮予約視覚識別）
       attendees: email ? [{ email }] : [],
     };
 
