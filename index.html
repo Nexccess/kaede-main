@@ -254,17 +254,15 @@
     }
 
     /* ── MOBILE BOTTOM NAV ──────────────────────────────── */
-    .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(11,18,32,0.97);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,0.08);padding:0;safe-area-inset-bottom:env(safe-area-inset-bottom)}
-    .mob-nav-inner{display:flex;align-items:stretch;height:56px}
-    .mob-nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;cursor:pointer;text-decoration:none;transition:background 0.2s;-webkit-tap-highlight-color:transparent}
-    .mob-nav-btn:active{background:rgba(255,255,255,0.08)}
+    .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#1a1a1a;border-top:1px solid rgba(255,255,255,0.12);padding-bottom:env(safe-area-inset-bottom,0px)}
+    .mob-nav-inner{display:flex;align-items:stretch;height:60px}
+    .mob-nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:none;background:none;cursor:pointer;text-decoration:none;transition:opacity 0.15s;-webkit-tap-highlight-color:transparent;padding:0}
+    .mob-nav-btn:active{opacity:0.7}
     .mob-nav-btn.primary{background:var(--maple-red)}
-    .mob-nav-btn.primary:active{background:var(--maple-deep)}
     .mob-nav-btn.line-btn-mob{background:#06C755}
-    .mob-nav-btn.line-btn-mob:active{background:#05a848}
-    .mob-nav-icon{font-size:1.1rem;line-height:1}
-    .mob-nav-label{font-family:'Noto Sans JP',sans-serif;font-size:0.58rem;font-weight:500;color:rgba(255,255,255,0.85);letter-spacing:0.06em;line-height:1}
-    .mob-nav-btn.primary .mob-nav-label,.mob-nav-btn.line-btn-mob .mob-nav-label{color:#fff}
+    .mob-nav-icon{font-size:1.3rem;line-height:1;display:block}
+    .mob-nav-label{font-family:'Noto Sans JP',sans-serif;font-size:0.60rem;font-weight:400;color:rgba(255,255,255,0.80);letter-spacing:0.04em;line-height:1;display:block}
+    .mob-nav-btn.primary .mob-nav-label,.mob-nav-btn.line-btn-mob .mob-nav-label{color:#fff;font-weight:500}
     /* ファーストビュー視認性強化 */
     @media(max-width:768px){
       .mob-nav{display:flex}
@@ -1020,37 +1018,47 @@
     const name=document.getElementById('bkName').value.trim();
     const phone=document.getElementById('bkPhone').value.trim();
     const email=document.getElementById('bkEmail').value.trim();
-    const date=document.getElementById('bkDate').value.trim();
-    const date2=document.getElementById('bkDate2').value.trim();
-    if(!name||!phone||!email||!date){alert('お名前・携帯電話・メールアドレス・第1希望日時は必須です。');return}
+    const dateRaw=document.getElementById('bkDate').value; // yyyy-mm-dd
+    const time=document.getElementById('bkTime').value;
+    const date2Raw=document.getElementById('bkDate2').value;
+    if(!name||!phone||!email||!dateRaw||!time){alert('お名前・携帯電話・メールアドレス・第1希望日・時間帯は必須です。');return}
+
+    // 表示用フォーマット: yyyy/mm/dd HH:MM〜
+    function fmtDate(d){return d?d.replace(/-/g,'/'):''}
+    const date=fmtDate(dateRaw)+' '+time;
+    const date2=date2Raw?fmtDate(date2Raw):'';
+
     const r=diagState.resultData||{};
     const now=new Date().toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'});
     const answersStr=Array.isArray(diagState.answers)?diagState.answers.join(' / '):'';
     const payload={lp:LP_ID,name,phone,email,date,date2,recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:diagState.answers};
 
-    // ── EmailJS メール通知 ─────────────────────────────────────
+    // EmailJS
     try{
       await emailjs.send('service_xh3oajd','template_s381ttd',{
         name,phone,email,date,date2,
         recommended_menu:r.recommended_menu||'',
-        score:r.score||75,
-        level:r.level||'B',
-        answers:answersStr,
-        lp:LP_ID,
-        sent_at:now,
+        score:r.score||75,level:r.level||'B',
+        answers:answersStr,lp:LP_ID,sent_at:now,
       },'ehhLOmJuTFpBmY3s4m4Id');
     }catch(e){console.error('[EmailJS]',e)}
 
-    // ── Spreadsheet書き込み ────────────────────────────────────
+    // Spreadsheet
     try{await fetch('/api/save-shigyou',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})}catch(e){}
 
-    // ── Googleカレンダー登録 ───────────────────────────────────
-    try{await fetch('/api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,preferredDate:date})})}catch(e){}
+    // Calendar（ISO形式で渡す）
+    try{await fetch('/api/book',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...payload,preferredDate:dateRaw,preferredTime:time})})}catch(e){}
 
-    // ── Amplitude §2-2 イベント③ ──────────────────────────────
     _amp('booking_complete',{lp:LP_ID,score:r.score||75,level:r.level||'B'});
     showDiagStep('dComplete');
   }
+
+  // date input の最小日付を今日に設定
+  (function(){
+    const today=new Date().toISOString().split('T')[0];
+    const d=document.getElementById('bkDate');if(d)d.min=today;
+    const d2=document.getElementById('bkDate2');if(d2)d2.min=today;
+  })();
 
   document.getElementById('diagOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('diagOverlay'))closeDiag()});
 </script>
@@ -1121,8 +1129,9 @@
           <div class="dfg"><label>お名前 <span style="color:var(--maple-red);">*</span></label><input type="text" id="bkName" placeholder="山田 太郎"></div>
           <div class="dfg"><label>携帯電話番号 <span style="color:var(--maple-red);">*</span></label><input type="tel" id="bkPhone" placeholder="090-0000-0000"></div>
           <div class="dfg"><label>メールアドレス <span style="color:var(--maple-red);">*</span></label><input type="email" id="bkEmail" placeholder="example@email.com"></div>
-          <div class="dfg"><label>ご希望日時（第1希望）<span style="color:var(--maple-red);">*</span></label><input type="text" id="bkDate" placeholder="例：6月15日（日）14:00〜"></div>
-          <div class="dfg"><label>ご希望日時（第2希望）</label><input type="text" id="bkDate2" placeholder="例：6月17日（火）夜希望"></div>
+          <div class="dfg"><label>ご希望日（第1希望）<span style="color:var(--maple-red);">*</span></label><input type="date" id="bkDate" min="" style="width:100%;padding:10px 14px;border:1px solid var(--border);background:var(--white);font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-dark);outline:none;box-sizing:border-box;"></div>
+          <div class="dfg"><label>ご希望時間帯（第1希望）<span style="color:var(--maple-red);">*</span></label><select id="bkTime" style="width:100%;padding:10px 14px;border:1px solid var(--border);background:var(--white);font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-dark);outline:none;box-sizing:border-box;"><option value="">選択してください</option><option>11:00〜12:00</option><option>12:00〜13:00</option><option>13:00〜14:00</option><option>14:00〜15:00</option><option>15:00〜16:00</option><option>16:00〜17:00</option><option>17:00〜18:00</option><option>18:00〜19:00</option><option>19:00〜20:00</option><option>20:00〜21:00</option><option>21:00〜22:00</option></select></div>
+          <div class="dfg"><label>ご希望日（第2希望）</label><input type="date" id="bkDate2" style="width:100%;padding:10px 14px;border:1px solid var(--border);background:var(--white);font-family:'Noto Sans JP',sans-serif;font-size:0.82rem;font-weight:300;color:var(--text-dark);outline:none;box-sizing:border-box;"></div>
         </div>
         <p style="font-family:'Noto Sans JP',sans-serif;font-size:0.70rem;font-weight:300;color:var(--text-light);line-height:1.9;margin-bottom:16px;">※ 入力情報は予約管理のみに使用します。<br>※ 営業時間（11:00〜22:00）内に担当者よりご連絡いたします。</p>
         <div class="diag-btn-row">
