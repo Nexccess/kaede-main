@@ -267,7 +267,7 @@
     /* ファーストビュー視認性強化 */
     @media(max-width:768px){
       .mob-nav{display:flex}
-      body{padding-bottom:56px}
+      body{padding-bottom:68px}
       /* ヒーローテキスト強化 */
       .hero-overlay{background:linear-gradient(160deg,rgba(250,246,239,0.98) 0%,rgba(250,246,239,0.94) 60%,rgba(250,246,239,0.55) 100%)!important}
       .hero-content{padding:40px 20px 32px!important}
@@ -844,19 +844,22 @@
 
 
 <!-- スマホ底部固定ナビ -->
-<div class="mob-nav">
-  <div class="mob-nav-inner">
-    <button class="mob-nav-btn" onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})">
-      <span class="mob-nav-icon">📅</span>
-      <span class="mob-nav-label">予約</span>
+<div style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#111111;border-top:2px solid rgba(255,255,255,0.15);padding-bottom:env(safe-area-inset-bottom,0px)" class="mob-nav" id="mobNav">
+  <div style="display:flex;align-items:stretch;height:68px;width:100%">
+    <button onclick="document.getElementById('reserve').scrollIntoView({behavior:'smooth'})"
+      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:none;border-right:1px solid rgba(255,255,255,0.12);background:none;cursor:pointer;padding:0">
+      <span style="font-size:1.6rem;line-height:1">📅</span>
+      <span style="font-family:'Noto Sans JP',sans-serif;font-size:0.68rem;font-weight:500;color:rgba(255,255,255,0.85);letter-spacing:0.04em;line-height:1">予約</span>
     </button>
-    <button class="mob-nav-btn primary" onclick="openDiag(null)">
-      <span class="mob-nav-icon">🔬</span>
-      <span class="mob-nav-label">AI診断</span>
+    <button onclick="openDiag(null)"
+      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:none;border-right:1px solid rgba(255,255,255,0.12);background:#B8604A;cursor:pointer;padding:0">
+      <span style="font-size:1.6rem;line-height:1">🔬</span>
+      <span style="font-family:'Noto Sans JP',sans-serif;font-size:0.68rem;font-weight:500;color:#fff;letter-spacing:0.04em;line-height:1">AI診断</span>
     </button>
-    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" class="mob-nav-btn line-btn-mob">
-      <span class="mob-nav-icon">💬</span>
-      <span class="mob-nav-label">LINE問合せ</span>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank"
+      style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:none;background:#06C755;cursor:pointer;padding:0;text-decoration:none">
+      <span style="font-size:1.6rem;line-height:1">💬</span>
+      <span style="font-family:'Noto Sans JP',sans-serif;font-size:0.68rem;font-weight:500;color:#fff;letter-spacing:0.04em;line-height:1">LINE問合せ</span>
     </a>
   </div>
 </div>
@@ -941,6 +944,17 @@
     document.head.appendChild(s);
   })();
   function _amp(ev,props){try{if(typeof amplitude!=='undefined')amplitude.getInstance().logEvent(ev,props);}catch(e){}}
+
+  // ── スマホ底部ナビ表示制御 ────────────────────────────────────
+  (function(){
+    const nav = document.getElementById('mobNav');
+    if(nav && window.innerWidth <= 768){
+      nav.style.display = 'block';
+    }
+    window.addEventListener('resize', function(){
+      if(nav){ nav.style.display = window.innerWidth <= 768 ? 'block' : 'none'; }
+    });
+  })();
 
   // ── HAMBURGER ────────────────────────────────────────────────────────
   document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('open'));
