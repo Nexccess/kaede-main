@@ -58,14 +58,12 @@ module.exports = async function handler(req, res) {
       ].filter(Boolean).join('\n'),
       start: { date: startDate },
       end:   { date: endDate },
-      colorId: '6', // タンジェリン（仮予約視覚識別）
-      attendees: email ? [{ email }] : [],
+      colorId: '6',
     };
 
     const inserted = await calendar.events.insert({
       calendarId: CALENDAR_ID,
       requestBody: event,
-      sendUpdates: 'all',
     });
 
     return res.status(200).json({ ok: true, eventId: inserted.data.id });
