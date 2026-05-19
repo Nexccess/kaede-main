@@ -357,9 +357,9 @@
     });
   }
 
-  // ── 自動更新（4時間ごと）────────────────────────────────────
+  // ── 自動更新（30分ごと）────────────────────────────────────
   if(sessionStorage.getItem('kaede_admin')==='1'){
-    setInterval(initDash, 4*60*60*1000);
+    setInterval(initDash, 30*60*1000);
   }
 </script>
 </body>
