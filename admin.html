@@ -8,108 +8,108 @@
   <style>
     :root{
       --maple-red:#B8604A;--maple-deep:#8B3E2A;--maple-gold:#C8A45A;
-      --navy:#1A2B4A;--bg:#0d1117;--bg2:#161b22;--bg3:#1f2937;
-      --border:rgba(255,255,255,0.08);--text:#e6edf3;--text2:#8b949e;
-      --green:#3fb950;--yellow:#d29922;--red:#f85149;
+      --navy:#1A2B4A;--navy2:#243558;
+      --bg:#FAF6EF;--bg2:#F2EBE0;--bg3:#E8DDD0;
+      --border:#D4C8B0;--border2:#C4B49A;
+      --text:#2D1F0E;--text2:#6B5744;--text3:#9A8070;
+      --white:#FFFFFF;
+      --green:#4A7C59;--yellow:#B8860B;--red:#B8604A;
+      --shadow:0 2px 16px rgba(45,31,14,0.10);
     }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:300;min-height:100vh}
+    body{background:var(--bg);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-weight:300;min-height:100vh;font-size:14px}
 
     /* ── LOGIN ── */
-    #loginWrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
-    .login-box{background:var(--bg2);border:1px solid var(--border);padding:48px 40px;width:100%;max-width:400px}
-    .login-logo{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--maple-gold);text-align:center;margin-bottom:6px;letter-spacing:0.12em}
-    .login-sub{font-size:0.72rem;color:var(--text2);text-align:center;letter-spacing:0.14em;margin-bottom:36px}
-    .login-label{font-size:0.70rem;color:var(--text2);letter-spacing:0.10em;margin-bottom:6px;display:block}
-    .login-input{width:100%;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.86rem;font-weight:300;outline:none;transition:border-color 0.2s;margin-bottom:20px}
+    #loginWrap{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;background:var(--bg)}
+    .login-box{background:var(--white);border:1px solid var(--border);padding:56px 48px;width:100%;max-width:400px;box-shadow:var(--shadow)}
+    .login-logo{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--maple-red);text-align:center;margin-bottom:4px;letter-spacing:0.14em}
+    .login-logo span{font-size:1.2rem;color:var(--maple-gold);margin-right:6px}
+    .login-sub{font-size:0.72rem;color:var(--text3);text-align:center;letter-spacing:0.18em;margin-bottom:40px;font-family:'Shippori Mincho',serif}
+    .login-label{font-size:0.68rem;color:var(--text2);letter-spacing:0.12em;margin-bottom:6px;display:block;text-transform:uppercase}
+    .login-input{width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'Noto Sans JP',sans-serif;font-size:0.88rem;font-weight:300;outline:none;transition:border-color 0.2s;margin-bottom:20px}
     .login-input:focus{border-color:var(--maple-red)}
-    .login-btn{width:100%;padding:12px;background:var(--maple-red);color:#fff;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:0.86rem;font-weight:400;letter-spacing:0.10em;transition:background 0.2s}
+    .login-btn{width:100%;padding:13px;background:var(--maple-red);color:var(--white);border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;font-size:0.86rem;font-weight:400;letter-spacing:0.14em;transition:background 0.2s}
     .login-btn:hover{background:var(--maple-deep)}
     .login-err{color:var(--red);font-size:0.74rem;margin-top:10px;text-align:center;display:none}
 
     /* ── DASHBOARD ── */
-    #dashWrap{display:none;min-height:100vh}
-    header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
-    .hd-left{display:flex;align-items:center;gap:14px}
-    .hd-logo{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--maple-gold);letter-spacing:0.10em}
-    .hd-badge{background:rgba(184,96,74,0.15);border:1px solid var(--maple-red);color:var(--maple-red);font-size:0.62rem;padding:2px 10px;letter-spacing:0.10em}
-    .hd-meta{font-size:0.68rem;color:var(--text2)}
-    .logout-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:5px 14px;cursor:pointer;font-size:0.72rem;font-family:'Noto Sans JP',sans-serif;transition:border-color 0.2s}
+    #dashWrap{display:none;min-height:100vh;background:var(--bg)}
+    header{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(45,31,14,0.06)}
+    .hd-left{display:flex;align-items:center;gap:16px}
+    .hd-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;color:var(--maple-red);letter-spacing:0.12em}
+    .hd-logo span{color:var(--maple-gold);margin-right:4px}
+    .hd-badge{background:var(--maple-red);color:var(--white);font-size:0.60rem;padding:2px 10px;letter-spacing:0.14em;font-weight:500}
+    .hd-meta{font-size:0.72rem;color:var(--text3);font-family:'Cormorant Garamond',serif;letter-spacing:0.06em}
+    .logout-btn{background:none;border:1px solid var(--border2);color:var(--text2);padding:6px 18px;cursor:pointer;font-size:0.72rem;font-family:'Noto Sans JP',sans-serif;transition:all 0.2s;letter-spacing:0.08em}
     .logout-btn:hover{border-color:var(--maple-red);color:var(--maple-red)}
 
-    main{padding:32px;max-width:1280px;margin:0 auto}
+    main{padding:36px 40px;max-width:1280px;margin:0 auto}
 
-    /* ── STATUS BANNER ── */
-    .status-bar{display:flex;align-items:center;gap:10px;margin-bottom:28px;padding:10px 16px;background:var(--bg2);border:1px solid var(--border)}
-    .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-    .status-txt{font-size:0.74rem;color:var(--text2)}
-    .status-lp{font-size:0.74rem;color:var(--maple-gold);margin-left:auto;font-family:'Cormorant Garamond',serif;letter-spacing:0.08em}
+    /* STATUS */
+    .status-bar{display:flex;align-items:center;gap:10px;margin-bottom:32px;padding:12px 20px;background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow)}
+    .status-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+    .status-txt{font-size:0.78rem;color:var(--text2);letter-spacing:0.04em}
+    .status-lp{font-size:0.78rem;color:var(--maple-gold);margin-left:auto;font-family:'Cormorant Garamond',serif;letter-spacing:0.10em}
 
-    /* ── STAT CARDS ── */
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
-    .stat-card{background:var(--bg2);border:1px solid var(--border);padding:22px 20px;border-top:2px solid var(--maple-red)}
-    .stat-lbl{font-size:0.66rem;color:var(--text2);letter-spacing:0.14em;margin-bottom:10px;text-transform:uppercase}
-    .stat-val{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:500;color:var(--text);line-height:1}
-    .stat-sub{font-size:0.68rem;color:var(--text2);margin-top:6px}
-    .stat-rate{font-size:0.80rem;margin-top:6px}
-    .stat-rate.up{color:var(--green)}.stat-rate.dn{color:var(--red)}
+    /* STATS */
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+    .stat-card{background:var(--white);border:1px solid var(--border);padding:24px 22px;border-top:3px solid var(--maple-red);box-shadow:var(--shadow)}
+    .stat-lbl{font-size:0.70rem;color:var(--text3);letter-spacing:0.16em;margin-bottom:12px;text-transform:uppercase;font-family:'Noto Sans JP',sans-serif;font-weight:400}
+    .stat-val{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:500;color:var(--maple-red);line-height:1}
+    .stat-sub{font-size:0.70rem;color:var(--text3);margin-top:8px;letter-spacing:0.08em}
 
-    /* ── SECTION ── */
-    .section-ttl{font-family:'Shippori Mincho',serif;font-size:0.88rem;font-weight:600;color:var(--text2);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+    /* SECTION TITLE */
+    .section-ttl{font-family:'Shippori Mincho',serif;font-size:0.76rem;font-weight:600;color:var(--text3);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 
-    /* ── LP MONITOR ── */
-    .lp-card{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--maple-red);padding:20px 24px;margin-bottom:12px}
-    .lp-card-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-    .lp-card-label{font-family:'Shippori Mincho',serif;font-size:0.96rem;font-weight:600;color:var(--text)}
-    .lp-card-variant{font-size:0.68rem;color:var(--text2);margin-left:auto}
-    .lp-card-url{font-size:0.70rem;color:var(--maple-gold);text-decoration:none;letter-spacing:0.04em}
+    /* LP CARD */
+    .lp-card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--maple-red);padding:22px 26px;margin-bottom:14px;box-shadow:var(--shadow)}
+    .lp-card-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+    .lp-card-label{font-family:'Shippori Mincho',serif;font-size:1.1rem;font-weight:600;color:var(--text)}
+    .lp-card-variant{font-size:0.68rem;color:var(--text3);margin-left:auto;letter-spacing:0.10em}
+    .lp-card-url{font-size:0.72rem;color:var(--maple-gold);text-decoration:none;letter-spacing:0.04em}
     .lp-card-url:hover{text-decoration:underline}
-    .lp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .lp-metric{background:var(--bg3);padding:12px 14px}
-    .lp-metric-lbl{font-size:0.62rem;color:var(--text2);letter-spacing:0.10em;margin-bottom:5px}
-    .lp-metric-val{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--text)}
+    .lp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .lp-metric{background:var(--bg2);padding:14px 16px;border:1px solid var(--border)}
+    .lp-metric-lbl{font-size:0.66rem;color:var(--text3);letter-spacing:0.12em;margin-bottom:6px;text-transform:uppercase}
+    .lp-metric-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--maple-red)}
 
-    /* ── TREND CHART ── */
-    .chart-wrap{background:var(--bg2);border:1px solid var(--border);padding:24px;margin-bottom:28px}
-    .chart-area{height:180px;display:flex;align-items:flex-end;gap:10px;padding-top:16px}
-    .chart-bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
-    .chart-bars{display:flex;gap:3px;align-items:flex-end;height:140px;width:100%}
-    .chart-bar{flex:1;min-height:2px;border-radius:1px 1px 0 0;transition:height 0.6s ease}
-    .chart-bar.pv{background:rgba(184,96,74,0.55)}
+    /* CHART */
+    .chart-wrap{background:var(--white);border:1px solid var(--border);padding:28px;margin-bottom:32px;box-shadow:var(--shadow)}
+    .chart-area{height:200px;display:flex;align-items:flex-end;gap:12px}
+    .chart-bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+    .chart-bars{display:flex;gap:4px;align-items:flex-end;height:160px;width:100%}
+    .chart-bar{flex:1;min-height:2px;border-radius:2px 2px 0 0;transition:height 0.8s ease}
+    .chart-bar.pv{background:rgba(184,96,74,0.45)}
     .chart-bar.diag{background:rgba(200,164,90,0.55)}
-    .chart-bar.book{background:rgba(63,185,80,0.55)}
-    .chart-label{font-size:0.62rem;color:var(--text2);text-align:center}
-    .chart-legend{display:flex;gap:16px;margin-top:12px}
-    .chart-legend-item{display:flex;align-items:center;gap:6px;font-size:0.68rem;color:var(--text2)}
-    .chart-legend-dot{width:10px;height:10px;border-radius:2px}
+    .chart-bar.book{background:rgba(74,124,89,0.55)}
+    .chart-label{font-size:0.64rem;color:var(--text3);text-align:center;font-family:'Noto Sans JP',sans-serif}
+    .chart-legend{display:flex;gap:20px;margin-top:14px}
+    .chart-legend-item{display:flex;align-items:center;gap:7px;font-size:0.70rem;color:var(--text2)}
+    .chart-legend-dot{width:12px;height:12px;border-radius:2px}
 
-    /* ── ACTIVITY FEED ── */
-    .feed-wrap{background:var(--bg2);border:1px solid var(--border);padding:24px;margin-bottom:28px;max-height:320px;overflow-y:auto}
-    .feed-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
-    .feed-item:last-child{border-bottom:none}
-    .feed-icon{font-size:1.1rem;flex-shrink:0;margin-top:1px}
-    .feed-body{flex:1}
-    .feed-ev{font-size:0.78rem;color:var(--text);font-weight:400}
-    .feed-meta{font-size:0.68rem;color:var(--text2);margin-top:2px}
-    .feed-empty{font-size:0.78rem;color:var(--text2);text-align:center;padding:20px 0}
-
-    /* ── SCORE DIST ── */
-    .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px}
-    .score-card{background:var(--bg2);border:1px solid var(--border);padding:18px 20px;text-align:center}
-    .score-card-lbl{font-size:0.68rem;color:var(--text2);letter-spacing:0.14em;margin-bottom:10px}
-    .score-card-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500}
+    /* SCORE */
+    .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+    .score-card{background:var(--white);border:1px solid var(--border);padding:22px 20px;text-align:center;box-shadow:var(--shadow)}
+    .score-card-lbl{font-size:0.68rem;color:var(--text3);letter-spacing:0.16em;margin-bottom:12px;text-transform:uppercase}
+    .score-card-val{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:500}
     .score-card-val.a{color:var(--green)}.score-card-val.b{color:var(--yellow)}.score-card-val.c{color:var(--red)}
 
-    /* ── NOTICE ── */
-    .notice{background:rgba(200,164,90,0.08);border:1px solid rgba(200,164,90,0.25);padding:14px 18px;font-size:0.76rem;color:var(--maple-gold);line-height:1.9;margin-bottom:20px}
-    .notice strong{font-weight:500}
+    /* FEED */
+    .feed-wrap{background:var(--white);border:1px solid var(--border);padding:24px;margin-bottom:32px;max-height:340px;overflow-y:auto;box-shadow:var(--shadow)}
+    .feed-item{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid var(--border)}
+    .feed-item:last-child{border-bottom:none}
+    .feed-icon{font-size:1.2rem;flex-shrink:0;margin-top:1px}
+    .feed-body{flex:1}
+    .feed-ev{font-size:0.82rem;color:var(--text);font-weight:400;letter-spacing:0.02em}
+    .feed-meta{font-size:0.70rem;color:var(--text3);margin-top:3px;letter-spacing:0.04em}
+    .feed-empty{font-size:0.78rem;color:var(--text3);text-align:center;padding:24px 0;letter-spacing:0.06em}
 
     @media(max-width:768px){
       .stats-grid{grid-template-columns:repeat(2,1fr)}
       .lp-metrics{grid-template-columns:repeat(2,1fr)}
       .score-grid{grid-template-columns:1fr}
-      main{padding:16px}
+      main{padding:20px 16px}
       header{padding:0 16px}
     }
   </style>
@@ -119,7 +119,7 @@
 <!-- LOGIN -->
 <div id="loginWrap">
   <div class="login-box">
-    <div class="login-logo">🍁 salon 楓</div>
+    <div class="login-logo"><span>🍁</span>salon 楓</div>
     <div class="login-sub">管理ダッシュボード</div>
     <label class="login-label">パスワード</label>
     <input type="password" id="pwInput" class="login-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
@@ -132,25 +132,20 @@
 <div id="dashWrap">
   <header>
     <div class="hd-left">
-      <span class="hd-logo">🍁 salon 楓</span>
+      <span class="hd-logo"><span>🍁</span>salon 楓</span>
       <span class="hd-badge">ADMIN</span>
     </div>
-    <span class="hd-meta" id="hdMeta">読み込み中…</span>
+    <span class="hd-meta" id="hdMeta"></span>
     <button class="logout-btn" onclick="doLogout()">ログアウト</button>
   </header>
 
   <main>
-
-    <!-- notice removed -->
-
-    <!-- STATUS -->
     <div class="status-bar">
       <div class="status-dot"></div>
       <span class="status-txt" id="statusTxt">Amplitude に接続中…</span>
       <span class="status-lp">LP: kaede-v1　main.kaedesalon.shop</span>
     </div>
 
-    <!-- STATS -->
     <div class="stats-grid">
       <div class="stat-card">
         <div class="stat-lbl">ページビュー（今月）</div>
@@ -174,11 +169,10 @@
       </div>
     </div>
 
-    <!-- LP MONITOR -->
-    <div class="section-ttl">LP MONITOR</div>
+    <div class="section-ttl" style="margin-top:8px">LP MONITOR</div>
     <div class="lp-card">
       <div class="lp-card-top">
-        <span style="width:3px;height:18px;background:var(--maple-red);display:inline-block;border-radius:2px;flex-shrink:0"></span>
+        <span style="width:4px;height:22px;background:var(--maple-red);display:inline-block;border-radius:2px;flex-shrink:0"></span>
         <span class="lp-card-label">salon楓 メンズ脱毛LP</span>
         <span class="lp-card-variant">v1（稼働中）</span>
         <a href="https://main.kaedesalon.shop" target="_blank" class="lp-card-url">main.kaedesalon.shop ↗</a>
@@ -191,20 +185,16 @@
       </div>
     </div>
 
-    <!-- TREND CHART -->
-    <div class="section-ttl" style="margin-top:28px">週別トレンド（過去5週）</div>
+    <div class="section-ttl" style="margin-top:32px">週別トレンド（過去5週）</div>
     <div class="chart-wrap">
-      <div class="chart-area" id="chartArea">
-        <div class="feed-empty">データ読み込み中…</div>
-      </div>
+      <div class="chart-area" id="chartArea"></div>
       <div class="chart-legend">
-        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(184,96,74,0.55)"></div>PV</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(184,96,74,0.45)"></div>PV</div>
         <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(200,164,90,0.55)"></div>診断</div>
-        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(63,185,80,0.55)"></div>予約</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:rgba(74,124,89,0.55)"></div>予約</div>
       </div>
     </div>
 
-    <!-- SCORE DIST -->
     <div class="section-ttl">スコア分布（全期間）</div>
     <div class="score-grid">
       <div class="score-card"><div class="score-card-lbl">LEVEL A（85点以上）</div><div class="score-card-val a" id="scA">—</div></div>
@@ -212,27 +202,19 @@
       <div class="score-card"><div class="score-card-lbl">LEVEL C（69点以下）</div><div class="score-card-val c" id="scC">—</div></div>
     </div>
 
-    <!-- ACTIVITY FEED -->
     <div class="section-ttl">アクティビティ フィード（過去4時間）</div>
     <div class="feed-wrap" id="feedWrap">
       <div class="feed-empty">読み込み中…</div>
     </div>
-
   </main>
 </div>
 
 <script>
-  // ── 設定 ────────────────────────────────────────────────────
-  const ADMIN_PW      = 'kaede2026'; // Vercel環境変数またはデプロイ時に差し替え
-  const AMP_API_KEY   = '8d3b5be866c4740fa6c83949f85ce25e';
-  const AMP_SECRET    = '4bf124b998adfb06419c5a2f60075af8';
-  const LP_ID         = 'kaede-v1';
-  const LP_URL        = 'https://main.kaedesalon.shop';
+  const ADMIN_PW = 'kaede2026';
+  const LP_ID    = 'kaede-v1';
 
-  // ── AUTH ────────────────────────────────────────────────────
   function doLogin(){
-    const pw = document.getElementById('pwInput').value;
-    if(pw === ADMIN_PW){
+    if(document.getElementById('pwInput').value===ADMIN_PW){
       sessionStorage.setItem('kaede_admin','1');
       document.getElementById('loginWrap').style.display='none';
       document.getElementById('dashWrap').style.display='block';
@@ -247,119 +229,93 @@
     document.getElementById('dashWrap').style.display='block';
   }
 
-  // ── AMPLITUDE API ────────────────────────────────────────────
-  async function ampQuery(body){
+  async function ampFeed(body){
     try{
-      const res = await fetch('/api/amplitude-feed',{
-        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)
-      });
-      if(!res.ok) return null;
-      return await res.json();
+      const r=await fetch('/api/amplitude-feed',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok) return null;
+      return await r.json();
     }catch(e){return null}
   }
 
-  // ── INIT ─────────────────────────────────────────────────────
   async function initDash(){
-    const now = new Date();
-    document.getElementById('hdMeta').textContent = now.toLocaleString('ja-JP');
-    document.getElementById('statusTxt').textContent = 'Amplitude からデータ取得中…';
+    const now=new Date();
+    document.getElementById('hdMeta').textContent=now.toLocaleString('ja-JP');
+    document.getElementById('statusTxt').textContent='Amplitude からデータ取得中…';
 
-    // 今月の範囲
-    const y = now.getFullYear(), m = now.getMonth();
-    const start = new Date(y, m, 1).toISOString().split('T')[0];
-    const end   = now.toISOString().split('T')[0];
+    const y=now.getFullYear(),m=now.getMonth();
+    const start=new Date(y,m,1).toISOString().split('T')[0];
+    const end=now.toISOString().split('T')[0];
 
-    // ── 統計取得（amplitude-feed 経由）──────────────────────────
-    const data = await ampQuery({
-      lp: LP_ID, start, end,
-      events: ['page_view','diagnosis_click','booking_complete']
-    });
+    const data=await ampFeed({lp:LP_ID,start,end,events:['page_view','diagnosis_click','booking_complete']});
 
-    if(data && data.counts){
-      const pv   = data.counts.page_view         || 0;
-      const diag = data.counts.diagnosis_click   || 0;
-      const book = data.counts.booking_complete  || 0;
-      const rate = pv > 0 ? (diag/pv*100).toFixed(1)+'%' : '—';
+    if(data&&data.counts){
+      const pv=data.counts.page_view||0;
+      const diag=data.counts.diagnosis_click||0;
+      const book=data.counts.booking_complete||0;
+      const rate=pv>0?(diag/pv*100).toFixed(1)+'%':'—';
 
-      document.getElementById('sPV').textContent   = pv.toLocaleString();
-      document.getElementById('sDiag').textContent = diag.toLocaleString();
-      document.getElementById('sBook').textContent = book.toLocaleString();
-      document.getElementById('sRate').textContent = rate;
-      document.getElementById('lpPV').textContent   = pv.toLocaleString();
-      document.getElementById('lpDiag').textContent = diag.toLocaleString();
-      document.getElementById('lpBook').textContent = book.toLocaleString();
-      document.getElementById('lpConv').textContent = diag > 0 ? (book/diag*100).toFixed(1)+'%' : '—';
-
-      document.getElementById('statusTxt').textContent = 'Amplitude 接続済み — データ取得完了';
+      document.getElementById('sPV').textContent=pv.toLocaleString();
+      document.getElementById('sDiag').textContent=diag.toLocaleString();
+      document.getElementById('sBook').textContent=book.toLocaleString();
+      document.getElementById('sRate').textContent=rate;
+      document.getElementById('lpPV').textContent=pv.toLocaleString();
+      document.getElementById('lpDiag').textContent=diag.toLocaleString();
+      document.getElementById('lpBook').textContent=book.toLocaleString();
+      document.getElementById('lpConv').textContent=diag>0?(book/diag*100).toFixed(1)+'%':'—';
+      document.getElementById('statusTxt').textContent='Amplitude 接続済み — データ取得完了';
     }else{
-      document.getElementById('statusTxt').textContent = 'Amplitude 接続待機中 — APIキー設定後に有効化されます';
-      ['sPV','sDiag','sBook','sRate','lpPV','lpDiag','lpBook','lpConv'].forEach(id=>{
-        document.getElementById(id).textContent = '—';
-      });
+      document.getElementById('statusTxt').textContent='Amplitude 接続待機中';
     }
 
-    // ── スコア分布（amplitude-feed 経由）────────────────────────
-    const scoreData = await ampQuery({lp:LP_ID, query:'score_distribution'});
-    if(scoreData && scoreData.distribution){
-      document.getElementById('scA').textContent = (scoreData.distribution.A || 0) + '件';
-      document.getElementById('scB').textContent = (scoreData.distribution.B || 0) + '件';
-      document.getElementById('scC').textContent = (scoreData.distribution.C || 0) + '件';
-    }else{
-      ['scA','scB','scC'].forEach(id=>document.getElementById(id).textContent='—');
+    const sd=await ampFeed({lp:LP_ID,query:'score_distribution'});
+    if(sd&&sd.distribution){
+      document.getElementById('scA').textContent=(sd.distribution.A||0)+'件';
+      document.getElementById('scB').textContent=(sd.distribution.B||0)+'件';
+      document.getElementById('scC').textContent=(sd.distribution.C||0)+'件';
     }
 
-    // ── 週別トレンド（ダミー表示 / API連携後に差し替え）──────────
-    renderDummyChart();
+    renderChart();
 
-    // ── Activity Feed ──────────────────────────────────────────
-    const feed = await ampQuery({lp:LP_ID, query:'activity_feed', hours:4, limit:20});
-    renderFeed(feed ? feed.events : null);
+    const feed=await ampFeed({lp:LP_ID,query:'activity_feed',hours:4,limit:20});
+    renderFeed(feed?feed.events:null);
   }
 
-  function renderDummyChart(){
-    const area = document.getElementById('chartArea');
-    const weeks = ['4週前','3週前','2週前','先週','今週'];
-    const max = 100;
-    area.innerHTML = '';
+  function renderChart(){
+    const area=document.getElementById('chartArea');
+    const weeks=['4週前','3週前','2週前','先週','今週'];
+    area.innerHTML='';
     weeks.forEach(w=>{
-      const grp = document.createElement('div');grp.className='chart-bar-group';
-      const bars = document.createElement('div');bars.className='chart-bars';
-      const pv  = document.createElement('div');pv.className='chart-bar pv';pv.style.height='2px';pv.title='PV';
-      const dg  = document.createElement('div');dg.className='chart-bar diag';dg.style.height='2px';dg.title='診断';
-      const bk  = document.createElement('div');bk.className='chart-bar book';bk.style.height='2px';bk.title='予約';
-      bars.appendChild(pv);bars.appendChild(dg);bars.appendChild(bk);
-      const lbl = document.createElement('div');lbl.className='chart-label';lbl.textContent=w;
+      const grp=document.createElement('div');grp.className='chart-bar-group';
+      const bars=document.createElement('div');bars.className='chart-bars';
+      ['pv','diag','book'].forEach(cls=>{
+        const b=document.createElement('div');b.className='chart-bar '+cls;b.style.height='2px';bars.appendChild(b);
+      });
+      const lbl=document.createElement('div');lbl.className='chart-label';lbl.textContent=w;
       grp.appendChild(bars);grp.appendChild(lbl);area.appendChild(grp);
     });
   }
 
-  const FEED_ICONS = {
-    page_view:'👁',diagnosis_click:'🔬',booking_complete:'✅'
-  };
-  const FEED_LABELS = {
-    page_view:'ページビュー',diagnosis_click:'AI診断 開始',booking_complete:'予約完了'
-  };
+  const FEED_ICONS={page_view:'👁',diagnosis_click:'🔬',booking_complete:'✅'};
+  const FEED_LABELS={page_view:'ページビュー',diagnosis_click:'AI診断 開始',booking_complete:'予約完了'};
 
   function renderFeed(events){
-    const wrap = document.getElementById('feedWrap');
-    if(!events || events.length===0){
-      wrap.innerHTML='<div class="feed-empty">過去4時間のアクティビティはありません</div>';return;
-    }
+    const wrap=document.getElementById('feedWrap');
+    if(!events||events.length===0){wrap.innerHTML='<div class="feed-empty">過去4時間のアクティビティはありません</div>';return;}
     wrap.innerHTML='';
     events.forEach(ev=>{
       const item=document.createElement('div');item.className='feed-item';
       item.innerHTML=`<span class="feed-icon">${FEED_ICONS[ev.event]||'📌'}</span>
         <div class="feed-body">
           <div class="feed-ev">${FEED_LABELS[ev.event]||ev.event}</div>
-          <div class="feed-meta">${ev.time||''} &nbsp;·&nbsp; LP: ${ev.lp||LP_ID}</div>
+          <div class="feed-meta">${ev.time||''} &nbsp;·&nbsp; ${ev.lp||LP_ID}</div>
         </div>`;
       wrap.appendChild(item);
     });
   }
 
-  // ── 自動更新（30分ごと）────────────────────────────────────
   if(sessionStorage.getItem('kaede_admin')==='1'){
-    setInterval(initDash, 30*60*1000);
+    initDash();
+    setInterval(initDash,30*60*1000);
   }
 </script>
 </body>
