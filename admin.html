@@ -69,6 +69,10 @@
     .lp-card-variant{font-size:0.68rem;color:var(--text3);margin-left:auto;letter-spacing:0.10em}
     .lp-card-url{font-size:0.72rem;color:var(--maple-gold);text-decoration:none;letter-spacing:0.04em}
     .lp-card-url:hover{text-decoration:underline}
+    .lp-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+    .lp-tab{padding:7px 18px;border:1px solid var(--border);background:none;color:var(--muted);font-family:var(--font);font-size:12px;letter-spacing:.08em;cursor:pointer;border-radius:2px;transition:all .2s}
+    .lp-tab.active{background:var(--maple-red);border-color:var(--maple-red);color:#fff}
+    .lp-tab:hover:not(.active){border-color:var(--maple-red);color:var(--maple-red)}
     .lp-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
     .lp-metric{background:var(--bg2);padding:14px 16px;border:1px solid var(--border)}
     .lp-metric-lbl{font-size:0.66rem;color:var(--text3);letter-spacing:0.12em;margin-bottom:6px;text-transform:uppercase}
@@ -143,7 +147,7 @@
     <div class="status-bar">
       <div class="status-dot"></div>
       <span class="status-txt" id="statusTxt">Amplitude に接続中…</span>
-      <span class="status-lp">LP: kaede-v1　main.kaedesalon.shop</span>
+      <span class="status-lp" id="statusLp">LP: kaede-v1　main.kaedesalon.shop</span>
     </div>
 
     <div class="stats-grid">
@@ -170,12 +174,16 @@
     </div>
 
     <div class="section-ttl" style="margin-top:8px">LP MONITOR</div>
-    <div class="lp-card">
+    <div class="lp-tabs">
+      <button class="lp-tab active" onclick="switchLP('kaede-v1')" id="tab-kaede-v1">第一弾 kaede-v1</button>
+      <button class="lp-tab" onclick="switchLP('kaede-v2')" id="tab-kaede-v2">第二弾 kaede-v2</button>
+    </div>
+    <div class="lp-card" id="lpCard">
       <div class="lp-card-top">
         <span style="width:4px;height:22px;background:var(--maple-red);display:inline-block;border-radius:2px;flex-shrink:0"></span>
-        <span class="lp-card-label">salon楓 メンズ脱毛LP</span>
-        <span class="lp-card-variant">v1（稼働中）</span>
-        <a href="https://main.kaedesalon.shop" target="_blank" class="lp-card-url">main.kaedesalon.shop ↗</a>
+        <span class="lp-card-label" id="lpCardLabel">salon楓 メンズ脱毛LP</span>
+        <span class="lp-card-variant" id="lpCardVariant">v1（稼働中）</span>
+        <a href="https://main.kaedesalon.shop" target="_blank" class="lp-card-url" id="lpCardUrl">main.kaedesalon.shop ↗</a>
       </div>
       <div class="lp-metrics">
         <div class="lp-metric"><div class="lp-metric-lbl">PV（今月）</div><div class="lp-metric-val" id="lpPV">—</div></div>
@@ -211,7 +219,46 @@
 
 <script>
   const ADMIN_PW = 'kaede2026';
-  const LP_ID    = 'kaede-v1';
+
+  const LP_LIST = {
+    'kaede-v1': {
+      id: 'kaede-v1',
+      label: 'salon楓 メンズ脱毛LP',
+      variant: 'v1（稼働中）',
+      url: 'https://main.kaedesalon.shop',
+      urlLabel: 'main.kaedesalon.shop ↗',
+      status: 'live'
+    },
+    'kaede-v2': {
+      id: 'kaede-v2',
+      label: 'salon楓 第二弾LP',
+      variant: 'v2（稼働中）',
+      url: 'https://kaede-lp1.vercel.app',
+      urlLabel: 'kaede-lp1.vercel.app ↗',
+      status: 'live'
+    }
+  };
+
+  let LP_ID = 'kaede-v1';
+
+  function switchLP(id) {
+    LP_ID = id;
+    // タブ切替
+    Object.keys(LP_LIST).forEach(k => {
+      const tab = document.getElementById('tab-' + k);
+      if (tab) tab.classList.toggle('active', k === id);
+    });
+    // LP情報更新
+    const lp = LP_LIST[id];
+    document.getElementById('lpCardLabel').textContent = lp.label;
+    document.getElementById('lpCardVariant').textContent = lp.variant;
+    const urlEl = document.getElementById('lpCardUrl');
+    urlEl.textContent = lp.urlLabel;
+    urlEl.href = lp.url;
+    document.getElementById('statusLp').textContent = 'LP: ' + id + '　' + lp.url.replace('https://','');
+    // データ再取得
+    initDash();
+  }
 
   function doLogin(){
     if(document.getElementById('pwInput').value===ADMIN_PW){
