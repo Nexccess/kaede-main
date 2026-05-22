@@ -1,95 +1,100 @@
-// api/diagnose.js
-// salon楓 AI診断 / Gemini 2.5 Flash Lite
-// ============================================================
+// api/diagnose.js — Path-Flow v3.2 | kaede salon
+// Gemini 3-model fallback: flash-lite → 1.5-flash → 1.5-flash-8b
 
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL   = 'gemini-2.5-flash-lite';
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin',  '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST')   return res.status(405).json({ error: 'Method Not Allowed' });
+const MODELS = [
+  'gemini-2.5-flash-lite',
+  'gemini-1.5-flash',
+  'gemini-1.5-flash-8b'
+];
 
-  try {
-    const { answers = [] } = req.body;
-
-    const QUESTIONS = [
-      '最も気になる部位はどこですか？',
-      '脱毛のご経験を教えてください',
-      'ご希望の施術スタイルは？',
-      'お肌や痛みのお悩みはありますか？',
-      'ご来店しやすい時間帯は？',
-    ];
-
-    const answersText = QUESTIONS
-      .map((q, i) => `Q${i + 1}. ${q}\n→ ${answers[i] || '未回答'}`)
-      .join('\n');
-
-    const prompt = `
-あなたはsalon楓（東京・東浅草）のメンズ脱毛サロンのAIカウンセラーです。
-以下の診断回答をもとに、最適なメニューを提案してください。
-
-【salon楓 メニュー一覧（税込）】
-- Sパーツ単品（5分）: ¥700　鼻下・あご・唇下・ほほ・首・眉上・手足の指 など
-- Mパーツ単品（10分）: ¥1,400　わき・鎖骨・肩・うなじ・Vライン上 など
-- MLパーツ単品（20分）: ¥2,800　ヒジ上下・胸・腹
-- Lパーツ単品（30分）: ¥4,200　背中上下・おしり・VIO各ライン
-- LLパーツ単品（35分）: ¥4,900　太もも・ヒザ下
-- 顔のみコース（25分）: ¥3,000
+const MENU_LIST = `
+【kaede 楓 salon メンズ脱毛メニュー（税込・都度払い）】
+- Sパーツ（鼻下・あご・顎下・首など）: ¥700〜/部位
+- Mパーツ（わき・うなじ・Vライン上など）: ¥1,400/部位
+- MLパーツ（胸・腹・ヒジ上下など）: ¥2,800/部位
+- Lパーツ（背中・おしり・VIOなど）: ¥4,200/部位
+- 全身脱毛（VIOなし・120分）: ¥11,000（人気No.1）
+- 顔のみ（25分）: ¥3,000
 - VIO（25分）: ¥4,000
-- 40分 freeコース（初回限定）: ¥5,000（通常¥6,000）
-- 60分 freeコース: ¥10,000（初回¥8,000）
-- 全身脱毛コース（120分）: ¥11,000　※顔含む、VIO・二の腕・背中除く
-
-【診断回答】
-${answersText}
-
-【出力形式】必ずJSON形式のみで返してください。前置き・コメント・マークダウン不要。
-
-{
-  "message": "お客様への一言コメント（2文程度・親しみやすく）",
-  "recommended_menu": "メニュー名",
-  "recommended_price": "¥XXXX（XX分）",
-  "reason": "このメニューをおすすめする理由（2〜3文）",
-  "score": 数値（50〜100）,
-  "level": "A" または "B" または "C"
-}
-
-scoreとlevelの基準:
-- A（85以上）: 全身・freeコース等、まとまった施術意欲が高い
-- B（70〜84）: 特定部位・中程度の意欲
-- C（69以下）: お試し・1部位のみ
+- 脱毛freeコース30分: 時間内好きな部位を何パーツでも
+- 脱毛freeコース60分: 時間内好きな部位を何パーツでも
 `;
 
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+const SYSTEM_PROMPT = `あなたはメンズ脱毛サロン「kaede 楓 salon」のAI診断アシスタントです。
+ユーザーの5つの回答を分析し、最適なメニューをJSON形式で返してください。
 
-    const geminiRes = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.4,
-          maxOutputTokens: 512,
-        },
-      }),
-    });
+${MENU_LIST}
 
-    if (!geminiRes.ok) throw new Error(`Gemini API error: ${geminiRes.status}`);
+レスポンスは必ず以下のJSON形式のみ（前後のテキスト・コードブロック不要）：
+{
+  "recommended_menu": "メニュー名",
+  "price": "料金表記（例: ¥11,000/回）",
+  "score": 数値(0-100),
+  "level": "A" or "B" or "C",
+  "reason": "推奨理由（2〜3文、100文字以内）"
+}
 
-    const geminiData = await geminiRes.json();
-    const rawText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text || '';
+levelの基準: A=スコア85以上（最優先で取り組むべき）, B=75以上（効果が高い）, C=74以下（まず試すのに最適）`;
 
-    // JSON抽出（マークダウン除去）
-    const cleaned = rawText.replace(/```json|```/g, '').trim();
-    const result  = JSON.parse(cleaned);
-
-    return res.status(200).json(result);
-
-  } catch (err) {
-    console.error('[diagnose]', err);
-    return res.status(500).json({ error: err.message });
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  const { answers } = req.body || {};
+  if (!answers || !Array.isArray(answers)) {
+    return res.status(400).json({ error: 'Invalid payload' });
+  }
+
+  const userPrompt = `以下のユーザー回答を分析してください：\n${answers.map((a, i) => `Q${i+1}: ${a}`).join('\n')}`;
+
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(200).json(getFallback(answers));
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+
+  for (const modelName of MODELS) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        systemInstruction: SYSTEM_PROMPT
+      });
+      const result = await model.generateContent(userPrompt);
+      const text = result.response.text().replace(/```json|```/g, '').trim();
+      const data = JSON.parse(text);
+
+      // Validate required fields
+      if (!data.recommended_menu || !data.score || !data.level) throw new Error('Invalid response shape');
+
+      return res.status(200).json(data);
+    } catch (err) {
+      const is503 = err.message && (err.message.includes('503') || err.message.includes('overloaded'));
+      if (!is503 && modelName !== MODELS[MODELS.length - 1]) {
+        // Non-503 error on non-final model: still try next
+      }
+      // Continue to next model
+    }
+  }
+
+  // All models failed: rule-based fallback
+  return res.status(200).json(getFallback(answers));
 };
+
+function getFallback(answers) {
+  const part = answers[0] || '';
+  if (part.includes('全身')) {
+    return { recommended_menu: '全身脱毛（VIOなし）', price: '¥11,000/回', score: 88, level: 'A', reason: '全身をまとめてケアしたい方に最適です。120分・人気No.1メニュー。都度払いなのでコース不要でお試しいただけます。' };
+  } else if (part.includes('VIO')) {
+    return { recommended_menu: 'VIO脱毛', price: '¥4,000/回', score: 80, level: 'B', reason: 'VIOは繊細なケアが必要な部位です。熟練スタッフが丁寧に対応いたします。都度払いで気軽にスタートできます。' };
+  } else if (part.includes('ひげ') || part.includes('顔')) {
+    return { recommended_menu: '顔のみ（鼻下・あご・顎下）', price: '¥700〜/部位', score: 75, level: 'B', reason: 'ひげ脱毛はSパーツ単位で部位を選べます。まずは気になる部位だけお試しください。' };
+  } else if (part.includes('脇') || part.includes('腕')) {
+    return { recommended_menu: 'Mパーツ（わき・腕）', price: '¥1,400/部位', score: 74, level: 'C', reason: '清潔感を求める方に人気の部位です。都度払いで負担なく始められます。' };
+  } else {
+    return { recommended_menu: 'MLパーツ（胸・腹・背中）', price: '¥2,800/部位', score: 76, level: 'B', reason: '体幹部のケアをご希望の方に最適です。施術時間の目安は部位ごとに約15〜25分です。' };
+  }
+}
