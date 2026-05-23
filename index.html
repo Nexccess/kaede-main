@@ -40,7 +40,8 @@
     /* HERO */
     #hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding-top:72px}
     .hero-img{position:absolute;inset:0;background:url('hero-bg.png') center/cover no-repeat}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(250,246,239,0.97) 0%,rgba(250,246,239,0.88) 50%,rgba(250,246,239,0.25) 100%)}
+    .hero-face{position:absolute;inset:0;background:url('hero-face.png') right center/cover no-repeat;opacity:0.18;mix-blend-mode:multiply}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(110deg,rgba(250,246,239,0.97) 0%,rgba(250,246,239,0.88) 50%,rgba(250,246,239,0.10) 100%)}
     .hero-content{position:relative;z-index:2;padding:80px 24px;padding-left:max(24px,calc(50vw - 540px + 24px));max-width:calc(max(24px,calc(50vw - 540px + 24px)) + 600px)}
     .hero-eyebrow{font-family:'Cormorant Garamond',serif;font-size:0.85rem;font-style:italic;letter-spacing:0.22em;color:var(--maple-warm);margin-bottom:18px;display:flex;align-items:center;gap:12px}
     .hero-eyebrow::before{content:'';display:inline-block;width:32px;height:1px;background:var(--maple-warm)}
@@ -269,6 +270,7 @@
       .mob-nav{display:flex}
       body{padding-bottom:68px}
       /* ヒーローテキスト強化 */
+      .hero-face{opacity:0.12!important;background-position:right top!important}
       .hero-overlay{background:linear-gradient(160deg,rgba(250,246,239,0.98) 0%,rgba(250,246,239,0.94) 60%,rgba(250,246,239,0.55) 100%)!important}
       .hero-content{padding:40px 20px 32px!important}
       .hero-title{font-size:clamp(2rem,7vw,2.6rem)!important;font-weight:700!important;color:#1a1008!important;text-shadow:0 1px 3px rgba(255,255,255,0.6)}
@@ -360,6 +362,7 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-img"></div>
+  <div class="hero-face"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content fade-in">
     <p class="hero-eyebrow">kaede 楓 salon — MEN'S 脱毛</p>
@@ -1136,7 +1139,8 @@
     const r=diagState.resultData||{};
     const now=new Date().toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'});
     const answersStr=Array.isArray(diagState.answers)?diagState.answers.join(' / '):'';
-    const payload={lp:LP_ID,name,phone,email,date,date2,recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:diagState.answers};
+    // payloadはAPI用: date=ハイフン形式、answers=文字列
+    const payload={lp:LP_ID,name,phone,email,date:dateRaw+' '+time,date2:date2Raw||'',recommended_menu:r.recommended_menu||'',score:r.score||75,level:r.level||'B',answers:answersStr};
 
     // EmailJS
     try{
