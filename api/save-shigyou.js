@@ -1,51 +1,17 @@
-// api/save-shigyou.js — Path-Flow v3.3 | kaede salon（全LP共通）
-// 対象LP: kaede-v1 / kaede-v2 / kaede-lp2
-// Email: EmailJS REST API（Resendから移行）
-// 統合: SS書込み → Googleカレンダー登録 → EmailJS通知（全3ステップ独立実行）
+// api/save-shigyou.js — Path-Flow v3.4 | kaede salon（全LP共通）
+// Email: Nodemailer + Gmail App Password（EmailJSから移行）
+// 統合: SS書込み → Googleカレンダー登録 → Gmail通知
 
 const { google } = require('googleapis');
+const nodemailer = require('nodemailer');
 
 // ── クライアント固有設定 ──────────────────────────────
 const SHEET_NAME     = 'AI診断結果';
 const NOTIFY_EMAIL   = process.env.OWNER_EMAIL  || 'info.kaedesalon@gmail.com';
+const GMAIL_USER     = process.env.GMAIL_USER   || 'info.kaedesalon@gmail.com';
 const CALENDAR_ID    = process.env.CALENDAR_ID  || 'info.kaedesalon@gmail.com';
 const SPREADSHEET_ID = process.env.SHIGYOU_SPREADSHEET_ID;
 // ─────────────────────────────────────────────────────
-
-// EmailJS REST API helper
-async function sendViaEmailJS(params) {
-  const serviceId  = process.env.EMAILJS_SERVICE_ID;
-  const templateId = process.env.EMAILJS_TEMPLATE_ID;
-  const publicKey  = process.env.EMAILJS_PUBLIC_KEY;
-  const privateKey = process.env.EMAILJS_PRIVATE_KEY;  // Server-side requires private key
-
-  if (!serviceId || !templateId || !publicKey) {
-    throw new Error('EMAILJS_SERVICE_ID / TEMPLATE_ID / PUBLIC_KEY not set');
-  }
-
-  const body = {
-    service_id: serviceId,
-    template_id: templateId,
-    user_id: publicKey,
-    accessToken: privateKey || undefined,
-    template_params: params
-  };
-
-  const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-      // origin ヘッダーを送らない: サーバーサイドはaccessToken認証
-    },
-    body: JSON.stringify(body)
-  });
-
-  if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`EmailJS ${res.status}: ${text.slice(0, 120)}`);
-  }
-  return true;
-}
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -72,7 +38,7 @@ module.exports = async (req, res) => {
       ]
     });
   } catch (e) {
-    console.error('[save-shigyou] Auth parse error:', e.message);
+    console.error('[save-shigyou] Auth error:', e.message);
     return res.status(500).json({ error: 'Auth failed' });
   }
 
@@ -126,7 +92,7 @@ module.exports = async (req, res) => {
     const calendar = google.calendar({ version: 'v3', auth });
     const dateStr = (date || '').split(' ')[0];
     if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
-      throw new Error('Invalid date format: ' + dateStr);
+      throw new Error('Invalid date: ' + dateStr);
     }
     await calendar.events.insert({
       calendarId: CALENDAR_ID,
@@ -152,42 +118,45 @@ module.exports = async (req, res) => {
     log.push('cal:fail:' + e.message.slice(0, 80));
   }
 
-  // ── 3. EmailJS ────────────────────────────────────────
+  // ── 3. Gmail（Nodemailer）────────────────────────────
   try {
-    const message = [
-      `受付: ${now}`,
-      `LP: ${lp || '—'}`,
-      `お名前: ${name}`,
-      `電話: ${phone}`,
-      `メール: ${email}`,
-      `第1希望: ${date}`,
-      `第2希望: ${date2 || 'なし'}`,
-      `推奨メニュー: ${recommended_menu || '—'}`,
-      `スコア/レベル: ${score || '—'} / ${level || '—'}`,
-      `診断回答: ${answers || '—'}`
-    ].join('\n');
+    const appPassword = process.env.GMAIL_APP_PASSWORD;
+    if (!appPassword) throw new Error('GMAIL_APP_PASSWORD not set');
 
-    await sendViaEmailJS({
-      to_email:         NOTIFY_EMAIL,
-      reply_to:         email,
-      lp_id:            lp || '—',
-      customer_name:    name,
-      customer_phone:   phone,
-      customer_email:   email,
-      booking_date:     date,
-      booking_date2:    date2 || 'なし',
-      recommended_menu: recommended_menu || '—',
-      score:            String(score || '—'),
-      level:            level || '—',
-      answers:          answers || '—',
-      sent_at:          now,
-      message:          message
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: GMAIL_USER,
+        pass: appPassword
+      }
+    });
+
+    await transporter.sendMail({
+      from: `"kaede salon 予約システム" <${GMAIL_USER}>`,
+      to: NOTIFY_EMAIL,
+      replyTo: email,
+      subject: `【kaede salon 仮予約】${name} 様`,
+      text: [
+        '【kaede 楓 salon — 新規仮予約通知】',
+        `受付日時      : ${now}`,
+        `LP ID         : ${lp || '—'}`,
+        `お名前        : ${name}`,
+        `携帯電話      : ${phone}`,
+        `メールアドレス: ${email}`,
+        `第1希望日時   : ${date}`,
+        `第2希望日時   : ${date2 || 'なし'}`,
+        `推奨メニュー  : ${recommended_menu || '—'}`,
+        `スコア / レベル: ${score || '—'} / ${level || '—'}`,
+        `診断回答      : ${answers || '—'}`,
+        '',
+        '---',
+        'このメールはPath-Flowシステムから自動送信されています。'
+      ].join('\n')
     });
     log.push('email:ok');
   } catch (e) {
-    console.error('[save-shigyou] EmailJS error:', e.message);
+    console.error('[save-shigyou] Gmail error:', e.message);
     log.push('email:fail:' + e.message.slice(0, 80));
-    // 非致命的: SSが成功していれば200を返す
   }
 
   const ssFailed = log.some(l => l.startsWith('ss:fail'));
