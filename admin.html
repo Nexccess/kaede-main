@@ -305,27 +305,35 @@
     const start=new Date(y,m,1).toISOString().split('T')[0];
     const end=now.toISOString().split('T')[0];
 
-    const data=await ampFeed({lp:LP_ID,start,end,events:['page_view','diagnosis_click','booking_complete']});
-
-    if(data&&data.counts){
-      const pv=data.counts.page_view||0;
-      const diag=data.counts.diagnosis_click||0;
-      const book=data.counts.booking_complete||0;
+    // ── 上段: 全LP合算（ALL）
+    const allData=await ampFeed({lp:'ALL',start,end,events:['page_view','diagnosis_click','booking_complete']});
+    if(allData&&allData.counts){
+      const pv=allData.counts.page_view||0;
+      const diag=allData.counts.diagnosis_click||0;
+      const book=allData.counts.booking_complete||0;
       const rate=pv>0?(diag/pv*100).toFixed(1)+'%':'—';
-
       document.getElementById('sPV').textContent=pv.toLocaleString();
       document.getElementById('sDiag').textContent=diag.toLocaleString();
       document.getElementById('sBook').textContent=book.toLocaleString();
       document.getElementById('sRate').textContent=rate;
-      document.getElementById('lpPV').textContent=pv.toLocaleString();
-      document.getElementById('lpDiag').textContent=diag.toLocaleString();
-      document.getElementById('lpBook').textContent=book.toLocaleString();
-      document.getElementById('lpConv').textContent=diag>0?(book/diag*100).toFixed(1)+'%':'—';
       document.getElementById('statusTxt').textContent='Amplitude 接続済み — データ取得完了';
     }else{
       document.getElementById('statusTxt').textContent='Amplitude 接続待機中';
     }
 
+    // ── LP個別（タブ選択中のLP）
+    const lpData=await ampFeed({lp:LP_ID,start,end,events:['page_view','diagnosis_click','booking_complete']});
+    if(lpData&&lpData.counts){
+      const pv=lpData.counts.page_view||0;
+      const diag=lpData.counts.diagnosis_click||0;
+      const book=lpData.counts.booking_complete||0;
+      document.getElementById('lpPV').textContent=pv.toLocaleString();
+      document.getElementById('lpDiag').textContent=diag.toLocaleString();
+      document.getElementById('lpBook').textContent=book.toLocaleString();
+      document.getElementById('lpConv').textContent=diag>0?(book/diag*100).toFixed(1)+'%':'—';
+    }
+
+    // ── スコア分布（選択LP）
     const sd=await ampFeed({lp:LP_ID,query:'score_distribution'});
     if(sd&&sd.distribution){
       document.getElementById('scA').textContent=(sd.distribution.A||0)+'件';
@@ -333,23 +341,37 @@
       document.getElementById('scC').textContent=(sd.distribution.C||0)+'件';
     }
 
-    renderChart();
+    // ── 週別トレンド（選択LP）
+    const trendData=await ampFeed({lp:LP_ID,query:'weekly_trend'});
+    renderChart(trendData?trendData.trend:null);
 
+    // ── アクティビティフィード（選択LP）
     const feed=await ampFeed({lp:LP_ID,query:'activity_feed',hours:4,limit:20});
     renderFeed(feed?feed.events:null);
   }
 
-  function renderChart(){
+  function renderChart(trend){
     const area=document.getElementById('chartArea');
-    const weeks=['4週前','3週前','2週前','先週','今週'];
     area.innerHTML='';
+    const weeks=trend&&trend.length===5?trend:[
+      {label:'4週前',counts:{}},{label:'3週前',counts:{}},{label:'2週前',counts:{}},
+      {label:'先週',counts:{}},{label:'今週',counts:{}}
+    ];
+    const maxPV=Math.max(...weeks.map(w=>w.counts.page_view||0),1);
+    const CHART_H=160;
     weeks.forEach(w=>{
       const grp=document.createElement('div');grp.className='chart-bar-group';
       const bars=document.createElement('div');bars.className='chart-bars';
-      ['pv','diag','book'].forEach(cls=>{
-        const b=document.createElement('div');b.className='chart-bar '+cls;b.style.height='2px';bars.appendChild(b);
+      const pv=w.counts.page_view||0;
+      const diag=w.counts.diagnosis_click||0;
+      const book=w.counts.booking_complete||0;
+      [{cls:'pv',val:pv},{cls:'diag',val:diag},{cls:'book',val:book}].forEach(({cls,val})=>{
+        const b=document.createElement('div');b.className='chart-bar '+cls;
+        b.style.height=Math.max(2,Math.round(val/maxPV*CHART_H))+'px';
+        b.title=cls+': '+val;
+        bars.appendChild(b);
       });
-      const lbl=document.createElement('div');lbl.className='chart-label';lbl.textContent=w;
+      const lbl=document.createElement('div');lbl.className='chart-label';lbl.textContent=w.label;
       grp.appendChild(bars);grp.appendChild(lbl);area.appendChild(grp);
     });
   }
