@@ -154,6 +154,19 @@ module.exports = async (req, res) => {
 
   // ── 3. EmailJS ────────────────────────────────────────
   try {
+    const message = [
+      `受付: ${now}`,
+      `LP: ${lp || '—'}`,
+      `お名前: ${name}`,
+      `電話: ${phone}`,
+      `メール: ${email}`,
+      `第1希望: ${date}`,
+      `第2希望: ${date2 || 'なし'}`,
+      `推奨メニュー: ${recommended_menu || '—'}`,
+      `スコア/レベル: ${score || '—'} / ${level || '—'}`,
+      `診断回答: ${answers || '—'}`
+    ].join('\n');
+
     await sendViaEmailJS({
       to_email:         NOTIFY_EMAIL,
       reply_to:         email,
@@ -167,7 +180,8 @@ module.exports = async (req, res) => {
       score:            String(score || '—'),
       level:            level || '—',
       answers:          answers || '—',
-      sent_at:          now
+      sent_at:          now,
+      message:          message
     });
     log.push('email:ok');
   } catch (e) {
