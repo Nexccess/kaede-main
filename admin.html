@@ -221,10 +221,13 @@
 <script>
   const ADMIN_PW = 'kaede2026';
 
+  // LP_ID は各サイトの index.html 内 LP_ID 定数と一致させること
+  // mainlp1: index=kaede-v2 / Amplitude旧データ=kaede-v1（移行前）
+  // mainlp2: index=kaede-lp2 ✓
   const LP_LIST = {
     'kaede-v1': {
       id: 'kaede-v1',
-      label: 'salon楓 メンズ脱毛LP',
+      label: 'salon楓 メンズ脱毛 Main',
       variant: 'v1（稼働中）',
       url: 'https://main.kaedesalon.shop',
       urlLabel: 'main.kaedesalon.shop ↗',
@@ -232,7 +235,7 @@
     },
     'kaede-v2': {
       id: 'kaede-v2',
-      label: 'salon楓 LP1',
+      label: 'salon楓 mainlp1',
       variant: 'v2（稼働中）',
       url: 'https://mainlp1.kaedesalon.shop',
       urlLabel: 'mainlp1.kaedesalon.shop ↗',
@@ -242,8 +245,8 @@
       id: 'kaede-lp2',
       label: 'salon楓 LP2（Path-Flow）',
       variant: 'v3.2（稼働中）',
-      url: 'https://lp2.kaedesalon.shop',
-      urlLabel: 'lp2.kaedesalon.shop ↗',
+      url: 'https://mainlp2.kaedesalon.shop',
+      urlLabel: 'mainlp2.kaedesalon.shop ↗',
       status: 'live'
     }
   };
