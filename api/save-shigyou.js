@@ -34,8 +34,8 @@ async function sendViaEmailJS(params) {
   const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'origin': 'https://main.kaedesalon.shop'
+      'Content-Type': 'application/json'
+      // origin ヘッダーを送らない: サーバーサイドはaccessToken認証
     },
     body: JSON.stringify(body)
   });
