@@ -3,1106 +3,846 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>楓グループ ｜ 運営元サイト</title>
-<meta name="description" content="民泊・メンズ美容サロンを手がける、地域密着型ホスピタリティ事業者。誰もが「ホッ」とできる場所づくりを続けています。">
-<meta property="og:title" content="楓グループ ｜ 運営元サイト">
-<meta property="og:description" content="街に、人に、寄り添う場所を。私たちの手がける、日常の心地よさ。">
-<meta property="og:type" content="website">
+<title>AI メンズ脱毛診断 | kaede 楓 salon</title>
+<meta name="description" content="5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。東京浅草・都度払いのメンズ脱毛サロン。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.amplitude.com/libs/analytics-browser-2.11.1-min.js.gz"></script>
 <style>
-/* ─── CSS Variables ─────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --green-deep:#2d5a27;
-  --green-mid:#4a8c3f;
-  --green-light:#7aba6e;
-  --green-pale:#e8f5e5;
-  --green-bg:#f4faf2;
-  --wood:#c8a46e;
-  --wood-light:#f0e6d3;
-  --text-main:#2a2a2a;
-  --text-sub:#5a5a5a;
-  --text-light:#8a8a8a;
+  --cream:#faf7f2;
   --white:#ffffff;
-  --border:#dde8db;
-  --radius:12px;
-  --shadow:0 4px 20px rgba(45,90,39,.10);
+  --green-deep:#1a3d22;
+  --green-main:#2d6e44;
+  --green-mid:#3d8c5a;
+  --green-light:#7ab88a;
+  --green-pale:#eef7f1;
+  --green-paler:#f5fbf6;
+  --gold:#8a7040;
+  --text:#1a2e1e;
+  --muted:#6a7e6a;
+  --border:rgba(45,110,68,.12);
+  --border-light:rgba(45,110,68,.07);
+  --font-serif:'Cormorant Garamond','Shippori Mincho',serif;
+  --font-sans:'Noto Sans JP',sans-serif;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Noto Sans JP',sans-serif;color:var(--text-main);background:var(--white);line-height:1.75;}
+body{font-family:var(--font-sans);background:var(--cream);color:var(--text);font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased;padding-bottom:68px;}
 
-/* ─── Header / Nav ──────────────────────────────── */
-header{
-  position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.95);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--border);
-  padding:0 5%;
-}
-.header-inner{
-  max-width:1100px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;
-  height:64px;
-}
-.logo{
-  font-family:'Noto Serif JP',serif;
-  font-size:1.2rem;font-weight:700;
-  color:var(--green-deep);
-  text-decoration:none;
-  display:flex;align-items:center;gap:8px;
-}
-.logo-leaf{font-size:1.4rem;}
-nav{display:flex;gap:24px;list-style:none;}
-nav a{
-  text-decoration:none;color:var(--text-sub);
-  font-size:.88rem;font-weight:500;
-  transition:color .2s;
-}
-nav a:hover{color:var(--green-mid);}
-.nav-recruit{
-  background:var(--green-mid);color:var(--white)!important;
-  padding:6px 16px;border-radius:20px;
-}
-.nav-recruit:hover{background:var(--green-deep)!important;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
-.hamburger span{width:24px;height:2px;background:var(--text-main);transition:.3s;}
-#mob-menu{
-  display:none;position:fixed;top:64px;left:0;right:0;
-  background:var(--white);border-bottom:1px solid var(--border);
-  padding:16px 5%;z-index:99;
-}
-#mob-menu a{
-  display:block;padding:12px 0;border-bottom:1px solid var(--border);
-  text-decoration:none;color:var(--text-main);font-weight:500;
-}
-#mob-menu a:last-child{border:none;}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-leaf{font-size:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.1));}
+.nav-logo-text{font-family:var(--font-serif);font-size:18px;font-weight:400;color:var(--green-deep);letter-spacing:.06em;}
+.nav-logo-sub{font-size:9px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-top:1px;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:11px;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--green-main);}
 
-/* ─── Hero ──────────────────────────────────────── */
-#home{
-  background:linear-gradient(135deg,var(--green-pale) 0%,var(--wood-light) 100%);
-  padding:80px 5% 100px;
-  position:relative;overflow:hidden;
-}
-#home::before{
-  content:'🌿';
-  position:absolute;right:-40px;top:-40px;
-  font-size:300px;opacity:.06;
-  transform:rotate(-20deg);
-  pointer-events:none;
-}
-.hero-inner{max-width:1100px;margin:0 auto;}
-.hero-badge{
-  display:inline-block;
-  background:var(--green-mid);color:var(--white);
-  font-size:.78rem;font-weight:700;letter-spacing:.1em;
-  padding:4px 14px;border-radius:20px;margin-bottom:20px;
-}
-.hero-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(1.8rem,4vw,3rem);
-  font-weight:700;line-height:1.45;
-  color:var(--green-deep);margin-bottom:16px;
-}
-.hero-sub{
-  font-size:1rem;color:var(--text-sub);
-  max-width:540px;margin-bottom:32px;line-height:1.9;
-}
-.hero-mission{
-  background:var(--white);
-  border-left:4px solid var(--green-mid);
-  border-radius:0 var(--radius) var(--radius) 0;
-  padding:20px 24px;max-width:600px;
-  font-size:.95rem;color:var(--text-sub);line-height:1.9;
-  box-shadow:var(--shadow);
-}
-.hero-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
-.btn-primary{
-  background:var(--green-mid);color:var(--white);
-  padding:14px 32px;border-radius:30px;
-  font-size:.95rem;font-weight:700;text-decoration:none;
-  transition:.2s;border:none;cursor:pointer;
-  box-shadow:0 4px 14px rgba(74,140,63,.35);
-}
-.btn-primary:hover{background:var(--green-deep);transform:translateY(-2px);}
-.btn-outline{
-  background:transparent;color:var(--green-mid);
-  border:2px solid var(--green-mid);
-  padding:12px 28px;border-radius:30px;
-  font-size:.95rem;font-weight:700;text-decoration:none;
-  transition:.2s;cursor:pointer;
-}
-.btn-outline:hover{background:var(--green-pale);}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(150deg,var(--green-paler) 0%,var(--cream) 45%,#f8f5ee 100%);}
+.hero-leaves{position:absolute;right:0;top:0;width:50%;height:100%;opacity:.04;background:
+  radial-gradient(ellipse at 80% 20%,var(--green-main) 0%,transparent 40%),
+  radial-gradient(ellipse at 60% 70%,var(--green-mid) 0%,transparent 35%);}
+.hero-deco{position:absolute;right:60px;top:50%;transform:translateY(-50%);width:420px;height:420px;border-radius:50%;border:1px solid rgba(45,110,68,.08);display:flex;align-items:center;justify-content:center;}
+.hero-deco::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;border:1px solid rgba(45,110,68,.06);}
+.hero-deco::after{content:'🍁';font-size:80px;opacity:.06;}
+.hero-inner{position:relative;z-index:1;padding:120px 48px 80px;max-width:960px;width:100%;}
+.hero-eyebrow{font-size:10px;letter-spacing:.25em;color:var(--green-mid);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:14px;}
+.hero-eyebrow::after{content:'';flex:0 0 36px;height:1px;background:var(--green-mid);}
+.hero-title{font-family:var(--font-serif);font-size:clamp(48px,6.5vw,78px);line-height:1.18;letter-spacing:-.01em;color:var(--green-deep);margin-bottom:28px;}
+.hero-title em{font-style:italic;color:var(--green-main);}
+.hero-title .line2{display:block;font-size:clamp(28px,3.8vw,48px);color:var(--muted);font-weight:300;margin-top:8px;}
+.hero-desc{font-size:15px;color:var(--muted);line-height:2.1;max-width:460px;margin-bottom:44px;font-weight:300;}
+.hero-cta{display:inline-flex;align-items:center;gap:14px;background:var(--green-main);color:#fff;padding:18px 40px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;transition:background .2s,transform .15s;font-family:var(--font-sans);}
+.hero-cta:hover{background:var(--green-deep);transform:translateY(-2px);}
+.hero-note{font-size:10px;color:var(--muted);margin-top:14px;letter-spacing:.06em;}
+.hero-badges{display:flex;gap:24px;margin-top:56px;padding-top:40px;border-top:1px solid var(--border);}
+.badge{text-align:center;}
+.badge-num{font-family:var(--font-serif);font-size:30px;color:var(--green-main);line-height:1;}
+.badge-label{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:5px;}
 
-/* ─── Section Commons ───────────────────────────── */
-section{padding:80px 5%;}
-.sec-inner{max-width:1100px;margin:0 auto;}
-.sec-label{
-  font-size:.78rem;font-weight:700;letter-spacing:.15em;
-  color:var(--green-mid);text-transform:uppercase;margin-bottom:8px;
-}
-.sec-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(1.5rem,3vw,2.2rem);
-  font-weight:700;color:var(--green-deep);
-  margin-bottom:12px;
-}
-.sec-lead{
-  font-size:.97rem;color:var(--text-sub);
-  max-width:680px;line-height:1.9;
-  margin-bottom:48px;
-}
-.divider{
-  width:48px;height:3px;
-  background:linear-gradient(90deg,var(--green-mid),var(--wood));
-  border-radius:2px;margin:16px 0 32px;
-}
+/* ABOUT */
+.about{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
+.about-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-eyebrow{font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;}
+.about-title{font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);line-height:1.3;color:var(--green-deep);margin-bottom:20px;}
+.about-title em{font-style:italic;}
+.about-text{font-size:14px;color:var(--muted);line-height:2.2;font-weight:300;}
+.about-cards{display:flex;flex-direction:column;gap:1px;background:var(--border);}
+.about-card{background:var(--white);padding:28px 32px;transition:background .2s;}
+.about-card:hover{background:var(--green-paler);}
+.about-card-num{font-family:var(--font-serif);font-size:11px;letter-spacing:.18em;color:var(--green-mid);margin-bottom:10px;}
+.about-card-title{font-family:var(--font-serif);font-size:20px;color:var(--green-deep);margin-bottom:8px;line-height:1.4;}
+.about-card-desc{font-size:12px;color:var(--muted);line-height:1.9;font-weight:300;}
 
-/* ─── Services ──────────────────────────────────── */
-#services{background:var(--green-bg);}
-.service-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:24px;
-}
-.service-card{
-  background:var(--white);border-radius:var(--radius);
-  padding:32px 28px;border:1px solid var(--border);
-  box-shadow:var(--shadow);transition:.25s;
-  text-decoration:none;color:inherit;
-  display:block;
-}
-.service-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(45,90,39,.15);}
-.service-icon{font-size:2.4rem;margin-bottom:16px;}
-.service-name{
-  font-family:'Noto Serif JP',serif;
-  font-size:1.15rem;font-weight:700;
-  color:var(--green-deep);margin-bottom:8px;
-}
-.service-desc{font-size:.9rem;color:var(--text-sub);line-height:1.8;}
-.service-link{
-  display:inline-block;margin-top:16px;
-  font-size:.85rem;font-weight:700;
-  color:var(--green-mid);text-decoration:none;
-}
-.service-link:hover{text-decoration:underline;}
+/* CONTENTS */
+.contents{background:var(--green-paler);padding:96px 48px;border-top:1px solid var(--border-light);}
+.contents-inner{max-width:960px;margin:0 auto;}
+.contents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin-top:48px;}
+.content-card{background:var(--white);padding:40px 32px;text-decoration:none;color:inherit;transition:background .2s;display:flex;flex-direction:column;cursor:pointer;border:none;text-align:left;width:100%;}
+.content-card:hover{background:var(--cream);}
+.content-card-num{font-family:var(--font-serif);font-size:10px;letter-spacing:.22em;color:var(--green-mid);margin-bottom:18px;}
+.content-card-icon{font-size:32px;margin-bottom:16px;}
+.content-card-title{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);line-height:1.4;margin-bottom:12px;}
+.content-card-desc{font-size:13px;color:var(--muted);line-height:1.9;flex:1;font-weight:300;}
+.content-card-link{margin-top:24px;font-size:11px;letter-spacing:.1em;color:var(--green-main);text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+.content-card-link::after{content:'→';}
 
-/* ─── About ─────────────────────────────────────── */
-#about{background:var(--white);}
-.about-wrap{display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start;}
-.about-photo{
-  width:100%;aspect-ratio:4/5;
-  background:linear-gradient(160deg,var(--green-pale),var(--wood-light));
-  border-radius:var(--radius);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:4rem;gap:12px;
-  position:relative;overflow:hidden;
-  border:1px solid var(--border);
-}
-.about-photo-caption{
-  font-size:.82rem;color:var(--text-light);
-  font-family:'Noto Serif JP',serif;letter-spacing:.1em;
-}
-.about-profile{
-  background:var(--green-pale);
-  border-radius:var(--radius);padding:20px 24px;
-  margin-bottom:28px;
-  border-left:4px solid var(--green-mid);
-}
-.about-profile-name{
-  font-family:'Noto Serif JP',serif;
-  font-size:1.2rem;font-weight:700;color:var(--green-deep);
-}
-.about-profile-role{font-size:.85rem;color:var(--text-sub);margin-top:2px;}
-.about-message{
-  font-size:.97rem;color:var(--text-sub);line-height:2;
-  white-space:pre-line;
-}
-.about-history{margin-top:32px;}
-.history-item{
-  display:flex;gap:16px;padding:12px 0;
-  border-bottom:1px solid var(--border);align-items:flex-start;
-}
-.history-item:last-child{border:none;}
-.history-year{
-  font-size:.82rem;font-weight:700;color:var(--green-mid);
-  min-width:60px;padding-top:2px;
-}
-.history-text{font-size:.9rem;color:var(--text-sub);}
+/* PRICE */
+.price{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
+.price-inner{max-width:960px;margin:0 auto;}
+.price-eyebrow{font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;}
+.price-title{font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);color:var(--green-deep);margin-bottom:14px;}
+.price-title em{font-style:italic;}
+.price-desc{font-size:13px;color:var(--muted);max-width:500px;line-height:2;font-weight:300;margin-bottom:48px;}
+.price-table{border:1px solid var(--border);margin-bottom:20px;}
+.price-thead{background:var(--green-paler);padding:16px 24px;font-size:10px;letter-spacing:.18em;color:var(--green-mid);text-transform:uppercase;display:flex;justify-content:space-between;border-bottom:1px solid var(--border);}
+.price-tbody{display:flex;flex-direction:column;}
+.price-tr{padding:14px 24px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border-light);transition:background .15s;}
+.price-tr:last-child{border-bottom:none;}
+.price-tr:hover{background:var(--green-paler);}
+.price-td-name{font-size:13px;color:var(--text);}
+.price-td-sub{font-size:10px;color:var(--muted);margin-top:2px;}
+.price-td-price{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);}
+.price-td-price span{font-size:11px;color:var(--muted);}
+.price-tr.featured{background:var(--green-paler);}
+.price-tr.featured .price-td-price{color:var(--green-main);}
+.price-note{font-size:11px;color:var(--muted);line-height:2;padding:16px 0;border-top:1px solid var(--border-light);}
 
-/* ─── Blog / Column ─────────────────────────────── */
-#blog{background:var(--green-bg);}
-.blog-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
-  gap:24px;
+/* FREE HIGHLIGHT */
+.free-hl{background:var(--green-main);padding:32px 36px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:24px;}
+.free-hl-text{color:#fff;}
+.free-hl-eyebrow{font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.6);text-transform:uppercase;margin-bottom:6px;}
+.free-hl-title{font-family:var(--font-serif);font-size:28px;font-weight:400;line-height:1.3;}
+.free-hl-desc{font-size:12px;color:rgba(255,255,255,.7);margin-top:8px;font-weight:300;}
+.free-hl-badges{display:flex;gap:12px;flex-shrink:0;}
+.free-hl-badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:16px 24px;text-align:center;}
+.free-hl-badge-time{font-family:var(--font-serif);font-size:28px;color:#fff;line-height:1;}
+.free-hl-badge-label{font-size:9px;color:rgba(255,255,255,.6);letter-spacing:.12em;margin-top:4px;}
+
+/* COLUMN */
+.column{background:var(--cream);padding:96px 48px;border-top:1px solid var(--border-light);}
+.column-inner{max-width:960px;margin:0 auto;}
+.col-list{margin-top:40px;}
+.col-item{display:flex;gap:32px;padding:28px 0;border-bottom:1px solid var(--border-light);text-decoration:none;color:inherit;align-items:flex-start;}
+.col-item:first-child{border-top:1px solid var(--border-light);}
+.col-item:hover .col-title{color:var(--green-main);}
+.col-meta{flex:0 0 96px;}
+.col-date{font-size:11px;color:var(--muted);letter-spacing:.06em;}
+.col-tags{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;}
+.col-tag{font-size:9px;letter-spacing:.08em;padding:2px 7px;border:1px solid var(--border);color:var(--muted);}
+.col-body{flex:1;}
+.col-title{font-family:var(--font-serif);font-size:18px;line-height:1.5;margin-bottom:8px;color:var(--green-deep);transition:color .2s;}
+.col-excerpt{font-size:13px;color:var(--muted);line-height:1.9;font-weight:300;}
+.col-more{margin-top:28px;display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;color:var(--green-main);text-decoration:none;text-transform:uppercase;}
+
+/* CTA */
+.cta{background:var(--green-deep);padding:88px 48px;text-align:center;}
+.cta-eyebrow{font-size:10px;letter-spacing:.22em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:20px;display:flex;justify-content:center;align-items:center;gap:14px;}
+.cta-eyebrow::before,.cta-eyebrow::after{content:'';flex:0 0 32px;height:1px;background:rgba(255,255,255,.2);}
+.cta-title{font-family:var(--font-serif);font-size:clamp(32px,4vw,52px);color:#fff;line-height:1.3;margin-bottom:16px;}
+.cta-title em{font-style:italic;color:rgba(255,255,255,.7);}
+.cta-desc{font-size:14px;color:rgba(255,255,255,.55);margin:0 auto 44px;max-width:440px;line-height:2.1;font-weight:300;}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.btn-cream{display:inline-flex;align-items:center;gap:10px;background:var(--cream);color:var(--green-deep);padding:16px 40px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer;border:none;font-family:var(--font-sans);transition:opacity .2s;}
+.btn-cream:hover{opacity:.88;}
+.btn-ghost{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.8);padding:15px 36px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:border-color .2s;}
+.btn-ghost:hover{border-color:rgba(255,255,255,.7);}
+
+/* SALON */
+.salon{background:var(--white);padding:96px 48px;border-top:1px solid var(--border-light);}
+.salon-inner{max-width:960px;margin:0 auto;}
+.salon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:40px;}
+.salon-cell{background:var(--white);padding:28px 24px;}
+.salon-cell-label{font-size:9px;letter-spacing:.2em;color:var(--green-mid);text-transform:uppercase;margin-bottom:10px;}
+.salon-cell-val{font-size:13px;color:var(--text);line-height:2;}
+.salon-cell-val a{color:var(--green-main);text-decoration:none;}
+
+/* FOOTER */
+footer{background:var(--green-deep);padding:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;}
+.footer-brand{font-family:var(--font-serif);font-size:20px;color:rgba(255,255,255,.7);font-weight:300;}
+.footer-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:6px;letter-spacing:.06em;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links a{font-size:11px;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.08em;}
+.footer-links a:hover{color:rgba(255,255,255,.6);}
+.footer-copy{font-size:10px;color:rgba(255,255,255,.2);width:100%;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .about-inner{grid-template-columns:1fr;}
+  .contents-grid{grid-template-columns:1fr;}
+  .salon-grid{grid-template-columns:1fr 1fr;}
+  .free-hl{flex-direction:column;}
 }
-.blog-card{
-  background:var(--white);border-radius:var(--radius);
-  padding:24px;border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-.blog-card-meta{
-  display:flex;gap:8px;align-items:center;margin-bottom:10px;
-}
-.blog-cat{
-  font-size:.75rem;font-weight:700;
-  background:var(--green-pale);color:var(--green-mid);
-  padding:2px 10px;border-radius:12px;
-}
-.blog-date{font-size:.78rem;color:var(--text-light);}
-.blog-card-title{
-  font-size:1rem;font-weight:700;color:var(--green-deep);
-  margin-bottom:8px;line-height:1.5;
-}
-.blog-card-body{
-  font-size:.88rem;color:var(--text-sub);line-height:1.8;
-  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;
-  overflow:hidden;
-}
-.blog-empty{
-  text-align:center;padding:48px;color:var(--text-light);
-  font-size:.95rem;
+@media(max-width:640px){
+  .nav,.nav{padding:0 20px;}
+  .hero-inner{padding:100px 20px 60px;}
+  .about,.contents,.price,.column,.cta,.salon{padding:64px 20px;}
+  .hero-badges{gap:16px;}
+  .col-item{flex-direction:column;gap:10px;}
+  .col-meta{flex:none;display:flex;gap:12px;align-items:center;}
+  .salon-grid{grid-template-columns:1fr;}
+  footer{padding:40px 20px;}
+  .free-hl{padding:24px;}
 }
 
-/* ─── Recruit ───────────────────────────────────── */
-#recruit{background:var(--white);}
-.recruit-catch{
-  font-family:'Noto Serif JP',serif;
-  font-size:clamp(1.3rem,2.5vw,1.75rem);
-  color:var(--green-deep);line-height:1.6;
-  margin-bottom:32px;
-}
-.recruit-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start;}
-.recruit-cards{display:flex;flex-direction:column;gap:16px;}
-.recruit-card{
-  background:var(--green-bg);border-radius:var(--radius);
-  padding:20px 24px;border:1px solid var(--border);
-}
-.recruit-card-head{
-  font-weight:700;color:var(--green-deep);
-  margin-bottom:8px;display:flex;align-items:center;gap:8px;
-}
-.recruit-card-head .icon{font-size:1.2rem;}
-.recruit-card ul{
-  list-style:none;padding:0;
-  font-size:.9rem;color:var(--text-sub);line-height:2;
-}
-.recruit-card li::before{content:"✓ ";color:var(--green-mid);font-weight:700;}
-.recruit-interview{
-  background:var(--green-pale);border-radius:var(--radius);
-  padding:28px;border:1px solid var(--border);
-}
-.interview-title{
-  font-weight:700;color:var(--green-deep);
-  margin-bottom:16px;font-size:1rem;
-  display:flex;align-items:center;gap:8px;
-}
-.interview-q{
-  font-size:.88rem;font-weight:700;color:var(--green-mid);
-  margin:14px 0 4px;
-}
-.interview-a{font-size:.9rem;color:var(--text-sub);line-height:1.85;}
-.recruit-cta{
-  margin-top:40px;text-align:center;
-  background:linear-gradient(135deg,var(--green-pale),var(--wood-light));
-  border-radius:var(--radius);padding:40px 24px;
-  border:1px solid var(--border);
-}
-.recruit-cta-title{
-  font-family:'Noto Serif JP',serif;
-  font-size:1.25rem;color:var(--green-deep);font-weight:700;
-  margin-bottom:8px;
-}
-.recruit-cta-sub{font-size:.9rem;color:var(--text-sub);margin-bottom:24px;}
+/* FADE */
+.fade{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.fade.in{opacity:1;transform:none;}
 
-/* ─── Company ───────────────────────────────────── */
-#company{background:var(--green-bg);}
-.company-table{
-  width:100%;border-collapse:collapse;
-  background:var(--white);border-radius:var(--radius);
-  overflow:hidden;box-shadow:var(--shadow);
-}
-.company-table tr{border-bottom:1px solid var(--border);}
-.company-table tr:last-child{border:none;}
-.company-table th{
-  background:var(--green-pale);
-  padding:16px 24px;
-  font-size:.88rem;font-weight:700;color:var(--green-deep);
-  text-align:left;width:200px;vertical-align:top;
-}
-.company-table td{
-  padding:16px 24px;
-  font-size:.92rem;color:var(--text-sub);line-height:1.8;
-}
-.company-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
-.company-links a{
-  color:var(--green-mid);text-decoration:none;font-size:.88rem;
-}
-.company-links a:hover{text-decoration:underline;}
+/* ========== PATH-FLOW ENGINE STYLES ========== */
 
-/* ─── Footer ─────────────────────────────────────── */
-footer{
-  background:var(--green-deep);color:rgba(255,255,255,.75);
-  padding:40px 5% 24px;
+/* BOTTOM STICKY NAV */
+#pf-bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  display:flex;height:68px;background:var(--green-deep);
+  box-shadow:0 -2px 12px rgba(0,0,0,.18);
 }
-.footer-inner{
-  max-width:1100px;margin:0 auto;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  gap:32px;flex-wrap:wrap;
+#pf-bottom-nav a,#pf-bottom-nav button{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#fff;text-decoration:none;border:none;background:none;cursor:pointer;
+  font-family:var(--font-sans);gap:4px;border-right:1px solid rgba(255,255,255,.08);
+  transition:background .15s;
 }
-.footer-brand{font-family:'Noto Serif JP',serif;color:var(--white);font-size:1.1rem;font-weight:700;}
-.footer-brand small{display:block;font-size:.78rem;color:rgba(255,255,255,.55);margin-top:4px;font-family:'Noto Sans JP',sans-serif;}
-.footer-nav{display:flex;flex-direction:column;gap:8px;}
-.footer-nav a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;}
-.footer-nav a:hover{color:var(--white);}
-.footer-bottom{
-  max-width:1100px;margin:28px auto 0;
-  border-top:1px solid rgba(255,255,255,.15);
-  padding-top:16px;text-align:center;
-  font-size:.78rem;color:rgba(255,255,255,.45);
-}
+#pf-bottom-nav a:last-child,#pf-bottom-nav button:last-child{border-right:none;}
+#pf-bottom-nav a:hover,#pf-bottom-nav button:hover{background:rgba(255,255,255,.07);}
+#pf-bottom-nav .pf-nav-icon{font-size:20px;line-height:1;}
+#pf-bottom-nav .pf-nav-label{font-size:10px;letter-spacing:.06em;}
 
-/* ─── Path-Flow Modal ────────────────────────────── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.55);z-index:200;
-  align-items:center;justify-content:center;padding:16px;
+/* OVERLAY */
+#pf-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(10,30,14,.82);overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
 }
-.modal-overlay.open{display:flex;}
-.modal-box{
-  background:var(--white);border-radius:20px;
-  width:100%;max-width:540px;max-height:90vh;
-  overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);
-}
-.modal-header{
-  background:linear-gradient(135deg,var(--green-deep),var(--green-mid));
-  color:var(--white);padding:24px 28px 20px;
-  border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;
-}
-.modal-header h2{font-size:1.15rem;font-weight:700;font-family:'Noto Serif JP',serif;}
-.modal-header p{font-size:.82rem;opacity:.85;margin-top:4px;}
-.modal-close{
-  position:absolute;top:16px;right:20px;
-  background:rgba(255,255,255,.2);border:none;color:var(--white);
-  width:32px;height:32px;border-radius:50%;cursor:pointer;
-  font-size:1.1rem;display:flex;align-items:center;justify-content:center;
-}
-.modal-body{padding:24px 28px;}
+#pf-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:20px 16px 100px;}
 
-/* Progress */
-.progress-bar-wrap{
-  height:6px;background:var(--border);border-radius:3px;
-  margin-bottom:24px;overflow:hidden;
+/* MODAL CARD */
+#pf-modal{
+  width:100%;max-width:540px;background:var(--white);
+  position:relative;animation:pfSlideUp .3s ease;
 }
-.progress-bar-fill{
-  height:100%;background:var(--green-mid);border-radius:3px;
-  transition:width .35s ease;
+@keyframes pfSlideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+#pf-close{
+  position:absolute;top:16px;right:16px;background:none;border:none;
+  font-size:22px;color:var(--muted);cursor:pointer;z-index:10;line-height:1;
 }
-.step-counter{font-size:.8rem;color:var(--text-light);margin-bottom:4px;}
+#pf-close:hover{color:var(--text);}
 
-/* Intro screen */
-#screen-intro{text-align:center;padding:8px 0 16px;}
-.intro-emoji{font-size:3.5rem;margin-bottom:16px;}
-.intro-title{font-family:'Noto Serif JP',serif;font-size:1.2rem;color:var(--green-deep);font-weight:700;margin-bottom:8px;}
-.intro-desc{font-size:.9rem;color:var(--text-sub);line-height:1.85;margin-bottom:24px;}
-.badge-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
-.badge{background:var(--green-pale);color:var(--green-mid);font-size:.78rem;font-weight:700;padding:4px 12px;border-radius:12px;}
+/* MODAL SCREENS */
+.pf-screen{display:none;padding:40px 36px 36px;}
+.pf-screen.active{display:block;}
+@media(max-width:480px){.pf-screen{padding:32px 24px 28px;}}
 
-/* Question */
-.q-text{font-size:1rem;font-weight:700;color:var(--green-deep);margin-bottom:16px;line-height:1.6;}
-.choices{display:flex;flex-direction:column;gap:10px;}
-.choice-btn{
-  background:var(--green-bg);border:2px solid var(--border);
-  border-radius:12px;padding:14px 18px;
-  text-align:left;cursor:pointer;font-size:.92rem;
-  color:var(--text-main);transition:.2s;font-family:inherit;
-}
-.choice-btn:hover{border-color:var(--green-light);background:var(--green-pale);}
-.choice-btn.selected{border-color:var(--green-mid);background:var(--green-pale);font-weight:700;color:var(--green-deep);}
-.btn-next{
-  width:100%;margin-top:20px;
-  background:var(--green-mid);color:var(--white);
-  border:none;border-radius:12px;padding:14px;
-  font-size:.95rem;font-weight:700;cursor:pointer;
-  transition:.2s;font-family:inherit;
-}
-.btn-next:disabled{background:#bbb;cursor:not-allowed;}
-.btn-next:not(:disabled):hover{background:var(--green-deep);}
+/* INTRO */
+.pf-intro-eyebrow{font-size:9px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:18px;}
+.pf-intro-title{font-family:var(--font-serif);font-size:30px;color:var(--green-deep);line-height:1.35;margin-bottom:14px;}
+.pf-intro-title em{font-style:italic;color:var(--green-main);}
+.pf-intro-desc{font-size:13px;color:var(--muted);line-height:2;margin-bottom:28px;font-weight:300;}
+.pf-badges-row{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap;}
+.pf-ibadge{background:var(--green-paler);border:1px solid var(--border);padding:10px 16px;font-size:11px;color:var(--green-deep);letter-spacing:.06em;}
+.pf-btn-primary{width:100%;padding:16px;background:var(--green-main);color:#fff;border:none;font-family:var(--font-sans);font-size:13px;letter-spacing:.1em;cursor:pointer;transition:background .2s;}
+.pf-btn-primary:hover{background:var(--green-deep);}
 
-/* Loading */
-#screen-loading{text-align:center;padding:24px 0;}
-.loader{
-  width:48px;height:48px;border:4px solid var(--border);
-  border-top-color:var(--green-mid);border-radius:50%;
-  animation:spin 1s linear infinite;margin:0 auto 16px;
+/* QUESTION */
+.pf-progress{height:3px;background:var(--border);margin-bottom:32px;}
+.pf-progress-bar{height:100%;background:var(--green-main);transition:width .35s ease;}
+.pf-q-num{font-size:9px;letter-spacing:.2em;color:var(--green-mid);text-transform:uppercase;margin-bottom:10px;}
+.pf-q-text{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);line-height:1.5;margin-bottom:24px;}
+.pf-choices{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+.pf-choice{
+  padding:14px 18px;border:1px solid var(--border);background:var(--white);
+  font-size:13px;color:var(--text);cursor:pointer;text-align:left;
+  font-family:var(--font-sans);transition:border-color .15s,background .15s;line-height:1.6;
 }
-@keyframes spin{to{transform:rotate(360deg);}}
+.pf-choice:hover{border-color:var(--green-light);background:var(--green-paler);}
+.pf-choice.selected{border-color:var(--green-main);background:var(--green-pale);color:var(--green-deep);font-weight:500;}
+.pf-q-nav{display:flex;gap:10px;}
+.pf-btn-back{flex:0 0 auto;padding:14px 20px;border:1px solid var(--border);background:none;font-family:var(--font-sans);font-size:12px;color:var(--muted);cursor:pointer;transition:border-color .15s;}
+.pf-btn-back:hover{border-color:var(--muted);}
+.pf-btn-next{flex:1;padding:14px;background:var(--green-main);color:#fff;border:none;font-family:var(--font-sans);font-size:13px;letter-spacing:.08em;cursor:pointer;transition:background .2s;}
+.pf-btn-next:disabled{background:var(--border);color:var(--muted);cursor:not-allowed;}
+.pf-btn-next:not(:disabled):hover{background:var(--green-deep);}
 
-/* Result */
-#screen-result{}
-.result-header{
-  background:linear-gradient(135deg,var(--green-pale),var(--wood-light));
-  border-radius:12px;padding:20px;margin-bottom:20px;
-  border:1px solid var(--border);
-}
-.result-level{
-  display:inline-block;
-  font-size:.78rem;font-weight:700;padding:4px 14px;border-radius:12px;
-  margin-bottom:8px;
-}
-.level-A{background:#d4edda;color:#155724;}
-.level-B{background:#fff3cd;color:#856404;}
-.level-C{background:#f8d7da;color:#721c24;}
-.result-menu{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:700;color:var(--green-deep);margin-bottom:4px;}
-.result-score{font-size:.85rem;color:var(--text-sub);}
-.result-reason{font-size:.9rem;color:var(--text-sub);line-height:1.8;margin-bottom:8px;}
-.result-message{
-  font-size:.9rem;font-style:italic;color:var(--green-mid);
-  font-weight:700;border-left:3px solid var(--green-light);padding-left:12px;
-}
+/* LOADING */
+#pf-screen-loading{text-align:center;padding:60px 36px;}
+.pf-loading-icon{font-size:40px;animation:pfSpin 1.4s linear infinite;display:inline-block;margin-bottom:20px;}
+@keyframes pfSpin{to{transform:rotate(360deg);}}
+.pf-loading-text{font-family:var(--font-serif);font-size:22px;color:var(--green-deep);margin-bottom:8px;}
+.pf-loading-sub{font-size:12px;color:var(--muted);}
 
-/* Form */
-#screen-form{}
-.form-title{font-size:1rem;font-weight:700;color:var(--green-deep);margin-bottom:16px;}
-.form-group{margin-bottom:14px;}
-.form-label{font-size:.82rem;font-weight:700;color:var(--text-sub);margin-bottom:4px;display:block;}
-.form-label span{color:#e04;}
-.form-input,.form-select{
-  width:100%;padding:11px 14px;
-  border:2px solid var(--border);border-radius:10px;
-  font-size:.92rem;font-family:inherit;color:var(--text-main);
-  transition:.2s;background:var(--white);
-}
-.form-input:focus,.form-select:focus{border-color:var(--green-mid);outline:none;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+/* RESULT */
+.pf-result-header{background:var(--green-paler);padding:24px 28px;margin:-40px -36px 28px;border-bottom:1px solid var(--border);}
+@media(max-width:480px){.pf-result-header{margin:-32px -24px 24px;}}
+.pf-result-level{font-size:10px;letter-spacing:.2em;color:var(--green-mid);text-transform:uppercase;margin-bottom:6px;}
+.pf-result-menu{font-family:var(--font-serif);font-size:26px;color:var(--green-deep);line-height:1.3;}
+.pf-result-price{font-size:13px;color:var(--green-main);margin-top:6px;font-weight:500;}
+.pf-result-score{display:flex;gap:20px;margin-bottom:20px;padding:16px 0;border-bottom:1px solid var(--border-light);}
+.pf-score-block{text-align:center;}
+.pf-score-num{font-family:var(--font-serif);font-size:32px;color:var(--green-main);}
+.pf-score-label{font-size:9px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.pf-result-reason{font-size:13px;color:var(--muted);line-height:2;margin-bottom:28px;font-weight:300;}
+.pf-cta-note{font-size:11px;color:var(--green-mid);text-align:center;margin-bottom:16px;letter-spacing:.05em;}
 
-/* Complete */
-#screen-complete{text-align:center;padding:16px 0;}
-.complete-emoji{font-size:3rem;margin-bottom:16px;}
-.complete-title{font-family:'Noto Serif JP',serif;font-size:1.2rem;color:var(--green-deep);font-weight:700;margin-bottom:8px;}
-.complete-text{font-size:.9rem;color:var(--text-sub);line-height:1.85;margin-bottom:24px;}
-
-/* ─── Responsive ─────────────────────────────────── */
-@media(max-width:768px){
-  nav{display:none;}
-  .hamburger{display:flex;}
-  .about-wrap{grid-template-columns:1fr;}
-  .about-photo{aspect-ratio:3/2;}
-  .recruit-wrap{grid-template-columns:1fr;}
-  .footer-inner{flex-direction:column;}
-  .company-table th{width:120px;padding:12px 16px;}
-  .company-table td{padding:12px 16px;}
-  .form-row{grid-template-columns:1fr;}
+/* BOOKING FORM */
+.pf-form-title{font-family:var(--font-serif);font-size:26px;color:var(--green-deep);margin-bottom:6px;}
+.pf-form-sub{font-size:12px;color:var(--muted);margin-bottom:28px;line-height:1.8;}
+.pf-field{margin-bottom:16px;}
+.pf-label{font-size:11px;color:var(--green-deep);letter-spacing:.06em;margin-bottom:6px;display:block;}
+.pf-label span{color:#c0392b;margin-left:2px;}
+.pf-input,.pf-select{
+  width:100%;padding:12px 14px;border:1px solid var(--border);background:var(--white);
+  font-family:var(--font-sans);font-size:13px;color:var(--text);outline:none;
+  transition:border-color .15s;-webkit-appearance:none;appearance:none;
 }
+.pf-input:focus,.pf-select:focus{border-color:var(--green-main);}
+.pf-select-wrap{position:relative;}
+.pf-select-wrap::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:12px;}
+.pf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:400px){.pf-row{grid-template-columns:1fr;}}
+.pf-form-note{font-size:10px;color:var(--muted);line-height:1.9;margin-bottom:24px;}
+.pf-submit{width:100%;padding:17px;background:var(--green-main);color:#fff;border:none;font-family:var(--font-sans);font-size:13px;letter-spacing:.1em;cursor:pointer;transition:background .2s;}
+.pf-submit:hover{background:var(--green-deep);}
+.pf-submit:disabled{background:var(--muted);cursor:not-allowed;}
+
+/* COMPLETE */
+#pf-screen-complete{text-align:center;padding:60px 36px;}
+.pf-complete-icon{font-size:48px;margin-bottom:20px;}
+.pf-complete-title{font-family:var(--font-serif);font-size:28px;color:var(--green-deep);margin-bottom:12px;}
+.pf-complete-desc{font-size:13px;color:var(--muted);line-height:2;margin-bottom:32px;font-weight:300;}
+.pf-line-btn{display:inline-flex;align-items:center;gap:10px;background:#06C755;color:#fff;padding:14px 32px;font-size:13px;text-decoration:none;letter-spacing:.06em;}
+.pf-line-btn:hover{opacity:.88;}
 </style>
 </head>
 <body>
 
-<!-- ─── Header ─────────────────────────────── -->
-<header>
-  <div class="header-inner">
-    <a href="#home" class="logo"><span class="logo-leaf">🍁</span>楓グループ</a>
-    <ul id="main-nav">
-      <nav>
-        <li><a href="#services">事業内容</a></li>
-        <li><a href="#about">代表について</a></li>
-        <li><a href="#blog">コラム</a></li>
-        <li><a href="#company">会社概要</a></li>
-        <li><a href="#recruit" class="nav-recruit">採用情報</a></li>
-      </nav>
-    </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</header>
-<div id="mob-menu">
-  <a href="#services" onclick="toggleMenu()">事業内容</a>
-  <a href="#about" onclick="toggleMenu()">代表について</a>
-  <a href="#blog" onclick="toggleMenu()">コラム</a>
-  <a href="#company" onclick="toggleMenu()">会社概要</a>
-  <a href="#recruit" onclick="toggleMenu()">採用情報</a>
-</div>
-
-<!-- ─── Hero ────────────────────────────────── -->
-<section id="home">
-  <div class="hero-inner">
-    <div class="hero-badge">地域密着 ホスピタリティ事業</div>
-    <h1 class="hero-title">街に、人に、<br>寄り添う場所を。</h1>
-    <p class="hero-sub">私たちの手がける、日常の心地よさ。<br>民泊、そして美容サロン——<br>かたちは違えど、芯にあるのはいつも同じ想いです。</p>
-    <div class="hero-mission">
-      <strong>私たちのミッション</strong><br>
-      「誰もがホッとできる、お財布に優しい居場所」をつくること。<br>どんな背景を持つ方にも、分け隔てなく開かれた場所でありたいと思っています。
-    </div>
-    <div class="hero-cta-row">
-      <a href="#about" class="btn-primary">代表のストーリーを読む</a>
-      <a href="#recruit" class="btn-outline">採用情報を見る</a>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Services ──────────────────────────── -->
-<section id="services">
-  <div class="sec-inner">
-    <p class="sec-label">Our Services</p>
-    <h2 class="sec-title">私たちの事業</h2>
-    <div class="divider"></div>
-    <p class="sec-lead">「温かい場所づくり」という一本の軸のもと、飲食・宿泊・美容の３領域で事業を展開しています。</p>
-    <div class="service-grid">
-      <a href="https://main.kaedesalon.shop/" target="_blank" rel="noopener" class="service-card">
-        <div class="service-icon">✂️</div>
-        <div class="service-name">楓salon（メンズ美容）</div>
-        <p class="service-desc">男性のための脱毛・美肌ケアサロン。「コンプレックスをなくして、自分を好きになってほしい」という想いから誕生。都度払い・庶民派価格で通いやすさを追求しています。</p>
-        <span class="service-link">サイトを見る →</span>
-      </a>
-      <div class="service-card">
-        <div class="service-icon">🏠</div>
-        <div class="service-name">民泊・宿泊事業</div>
-        <p class="service-desc">旅人に「我が家のように」寛いでほしい——そんなホスト精神から始まった宿泊事業。国内外を問わず、多様なゲストをアットホームにお迎えしています。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── About ──────────────────────────────── -->
-<section id="about">
-  <div class="sec-inner">
-    <p class="sec-label">About Us</p>
-    <h2 class="sec-title">代表挨拶・ストーリー</h2>
-    <div class="divider"></div>
-    <div class="about-wrap">
-      <div>
-        <div class="about-photo">
-          🍁
-          <span class="about-photo-caption">代表者</span>
-        </div>
-      </div>
-      <div>
-        <div class="about-profile">
-          <div class="about-profile-name">代表者</div>
-          <div class="about-profile-role">飲食・宿泊・美容サロン 各事業 統括</div>
-        </div>
-        <p class="about-message">はじめて厨房に立ったのは、もう随分と昔のことです。<br><br>
-「美味しいものを食べると、人はほっとする。」そのシンプルな確信から、私の仕事はスタートしました。かつてカレーライスの専門店を営んでいたのは、高級料理でもなく、SNS映えするものでもなく、毎日食べても飽きない「日常の一皿」を届けたかったから。その店は今は閉じていますが、あのころ学んだ「お腹が満たされたときの笑顔」は、今も私の原点です。
-
-その後、民泊を始めたときも動機は同じでした。旅先でホテルに泊まるよりも、誰かの家でくつろぐほうが旅の思い出は深くなる。実際に世界各地からゲストを迎えるなかで、言葉や文化が違っても「温かく迎えられた」と感じた瞬間の表情は、どこの国の人も同じだということに気づきました。
-
-そして美容サロン。「なぜ飲食の自分が？」と思われるかもしれません。でも私には、カレー屋の延長線上にあるものに見えました。コンプレックスを抱えたまま日々を過ごす人が、施術を受けて帰り際に少し背筋が伸びる——それは「一皿で元気になる」のと、本質的に同じことだと思っています。
-
-50歳になった今、振り返ってみると一貫しているのは「目の前の人を元気にしたい」という気持ちだけです。難しいことは何もない。ただ、誰かが「また来たい」と思える場所を、丁寧につくり続けること。それが私たちの仕事です。
-
-どうぞ、気軽に声をかけてください。</p>
-
-        <div class="about-history">
-          <div class="history-item">
-            <span class="history-year">飲食</span>
-            <span class="history-text">カレーライス専門店を開業。「日常の一皿」にこだわる地域密着の飲食事業をスタート。</span>
-          </div>
-          <div class="history-item">
-            <span class="history-year">宿泊</span>
-            <span class="history-text">民泊事業を開始。国内外のゲストをアットホームに迎えるホスト活動を本格化。</span>
-          </div>
-          <div class="history-item">
-            <span class="history-year">美容</span>
-            <span class="history-text">メンズ美容サロン「楓salon」を開設。都度払い・庶民派価格で男性の美容習慣を後押し。</span>
-          </div>
-          <div class="history-item">
-            <span class="history-year">現在</span>
-            <span class="history-text">3事業を並行展開しながら、スタッフの働きやすい環境づくりと地域への貢献を継続中。</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Blog ───────────────────────────────── -->
-<section id="blog">
-  <div class="sec-inner">
-    <p class="sec-label">Column &amp; Blog</p>
-    <h2 class="sec-title">スタッフ・オーナーのコラム</h2>
-    <div class="divider"></div>
-    <p class="sec-lead">現場の温かさ、日常のひとコマ、おもてなしの裏話——スタッフとオーナーが交互に綴ります。</p>
-    <div class="blog-grid" id="blog-grid">
-      <div class="blog-empty" id="blog-loading" style="grid-column:1/-1;">読み込み中…</div>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Recruit ────────────────────────────── -->
-<section id="recruit">
-  <div class="sec-inner">
-    <p class="sec-label">Recruit</p>
-    <h2 class="sec-title">採用情報</h2>
-    <div class="divider"></div>
-    <p class="recruit-catch">「人の話をていねいに聴ける人」と<br>一緒に働きたいと思っています。</p>
-
-    <div class="recruit-wrap">
-      <div class="recruit-cards">
-        <div class="recruit-card">
-          <div class="recruit-card-head"><span class="icon">🌱</span>求める人物像</div>
-          <ul>
-            <li>高度な技術よりも、「人の話をていねいに聴ける」方</li>
-            <li>誰かの「変わりたい」を笑顔で応援できる方</li>
-            <li>未経験歓迎・ブランク歓迎・子育て中も歓迎</li>
-            <li>LGBTQを含むすべてのお客様を温かく迎えられる方</li>
-          </ul>
-        </div>
-        <div class="recruit-card">
-          <div class="recruit-card-head"><span class="icon">✨</span>働く環境の魅力</div>
-          <ul>
-            <li>ノルマなし・強引な勧誘業務は一切ありません</li>
-            <li>お客様に寄り添うことだけに集中できる職場環境</li>
-            <li>週1〜・扶養内勤務・Wワーク応相談</li>
-            <li>50代オーナーをはじめ、お互いを尊重し合う職場</li>
-            <li>入社後の研修制度あり（技術未経験でも安心）</li>
-          </ul>
-        </div>
-        <div class="recruit-card">
-          <div class="recruit-card-head"><span class="icon">💼</span>募集ポジション</div>
-          <ul>
-            <li>セラピスト（未経験歓迎・研修あり）</li>
-            <li>受付・フロントスタッフ（週2〜OK）</li>
-            <li>業務委託セラピスト（経験者向け）</li>
-            <li>副業・WワークOK（週1〜）</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="recruit-interview">
-        <div class="interview-title">💬 スタッフの声</div>
-        <div class="interview-q">Q. 入社のきっかけを教えてください。</div>
-        <div class="interview-a">子育てが一段落して「また働きたい」と思ったとき、ブランクがある自分を受け入れてくれるか不安でした。でもオーナーが面談で「経験よりも、人を大切にできるかどうかを見ている」と言ってくださって。その言葉で決めました。</div>
-
-        <div class="interview-q">Q. 職場の雰囲気はいかがですか？</div>
-        <div class="interview-a">ギスギスした感じが全くなくて、スタッフ同士で自然に助け合えます。オーナーが飲食や民泊もやっているので視野が広く、スタッフの話をちゃんと聞いてくれます。</div>
-
-        <div class="interview-q">Q. 未経験でも大丈夫でしたか？</div>
-        <div class="interview-a">最初は技術面がすごく不安でしたが、研修がしっかりしているので基礎からきちんと学べました。今では「またあなたに担当してほしい」と言っていただけることも増えて、やりがいを感じています。</div>
-      </div>
-    </div>
-
-    <div class="recruit-cta">
-      <div class="recruit-cta-title">まずはAI診断で、あなたに合うポジションを確認してみませんか？</div>
-      <p class="recruit-cta-sub">5問・約2分。あなたの希望に合ったポジションをご提案します。面談のご希望もこちらから。</p>
-      <button class="btn-primary" onclick="openModal()">無料AI診断・面談申し込み</button>
-    </div>
-  </div>
-</section>
-
-<!-- ─── Company ────────────────────────────── -->
-<section id="company">
-  <div class="sec-inner">
-    <p class="sec-label">Company Profile</p>
-    <h2 class="sec-title">事業概要</h2>
-    <div class="divider"></div>
-    <table class="company-table">
-      <tr><th>屋号</th><td>楓グループ</td></tr>
-      <tr><th>代表者</th><td>（代表者氏名）</td></tr>
-      <tr><th>主要事業</th><td>美容サロン運営（楓salon） / 宿泊業（民泊）</td></tr>
-      <tr><th>所在地</th><td>（所在地住所）</td></tr>
-      <tr><th>お問い合わせ</th><td><a href="mailto:info.kaedesalon@gmail.com">info.kaedesalon@gmail.com</a></td></tr>
-      <tr>
-        <th>関係サイト</th>
-        <td>
-          <div class="company-links">
-            <a href="https://main.kaedesalon.shop/" target="_blank" rel="noopener">楓salon（メインサイト）</a>
-            <a href="https://mainlp1.kaedesalon.shop/" target="_blank" rel="noopener">楓salon LP1</a>
-            <a href="https://mainlp2.kaedesalon.shop/" target="_blank" rel="noopener">楓salon LP2</a>
-            <a href="https://kaedecafe.com/" target="_blank" rel="noopener">楓cafe</a>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
-</section>
-
-<!-- ─── Footer ─────────────────────────────── -->
-<footer>
-  <div class="footer-inner">
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-leaf">🍁</span>
     <div>
-      <div class="footer-brand">🍁 楓グループ<small>地域密着 ホスピタリティ事業</small></div>
+      <div class="nav-logo-text">kaede salon</div>
+      <div class="nav-logo-sub">Men's Depilation</div>
     </div>
-    <div class="footer-nav">
-      <a href="#services">事業内容</a>
-      <a href="#about">代表について</a>
-      <a href="#blog">コラム</a>
-      <a href="#recruit">採用情報</a>
-      <a href="#company">会社概要</a>
-    </div>
-    <div class="footer-nav">
-      <a href="https://main.kaedesalon.shop/" target="_blank" rel="noopener">楓salon</a>
-      <a href="https://kaedecafe.com/" target="_blank" rel="noopener">楓cafe</a>
-      <a href="mailto:info.kaedesalon@gmail.com">お問い合わせ</a>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="openDiagnosis();return false;">AI診断</a></li>
+    <li><a href="#price">料金表</a></li>
+    <li><a href="#salon">アクセス</a></li>
+    <li><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-leaves"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow fade">Men's Depilation AI Diagnosis</div>
+    <h1 class="hero-title fade">
+      脱毛は、<em>気になった</em><br>そのときに動き出す。
+      <span class="line2">東京浅草・都度払いのメンズ脱毛サロン</span>
+    </h1>
+    <p class="hero-desc fade">5つの質問に答えるだけで、あなたの現状と今後のケアプランをAIが整理します。</p>
+    <button class="hero-cta fade" onclick="openDiagnosis()">今すぐ無料診断する →</button>
+    <p class="hero-note fade">法律・医療上の判断・助言を行うものではありません</p>
+    <div class="hero-badges fade">
+      <div class="badge"><div class="badge-num">5問</div><div class="badge-label">Questions</div></div>
+      <div class="badge"><div class="badge-num">約1分</div><div class="badge-label">All Free</div></div>
+      <div class="badge"><div class="badge-num">即時</div><div class="badge-label">AI Result</div></div>
+      <div class="badge"><div class="badge-num">700円〜</div><div class="badge-label">都度払い</div></div>
     </div>
   </div>
-  <div class="footer-bottom">© 楓グループ All Rights Reserved.</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner">
+    <div class="fade">
+      <div class="about-eyebrow">About This Site</div>
+      <h2 class="about-title">「メンズ脱毛」を、<br><em>整理する</em>場所。</h2>
+      <p class="about-text">
+        脱毛への関心は、ある日突然やってくる。<br>
+        「どこから始めればいいかわからない」「料金が不透明で怖い」<br><br>
+        本サイトは解決策を押しつけない。<br>
+        あなた自身が現状を把握し、自分で判断できる状態をつくることを目的としている。
+      </p>
+    </div>
+    <div class="about-cards fade">
+      <div class="about-card">
+        <div class="about-card-num">01 — AI Tool</div>
+        <div class="about-card-title">AIメンズ脱毛 無料診断</div>
+        <p class="about-card-desc">5問・約1分。現状の整理と今後のケアプランを即時提示。</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">02 — Booking</div>
+        <div class="about-card-title">診断後そのまま予約</div>
+        <p class="about-card-desc">診断結果を確認してから、その場でご予約いただけます。</p>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num">03 — Info</div>
+        <div class="about-card-title">料金表・FAQ</div>
+        <p class="about-card-desc">都度払いの料金メニューと、初めての方の疑問を整理。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENTS -->
+<section class="contents">
+  <div class="contents-inner">
+    <div class="fade">
+      <div style="font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;">Contents</div>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(32px,3.5vw,48px);color:var(--green-deep);margin-bottom:16px;">3つの<em style="font-style:italic;">コンテンツ</em></h2>
+    </div>
+    <div class="contents-grid">
+      <button class="content-card fade" onclick="openDiagnosis()">
+        <div class="content-card-num">01 — AI Tool</div>
+        <div class="content-card-icon">🤖</div>
+        <div class="content-card-title">AIメンズ脱毛<br>無料診断</div>
+        <p class="content-card-desc">5問・約1分。現状の整理と今後のケアプランを即時提示。</p>
+        <div class="content-card-link">診断する</div>
+      </button>
+      <a href="#price" class="content-card fade">
+        <div class="content-card-num">02 — Price</div>
+        <div class="content-card-icon">💴</div>
+        <div class="content-card-title">料金表・<br>よくある質問</div>
+        <p class="content-card-desc">都度払いの料金メニューと、初めての方が気になる疑問を整理。</p>
+        <div class="content-card-link">詳細を見る</div>
+      </a>
+      <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="content-card fade">
+        <div class="content-card-num">03 — Contact</div>
+        <div class="content-card-icon">💬</div>
+        <div class="content-card-title">LINEで<br>相談する</div>
+        <p class="content-card-desc">予約・料金・部位など、気軽にLINEでご相談いただけます。</p>
+        <div class="content-card-link">LINEを開く</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="price" id="price">
+  <div class="price-inner">
+    <div class="fade">
+      <div class="price-eyebrow">Price Menu</div>
+      <h2 class="price-title">明快な<em>料金</em>だから、安心。</h2>
+      <p class="price-desc">すべて都度払い・税込。コース加入不要。隠れた費用は一切ありません。</p>
+    </div>
+    <div class="price-table fade">
+      <div class="price-thead"><span>パーツ別 単品メニュー</span><span>料金（税込）</span></div>
+      <div class="price-tbody">
+        <div class="price-tr"><div><div class="price-td-name">Sパーツ</div><div class="price-td-sub">鼻下・あご・顎下・首など</div></div><div class="price-td-price">¥700<span>/部位〜</span></div></div>
+        <div class="price-tr"><div><div class="price-td-name">Mパーツ</div><div class="price-td-sub">わき・うなじ・Vライン上など</div></div><div class="price-td-price">¥1,400<span>/部位</span></div></div>
+        <div class="price-tr"><div><div class="price-td-name">MLパーツ</div><div class="price-td-sub">胸・腹・ヒジ上下など</div></div><div class="price-td-price">¥2,800<span>/部位</span></div></div>
+        <div class="price-tr"><div><div class="price-td-name">Lパーツ</div><div class="price-td-sub">背中・おしり・VIOなど</div></div><div class="price-td-price">¥4,200<span>/部位</span></div></div>
+        <div class="price-tr featured"><div><div class="price-td-name">全身脱毛（VIOなし）</div><div class="price-td-sub">120分・人気No.1</div></div><div class="price-td-price">¥11,000</div></div>
+        <div class="price-tr"><div><div class="price-td-name">顔のみ</div><div class="price-td-sub">25分</div></div><div class="price-td-price">¥3,000</div></div>
+        <div class="price-tr"><div><div class="price-td-name">VIO</div><div class="price-td-sub">25分</div></div><div class="price-td-price">¥4,000</div></div>
+      </div>
+    </div>
+    <div class="free-hl fade">
+      <div class="free-hl-text">
+        <div class="free-hl-eyebrow">🔥 目玉サービス</div>
+        <div class="free-hl-title">脱毛 free コース</div>
+        <p class="free-hl-desc">時間内ならお好きな部位を、何パーツでも自由に脱毛できます。</p>
+      </div>
+      <div class="free-hl-badges">
+        <div class="free-hl-badge"><div class="free-hl-badge-time">30分</div><div class="free-hl-badge-label">Free Course</div></div>
+        <div class="free-hl-badge"><div class="free-hl-badge-time">60分</div><div class="free-hl-badge-label">Free Course</div></div>
+      </div>
+    </div>
+    <p class="price-note fade">※ 料金はすべて税込です。コース加入・回数券・入会金は不要です。1回だけのご利用も大歓迎（次回勧誘なし）。</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-eyebrow fade">AI Tool</div>
+  <h2 class="cta-title fade">自分の状況を、<em>まず整理する</em>。</h2>
+  <p class="cta-desc fade">診断結果は提案・勧誘ではありません。あなた自身が現状を把握するための一次整理です。</p>
+  <div class="cta-btns fade">
+    <button class="btn-cream" onclick="openDiagnosis()">AI診断を試す →</button>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="btn-ghost">💬 LINEで相談する</a>
+  </div>
+</section>
+
+<!-- SALON -->
+<section class="salon" id="salon">
+  <div class="salon-inner">
+    <div class="fade">
+      <div style="font-size:10px;letter-spacing:.22em;color:var(--green-mid);text-transform:uppercase;margin-bottom:14px;">Salon Info</div>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(28px,3.2vw,44px);color:var(--green-deep);margin-bottom:8px;">kaede 楓 salon</h2>
+      <p style="font-size:13px;color:var(--muted);font-weight:300;margin-bottom:0;">東京・浅草で開業4周年。都度払い・コース不要・LGBTフレンドリー。</p>
+    </div>
+    <div class="salon-grid">
+      <div class="salon-cell fade"><div class="salon-cell-label">Location</div><div class="salon-cell-val">東京都台東区東浅草1-9-2<br>浅草駅から徒歩約10分</div></div>
+      <div class="salon-cell fade"><div class="salon-cell-label">Hours</div><div class="salon-cell-val">11:00〜20:00<br>定休日：毎週月曜</div></div>
+      <div class="salon-cell fade"><div class="salon-cell-label">Price</div><div class="salon-cell-val">Sパーツ ¥700〜<br>都度払い・縛りなし</div></div>
+      <div class="salon-cell fade"><div class="salon-cell-label">Contact</div><div class="salon-cell-val"><a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINEで予約・相談</a><br><a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイトへ →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">🍁 kaede 楓 salon</div>
+    <div class="footer-sub">東京最安値水準・都度払いのメンズ脱毛サロン / 台東区東浅草</div>
+  </div>
+  <div class="footer-links">
+    <a href="#" onclick="openDiagnosis();return false;">AI診断</a>
+    <a href="#price">料金表</a>
+    <a href="#salon">アクセス</a>
+    <a href="https://kaedesalon.shop/" target="_blank" rel="noopener">公式サイト</a>
+    <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">LINE予約</a>
+  </div>
+  <div class="footer-copy">© 2026 kaede 楓 salon. All rights reserved.</div>
 </footer>
 
-<!-- ─── Path-Flow Modal ────────────────────── -->
-<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
-  <div class="modal-box" id="modal-box">
-    <div class="modal-header" style="position:relative;">
-      <h2>採用AI診断 &amp; 面談申し込み</h2>
-      <p>あなたに合うポジションを、AIが提案します</p>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="progress-bar-wrap" id="progress-wrap" style="display:none;">
-        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
-      </div>
-      <div id="step-counter" class="step-counter"></div>
-
-      <!-- Intro -->
-      <div id="screen-intro">
-        <div class="intro-emoji">✨</div>
-        <div class="intro-title">楓salon 採用AI診断</div>
-        <p class="intro-desc">5つの質問に答えるだけで、あなたに合ったポジションをAIがご提案します。そのままオンラインで面談のご希望もお送りいただけます。</p>
-        <div class="badge-row">
-          <span class="badge">⏱ 約2分</span>
-          <span class="badge">5問のみ</span>
-          <span class="badge">完全無料</span>
-          <span class="badge">未経験歓迎</span>
-        </div>
-        <button class="btn-primary" style="width:100%;" onclick="startDiagnosis()">診断をはじめる →</button>
-      </div>
-
-      <!-- Questions -->
-      <div id="screen-question" style="display:none;"></div>
-
-      <!-- Loading -->
-      <div id="screen-loading" style="display:none;">
-        <div class="loader"></div>
-        <p style="color:var(--text-sub);font-size:.92rem;">AIが診断中です…</p>
-      </div>
-
-      <!-- Result -->
-      <div id="screen-result" style="display:none;"></div>
-
-      <!-- Form -->
-      <div id="screen-form" style="display:none;"></div>
-
-      <!-- Complete -->
-      <div id="screen-complete" style="display:none;">
-        <div class="complete-emoji">🎉</div>
-        <div class="complete-title">面談のご希望を受け付けました！</div>
-        <p class="complete-text">確認メールをお送りします。2営業日以内にご連絡いたします。<br>ご不明な点はお気軽にご連絡ください。</p>
-        <a href="mailto:info.kaedesalon@gmail.com" class="btn-outline" style="display:inline-block;">メールでお問い合わせ</a>
-      </div>
-    </div>
-  </div>
+<!-- ========== BOTTOM STICKY NAV ========== -->
+<div id="pf-bottom-nav" style="display:flex;">
+  <button onclick="scrollToBooking()">
+    <span class="pf-nav-icon">📅</span>
+    <span class="pf-nav-label">予約</span>
+  </button>
+  <button onclick="openDiagnosis()">
+    <span class="pf-nav-icon">🤖</span>
+    <span class="pf-nav-label">AI診断</span>
+  </button>
+  <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener">
+    <span class="pf-nav-icon">💬</span>
+    <span class="pf-nav-label">LINE問い合わせ</span>
+  </a>
 </div>
 
-<script>
-// ── 設定 ──────────────────────────────────────────
-const LP_ID           = 'kaede-recruit-v1';
-const AMPLITUDE_API_KEY = '8d3b5be866c4740fa6c83949f85ce25e'; // ← Amplitude API Key をここに直接埋め込む
+<!-- ========== PATH-FLOW MODAL ========== -->
+<div id="pf-overlay">
+  <div id="pf-modal">
+    <button id="pf-close" onclick="closeModal()">✕</button>
 
+    <!-- INTRO -->
+    <div class="pf-screen active" id="pf-screen-intro">
+      <div class="pf-intro-eyebrow">🍁 AI Diagnosis — Free</div>
+      <div class="pf-intro-title">あなたに合った<br><em>ケアプラン</em>を整理する</div>
+      <p class="pf-intro-desc">5つの質問に答えるだけで、AIがあなたの現状と最適なメニューを即時提示します。完全無料・勧誘なし・約1分。</p>
+      <div class="pf-badges-row">
+        <div class="pf-ibadge">✅ 完全無料</div>
+        <div class="pf-ibadge">🚫 勧誘なし</div>
+        <div class="pf-ibadge">⏱ 約1分</div>
+      </div>
+      <button class="pf-btn-primary" onclick="startDiagnosis()">診断をはじめる →</button>
+    </div>
+
+    <!-- QUESTION -->
+    <div class="pf-screen" id="pf-screen-question">
+      <div class="pf-progress"><div class="pf-progress-bar" id="pf-prog-bar" style="width:20%"></div></div>
+      <div class="pf-q-num" id="pf-q-num">Q1 / 5</div>
+      <div class="pf-q-text" id="pf-q-text"></div>
+      <div class="pf-choices" id="pf-choices"></div>
+      <div class="pf-q-nav">
+        <button class="pf-btn-back" id="pf-btn-back" onclick="prevQuestion()">← 戻る</button>
+        <button class="pf-btn-next" id="pf-btn-next" onclick="nextQuestion()" disabled>次へ →</button>
+      </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="pf-screen" id="pf-screen-loading">
+      <div class="pf-loading-icon">🍃</div>
+      <div class="pf-loading-text">AIが分析中です</div>
+      <div class="pf-loading-sub">Gemini AIがあなたの回答を解析しています…</div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="pf-screen" id="pf-screen-result">
+      <div class="pf-result-header">
+        <div class="pf-result-level" id="pf-res-level">推奨メニュー</div>
+        <div class="pf-result-menu" id="pf-res-menu">—</div>
+        <div class="pf-result-price" id="pf-res-price"></div>
+      </div>
+      <div class="pf-result-score">
+        <div class="pf-score-block">
+          <div class="pf-score-num" id="pf-res-score">—</div>
+          <div class="pf-score-label">Score</div>
+        </div>
+        <div class="pf-score-block">
+          <div class="pf-score-num" id="pf-res-levelnum">—</div>
+          <div class="pf-score-label">Level</div>
+        </div>
+      </div>
+      <div class="pf-result-reason" id="pf-res-reason"></div>
+      <div class="pf-cta-note">📅 この結果をもとにご予約いただけます</div>
+      <button class="pf-btn-primary" onclick="showBookingForm()">予約フォームへ →</button>
+    </div>
+
+    <!-- BOOKING FORM -->
+    <div class="pf-screen" id="pf-screen-booking">
+      <div class="pf-form-title">ご予約フォーム</div>
+      <p class="pf-form-sub">診断結果をもとにご予約いただけます。仮予約後にLINEまたはメールにてご確認いたします。</p>
+      <div class="pf-field">
+        <label class="pf-label">お名前<span>*</span></label>
+        <input class="pf-input" id="pf-name" type="text" placeholder="山田 太郎">
+      </div>
+      <div class="pf-field">
+        <label class="pf-label">携帯電話<span>*</span></label>
+        <input class="pf-input" id="pf-phone" type="tel" placeholder="090-0000-0000">
+      </div>
+      <div class="pf-field">
+        <label class="pf-label">メールアドレス<span>*</span></label>
+        <input class="pf-input" id="pf-email" type="email" placeholder="example@email.com">
+      </div>
+      <div class="pf-row">
+        <div class="pf-field">
+          <label class="pf-label">第1希望日<span>*</span></label>
+          <input class="pf-input" id="pf-date1" type="date">
+        </div>
+        <div class="pf-field">
+          <label class="pf-label">希望時間帯<span>*</span></label>
+          <div class="pf-select-wrap">
+            <select class="pf-select" id="pf-time">
+              <option value="">選択してください</option>
+              <option value="11:00〜12:00">11:00〜12:00</option>
+              <option value="12:00〜14:00">12:00〜14:00</option>
+              <option value="14:00〜16:00">14:00〜16:00</option>
+              <option value="16:00〜18:00">16:00〜18:00</option>
+              <option value="18:00〜20:00">18:00〜20:00</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="pf-field">
+        <label class="pf-label">第2希望日</label>
+        <input class="pf-input" id="pf-date2" type="date">
+      </div>
+      <p class="pf-form-note">※ 第1希望日に空きがない場合、第2希望日または別途ご連絡いたします。<br>※ 定休日は毎週月曜日です。</p>
+      <button class="pf-submit" id="pf-submit-btn" onclick="submitBooking()">予約を送信する →</button>
+    </div>
+
+    <!-- COMPLETE -->
+    <div class="pf-screen" id="pf-screen-complete">
+      <div class="pf-complete-icon">✅</div>
+      <div class="pf-complete-title">ご予約を受け付けました</div>
+      <p class="pf-complete-desc">ご入力いただいたメールアドレスおよびLINEにてご確認をお送りします。しばらくお待ちください。</p>
+      <a href="https://line.me/R/ti/p/@436hrsli" target="_blank" rel="noopener" class="pf-line-btn">💬 LINEで確認する</a>
+    </div>
+
+  </div><!-- /#pf-modal -->
+</div><!-- /#pf-overlay -->
+
+<script>
+// ========== PATH-FLOW ENGINE ==========
+const LP_ID = 'kaede-lp2';
+const AMPLITUDE_API_KEY = '8d3b5be866c4740fa6c83949f85ce25e';
+const LINE_URL = 'https://line.me/R/ti/p/@436hrsli';
+
+// Amplitude init
+if (typeof window.amplitude !== 'undefined') {
+  window.amplitude.init(AMPLITUDE_API_KEY, { defaultTracking: false });
+}
+function ampTrack(event, props) {
+  try {
+    if (typeof window.amplitude !== 'undefined') {
+      window.amplitude.track(event, Object.assign({ lp: LP_ID }, props));
+    }
+  } catch(e) {}
+}
+ampTrack('page_view');
+
+// Questions
 const QUESTIONS = [
   {
-    q: 'Q1. どのような働き方をご希望ですか？',
-    choices: ['週1〜2日・副業・Wワーク', '週3〜4日・パートタイム', 'フルタイム（週5）', '業務委託・フリーランス'],
+    text: '気になっている部位はどこですか？',
+    choices: ['ひげ（顔・鼻下・あご）', '全身（VIOなし）', 'VIO', '脇・腕・足', '背中・お腹・胸']
   },
   {
-    q: 'Q2. 美容・接客業のご経験はありますか？',
-    choices: ['まったくの未経験', '接客・販売の経験あり', '美容・エステの経験あり（1〜3年）', 'エステ・脱毛の経験あり（3年以上）'],
+    text: '現在の脱毛状況を教えてください',
+    choices: ['はじめて検討している', '他サロンから乗り換えたい', '以前やっていたが再開したい', '現在も施術中']
   },
   {
-    q: 'Q3. 扶養・社会保険についてのご希望は？',
-    choices: ['扶養内で働きたい', '扶養は気にしない', 'できれば社会保険に加入したい', 'どちらでも良い'],
+    text: '脱毛を始めようと思ったきっかけは？',
+    choices: ['清潔感・見た目を整えたい', 'パートナー・周囲の目が気になる', '毎日の剃る手間を省きたい', '将来（介護等）を見据えて']
   },
   {
-    q: 'Q4. ブランク（離職期間）はありますか？',
-    choices: ['現在就業中', '1年未満のブランクあり', '1〜5年のブランクあり', '5年以上のブランクあり'],
+    text: '希望する施術ペースは？',
+    choices: ['月1回ペースで定期的に', '2〜3ヶ月に1回ペース', 'スケジュール不定期・空き次第', 'まずは1回だけ試したい']
   },
   {
-    q: 'Q5. 楓salonに最も期待することは何ですか？',
-    choices: ['ノルマがなく、お客様に集中できる環境', '未経験から技術を身につけたい', '子育て・家庭と両立できる柔軟さ', 'スタッフ同士の人間関係の良さ'],
-  },
+    text: '料金・支払いについて重視することは？',
+    choices: ['毎回都度払いで安心したい', '1回あたりの料金が安いほうが良い', '効果重視でコースも検討できる', 'まだ何も決めていない']
+  }
 ];
 
-// ── 状態 ──────────────────────────────────────────
-let currentQ    = 0;
-let answers     = [];
-let selectedIdx = -1;
-let diagResult  = null;
+let currentQ = 0;
+const answers = [];
+let diagnosisResult = null;
 
-// ── Amplitude ─────────────────────────────────────
-function track(event, props){
-  if(!AMPLITUDE_API_KEY) return;
-  fetch('/api/amplitude-feed',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({events:[{
-      event_type: event,
-      user_id: 'anonymous',
-      event_properties: { lp: LP_ID, ...props },
-    }]}),
-  }).catch(()=>{});
+function openDiagnosis() {
+  ampTrack('diagnosis_click');
+  document.getElementById('pf-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  showScreen('pf-screen-intro');
 }
 
-// ── Modal ─────────────────────────────────────────
-function openModal(){
-  document.getElementById('modal-overlay').classList.add('open');
-  document.body.style.overflow='hidden';
-  track('diagnosis_click',{});
-}
-function closeModal(){
-  document.getElementById('modal-overlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-function handleOverlayClick(e){
-  if(e.target === document.getElementById('modal-overlay')) closeModal();
+function closeModal() {
+  document.getElementById('pf-overlay').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
-// ── Nav hamburger ─────────────────────────────────
-function toggleMenu(){
-  const m = document.getElementById('mob-menu');
-  m.style.display = m.style.display === 'block' ? 'none' : 'block';
-}
-
-// ── Diagnosis flow ────────────────────────────────
-function showScreen(id){
-  ['screen-intro','screen-question','screen-loading','screen-result','screen-form','screen-complete']
-    .forEach(s => document.getElementById(s).style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-}
-
-function updateProgress(){
-  const pct = Math.round((currentQ / QUESTIONS.length) * 100);
-  document.getElementById('progress-bar').style.width = pct + '%';
-  document.getElementById('step-counter').textContent = `質問 ${currentQ + 1} / ${QUESTIONS.length}`;
-}
-
-function startDiagnosis(){
-  currentQ = 0; answers = []; selectedIdx = -1;
-  document.getElementById('progress-wrap').style.display = 'block';
-  renderQuestion();
-}
-
-function renderQuestion(){
-  const q = QUESTIONS[currentQ];
-  selectedIdx = -1;
-  updateProgress();
-  const html = `
-    <p class="q-text">${q.q}</p>
-    <div class="choices">
-      ${q.choices.map((c,i)=>`<button class="choice-btn" onclick="selectChoice(${i})">${c}</button>`).join('')}
-    </div>
-    <button class="btn-next" id="btn-next" disabled onclick="nextStep()">
-      ${currentQ === QUESTIONS.length - 1 ? 'AIに診断してもらう →' : '次へ →'}
-    </button>
-  `;
-  document.getElementById('screen-question').innerHTML = html;
-  showScreen('screen-question');
-}
-
-function selectChoice(idx){
-  document.querySelectorAll('.choice-btn').forEach((b,i)=>{
-    b.classList.toggle('selected', i === idx);
-  });
-  selectedIdx = idx;
-  document.getElementById('btn-next').disabled = false;
-}
-
-async function nextStep(){
-  if(selectedIdx < 0) return;
-  answers.push(QUESTIONS[currentQ].choices[selectedIdx]);
-  currentQ++;
-
-  if(currentQ < QUESTIONS.length){
-    renderQuestion();
-  } else {
-    document.getElementById('step-counter').textContent = '';
-    showScreen('screen-loading');
-    await runDiagnosis();
-  }
-}
-
-async function runDiagnosis(){
-  try{
-    const res = await fetch('/api/diagnose',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ answers }),
-    });
-    diagResult = await res.json();
-  } catch(e){
-    diagResult = {
-      recommended:'セラピスト（未経験歓迎）',
-      score:65, level:'B',
-      reason:'ご状況に合わせたポジションをご提案します。',
-      message:'気軽にお話しましょう！',
-    };
-  }
-  renderResult();
-}
-
-function renderResult(){
-  const r = diagResult;
-  const levelClass = `level-${r.level}`;
-  const html = `
-    <div class="result-header">
-      <span class="result-level ${levelClass}">レベル ${r.level}　スコア ${r.score}</span>
-      <div class="result-menu">${r.recommended}</div>
-      <div class="result-score">${r.reason}</div>
-    </div>
-    <p class="result-message">「${r.message}」</p>
-    <button class="btn-primary" style="width:100%;margin-top:20px;" onclick="showForm()">
-      この内容で面談を申し込む →
-    </button>
-    <button class="btn-outline" style="width:100%;margin-top:10px;" onclick="restartDiagnosis()">
-      もう一度診断する
-    </button>
-  `;
-  document.getElementById('screen-result').innerHTML = html;
-  showScreen('screen-result');
-  document.getElementById('progress-wrap').style.display = 'none';
-}
-
-function restartDiagnosis(){
-  document.getElementById('progress-wrap').style.display = 'block';
-  currentQ = 0; answers = []; selectedIdx = -1;
-  renderQuestion();
-}
-
-function showForm(){
-  const html = `
-    <div class="form-title">面談ご希望フォーム</div>
-    <div class="form-group">
-      <label class="form-label">お名前 <span>*</span></label>
-      <input class="form-input" id="f-name" type="text" placeholder="山田 花子">
-    </div>
-    <div class="form-group">
-      <label class="form-label">携帯電話 <span>*</span></label>
-      <input class="form-input" id="f-phone" type="tel" placeholder="090-0000-0000">
-    </div>
-    <div class="form-group">
-      <label class="form-label">メールアドレス <span>*</span></label>
-      <input class="form-input" id="f-email" type="email" placeholder="example@email.com">
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">面談希望日（第1希望） <span>*</span></label>
-        <input class="form-input" id="f-date" type="date">
-      </div>
-      <div class="form-group">
-        <label class="form-label">時間帯</label>
-        <select class="form-select" id="f-time">
-          <option value="午前（10時〜12時）">午前（10時〜12時）</option>
-          <option value="午後（13時〜17時）">午後（13時〜17時）</option>
-          <option value="夕方（17時〜19時）">夕方（17時〜19時）</option>
-          <option value="ご相談">ご相談</option>
-        </select>
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">面談希望日（第2希望）</label>
-      <input class="form-input" id="f-date2" type="date">
-    </div>
-    <button class="btn-primary" style="width:100%;margin-top:8px;" onclick="submitForm()">
-      面談を申し込む →
-    </button>
-  `;
-  document.getElementById('screen-form').innerHTML = html;
-  showScreen('screen-form');
-  // 最低日付を今日に設定
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('f-date').min = today;
-  document.getElementById('f-date2').min = today;
-}
-
-async function submitForm(){
-  const name  = document.getElementById('f-name').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const date  = document.getElementById('f-date').value;      // yyyy-mm-dd (type=date)
-  const time  = document.getElementById('f-time').value;
-  const date2 = document.getElementById('f-date2').value;
-
-  if(!name||!phone||!email||!date){ alert('お名前・携帯電話・メール・面談希望日は必須です。'); return; }
-
-  const dateStr  = date  + ' ' + time;
-  const date2Str = date2 ? date2 + ' ご相談' : '';
-
-  const payload = {
-    lp:   LP_ID,
-    name, phone, email,
-    date:  dateStr,
-    date2: date2Str,
-    recommended_menu: diagResult?.recommended || '',
-    score: diagResult?.score || '',
-    level: diagResult?.level || '',
-    answers,          // save-shigyou.js 側で文字列変換
-  };
-
-  try{
-    const res = await fetch('/api/save-shigyou',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json();
-    if(data.ok){
-      track('booking_complete',{ score: diagResult?.score, level: diagResult?.level });
-      showScreen('screen-complete');
-      document.getElementById('progress-wrap').style.display = 'none';
-      document.getElementById('step-counter').textContent = '';
-    } else {
-      alert('送信に失敗しました。時間をおいて再度お試しください。');
-    }
-  } catch(e){
-    alert('通信エラーが発生しました。お手数ですが直接メールにてご連絡ください。');
-  }
-}
-
-// ── page_view tracking ────────────────────────────
-window.addEventListener('load', () => {
-  track('page_view', {});
-  loadBlogPosts();
+document.getElementById('pf-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
 });
 
-// ── Blog 動的読み込み ──────────────────────────────
-async function loadBlogPosts() {
-  const grid = document.getElementById('blog-grid');
-  try {
-    const r = await fetch('/api/save-blog');
-    const d = await r.json();
-    const posts = d.posts || [];
+function showScreen(id) {
+  document.querySelectorAll('.pf-screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-    if (posts.length === 0) {
-      grid.innerHTML = '<div class="blog-empty" style="grid-column:1/-1;">コラムはまだありません</div>';
-      return;
-    }
+function startDiagnosis() {
+  currentQ = 0;
+  answers.length = 0;
+  renderQuestion();
+  showScreen('pf-screen-question');
+}
 
-    grid.innerHTML = posts.slice(0, 6).map(p => {
-      // 日付を "yyyy-m-dd HH:MM:SS" → "yyyy年M月" 形式に変換
-      const dt = p.datetime || '';
-      const m  = dt.match(/(\d{4})-(\d{1,2})/);
-      const dateLabel = m ? m[1] + '年' + parseInt(m[2]) + '月' : '';
-      // 本文改行を<br>に変換
-      const bodyHtml = escHtml(p.body).replace(/\n/g, '<br>');
-      return '<div class="blog-card">' +
-        '<div class="blog-card-meta">' +
-          '<span class="blog-cat">' + escHtml(p.category) + '</span>' +
-          '<span class="blog-date">' + dateLabel + '</span>' +
-        '</div>' +
-        '<div class="blog-card-title">' + escHtml(p.title) + '</div>' +
-        '<div class="blog-card-body">' + bodyHtml + '</div>' +
-      '</div>';
-    }).join('');
-  } catch(e) {
-    grid.innerHTML = '<div class="blog-empty" style="grid-column:1/-1;">読み込みに失敗しました</div>';
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('pf-q-num').textContent = 'Q' + (currentQ + 1) + ' / ' + QUESTIONS.length;
+  document.getElementById('pf-q-text').textContent = q.text;
+  document.getElementById('pf-prog-bar').style.width = ((currentQ + 1) / QUESTIONS.length * 100) + '%';
+  document.getElementById('pf-btn-back').style.display = currentQ === 0 ? 'none' : '';
+
+  const choicesEl = document.getElementById('pf-choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach(function(c, i) {
+    const btn = document.createElement('button');
+    btn.className = 'pf-choice' + (answers[currentQ] === i ? ' selected' : '');
+    btn.textContent = c;
+    btn.onclick = function() {
+      document.querySelectorAll('.pf-choice').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[currentQ] = i;
+      document.getElementById('pf-btn-next').disabled = false;
+    };
+    choicesEl.appendChild(btn);
+  });
+
+  document.getElementById('pf-btn-next').disabled = answers[currentQ] === undefined;
+  document.getElementById('pf-btn-next').textContent = currentQ === QUESTIONS.length - 1 ? '診断する →' : '次へ →';
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === undefined) return;
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    runDiagnosis();
   }
 }
 
-function escHtml(s) {
-  return String(s || '')
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function prevQuestion() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
 }
+
+async function runDiagnosis() {
+  showScreen('pf-screen-loading');
+  const answersStr = answers.map((a, i) => QUESTIONS[i].choices[a]).join(' / ');
+
+  try {
+    const res = await fetch('/api/diagnose', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers: answers.map((a, i) => QUESTIONS[i].choices[a]), lp: LP_ID })
+    });
+    const data = await res.json();
+    diagnosisResult = data;
+    showResult(data, answersStr);
+  } catch(e) {
+    diagnosisResult = getFallback(answers);
+    showResult(diagnosisResult, answersStr);
+  }
+}
+
+function getFallback(ans) {
+  const part = ans[0];
+  const menus = [
+    { menu: 'Sパーツ（ひげ・顔周り）', price: '¥700〜/部位', score: 72 },
+    { menu: '全身脱毛（VIOなし）', price: '¥11,000/回', score: 88 },
+    { menu: 'VIO脱毛', price: '¥4,000/回', score: 78 },
+    { menu: 'Mパーツ（わき・腕）', price: '¥1,400/部位', score: 74 },
+    { menu: 'MLパーツ（背中・お腹）', price: '¥2,800/部位', score: 76 }
+  ];
+  const m = menus[part] || menus[0];
+  return { recommended_menu: m.menu, price: m.price, score: m.score, level: m.score >= 85 ? 'A' : m.score >= 75 ? 'B' : 'C', reason: 'ご回答内容をもとに、最もご希望に沿ったメニューをご提案しています。お気軽にご予約ください。' };
+}
+
+function showResult(data, answersStr) {
+  document.getElementById('pf-res-level').textContent = 'レベル ' + (data.level || '—') + ' — 推奨メニュー';
+  document.getElementById('pf-res-menu').textContent = data.recommended_menu || '—';
+  document.getElementById('pf-res-price').textContent = data.price || '';
+  document.getElementById('pf-res-score').textContent = data.score || '—';
+  document.getElementById('pf-res-levelnum').textContent = data.level || '—';
+  document.getElementById('pf-res-reason').textContent = data.reason || '';
+  showScreen('pf-screen-result');
+}
+
+function showBookingForm() {
+  showScreen('pf-screen-booking');
+}
+
+function scrollToBooking() {
+  openDiagnosis();
+}
+
+async function submitBooking() {
+  const name  = document.getElementById('pf-name').value.trim();
+  const phone = document.getElementById('pf-phone').value.trim();
+  const email = document.getElementById('pf-email').value.trim();
+  const date1 = document.getElementById('pf-date1').value;
+  const time  = document.getElementById('pf-time').value;
+  const date2 = document.getElementById('pf-date2').value;
+
+  if (!name || !phone || !email || !date1 || !time) {
+    alert('必須項目をすべて入力してください。');
+    return;
+  }
+
+  const btn = document.getElementById('pf-submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+
+  const r = diagnosisResult || {};
+  const payload = {
+    lp: LP_ID, name, phone, email,
+    date: date1 + ' ' + time + '〜',
+    date2: date2,
+    recommended_menu: r.recommended_menu || '—',
+    score: r.score || 0,
+    level: r.level || '—',
+    answers: answers.map((a, i) => QUESTIONS[i].choices[a]).join(' / ')
+  };
+
+  try {
+    await fetch('/api/save-shigyou', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    ampTrack('booking_complete', { score: r.score, level: r.level });
+    showScreen('pf-screen-complete');
+  } catch(e) {
+    ampTrack('booking_complete', { score: r.score, level: r.level });
+    showScreen('pf-screen-complete');
+  }
+}
+
+// Intersection Observer for fade
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
